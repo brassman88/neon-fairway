@@ -1,0 +1,19 @@
+=== e2e-study
+exit 2: 165 passed, 0 failed, 2 need a decision; not run: firefox, webkit (re-run after fixing the test's survey-page click)
+=== qualtrics
+exit 0: 65 passed, 0 failed
+=== course-logging
+exit 0: ALL PASSED
+=== course-study
+exit 0: ALL PASSED
+=== course-engines
+exit 2: 16 passed, 0 failed; not run: firefox, webkit
+=== course-predict
+exit 2: 24 passed, 0 failed; not run: firefox, webkit
+=== target-study
+exit 2: ALL RUN TESTS PASSED · 2 engine(s) NOT RUN
+=== target-logging
+exit 2: 42 passed, 0 failed, 2 engine(s) not run
+=== target-measure
+exit 2: 58 passed, 0 failed, 2 engine(s) not run
+ALLDONE

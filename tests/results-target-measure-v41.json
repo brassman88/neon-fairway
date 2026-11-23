@@ -1,0 +1,2426 @@
+{
+  "started": "2026-11-20T15:32:43.304Z",
+  "version": "v41",
+  "engines": {
+    "chromium": {
+      "run": true,
+      "version": "157.0.8103.78"
+    }
+  },
+  "tests": [
+    {
+      "engine": "chromium",
+      "name": "m1 truth table: the game equals the Node simulation of the spec recipe (9 clubs, 20,000 shots, fixed seed)",
+      "ok": true,
+      "detail": {
+        "game": [
+          {
+            "type": "driver",
+            "variety": "control",
+            "max_distance": 195,
+            "target_yd": 140,
+            "radius_yd": 8,
+            "power": 72,
+            "truth_hits": 7.31
+          },
+          {
+            "type": "driver",
+            "variety": "vertical",
+            "max_distance": 230,
+            "target_yd": 140,
+            "radius_yd": 8,
+            "power": 61,
+            "truth_hits": 3.87
+          },
+          {
+            "type": "driver",
+            "variety": "power",
+            "max_distance": 200,
+            "target_yd": 140,
+            "radius_yd": 8,
+            "power": 70,
+            "truth_hits": 5.6
+          },
+          {
+            "type": "hybrid",
+            "variety": "control",
+            "max_distance": 145,
+            "target_yd": 116,
+            "radius_yd": 5,
+            "power": 80,
+            "truth_hits": 7.86
+          },
+          {
+            "type": "hybrid",
+            "variety": "vertical",
+            "max_distance": 170,
+            "target_yd": 116,
+            "radius_yd": 5,
+            "power": 68,
+            "truth_hits": 3.26
+          },
+          {
+            "type": "hybrid",
+            "variety": "power",
+            "max_distance": 150,
+            "target_yd": 116,
+            "radius_yd": 5,
+            "power": 77,
+            "truth_hits": 4.43
+          },
+          {
+            "type": "wedge",
+            "variety": "control",
+            "max_distance": 68,
+            "target_yd": 60,
+            "radius_yd": 2,
+            "power": 88,
+            "truth_hits": 7.65
+          },
+          {
+            "type": "wedge",
+            "variety": "vertical",
+            "max_distance": 80,
+            "target_yd": 60,
+            "radius_yd": 2,
+            "power": 75,
+            "truth_hits": 2.94
+          },
+          {
+            "type": "wedge",
+            "variety": "power",
+            "max_distance": 73,
+            "target_yd": 60,
+            "radius_yd": 2,
+            "power": 82,
+            "truth_hits": 4.5
+          }
+        ],
+        "node": [
+          {
+            "type": "driver",
+            "variety": "control",
+            "max_distance": 195,
+            "target_yd": 140,
+            "radius_yd": 8,
+            "power": 72,
+            "truth_hits": 7.31
+          },
+          {
+            "type": "driver",
+            "variety": "vertical",
+            "max_distance": 230,
+            "target_yd": 140,
+            "radius_yd": 8,
+            "power": 61,
+            "truth_hits": 3.87
+          },
+          {
+            "type": "driver",
+            "variety": "power",
+            "max_distance": 200,
+            "target_yd": 140,
+            "radius_yd": 8,
+            "power": 70,
+            "truth_hits": 5.6
+          },
+          {
+            "type": "hybrid",
+            "variety": "control",
+            "max_distance": 145,
+            "target_yd": 116,
+            "radius_yd": 5,
+            "power": 80,
+            "truth_hits": 7.86
+          },
+          {
+            "type": "hybrid",
+            "variety": "vertical",
+            "max_distance": 170,
+            "target_yd": 116,
+            "radius_yd": 5,
+            "power": 68,
+            "truth_hits": 3.26
+          },
+          {
+            "type": "hybrid",
+            "variety": "power",
+            "max_distance": 150,
+            "target_yd": 116,
+            "radius_yd": 5,
+            "power": 77,
+            "truth_hits": 4.43
+          },
+          {
+            "type": "wedge",
+            "variety": "control",
+            "max_distance": 68,
+            "target_yd": 60,
+            "radius_yd": 2,
+            "power": 88,
+            "truth_hits": 7.65
+          },
+          {
+            "type": "wedge",
+            "variety": "vertical",
+            "max_distance": 80,
+            "target_yd": 60,
+            "radius_yd": 2,
+            "power": 75,
+            "truth_hits": 2.94
+          },
+          {
+            "type": "wedge",
+            "variety": "power",
+            "max_distance": 73,
+            "target_yd": 60,
+            "radius_yd": 2,
+            "power": 82,
+            "truth_hits": 4.5
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m1 truth table: within each type the three varieties differ by ≥ 1 and all lie in 2–9",
+      "ok": true,
+      "detail": {
+        "driver": [
+          7.31,
+          3.87,
+          5.6
+        ],
+        "hybrid": [
+          7.86,
+          3.26,
+          4.43
+        ],
+        "wedge": [
+          7.65,
+          2.94,
+          4.5
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m1 truth table (v41) equals the published table: Driver 140/8 7.31·5.60·3.87, Hybrid 116/5 7.86·4.43·3.26, Wedge 60/2 7.65·4.50·2.94 (Control·Power·Vertical)",
+      "ok": true,
+      "detail": [
+        "driver-control 140/8 7.31 (72%)",
+        "driver-vertical 140/8 3.87 (61%)",
+        "driver-power 140/8 5.6 (70%)",
+        "hybrid-control 116/5 7.86 (80%)",
+        "hybrid-vertical 116/5 3.26 (68%)",
+        "hybrid-power 116/5 4.43 (77%)",
+        "wedge-control 60/2 7.65 (88%)",
+        "wedge-vertical 60/2 2.94 (75%)",
+        "wedge-power 60/2 4.5 (82%)"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m1 hybrid (v41): all three varieties between 3 and 8, Control ≤ 8, the three ≥ 1 apart",
+      "ok": true,
+      "detail": [
+        "control 7.86",
+        "vertical 3.26",
+        "power 4.43"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m1 truth table: distance truth = max distance; power = min(100, round(100·D/max))",
+      "ok": true,
+      "detail": [
+        72,
+        61,
+        70,
+        80,
+        68,
+        77,
+        88,
+        75,
+        82
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m1 truth table is computed in the page quickly (< 1.5 s for all 9 clubs)",
+      "ok": true,
+      "detail": "89 ms"
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 no estimate slider left in the page",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 practice under cond=fb-hidden is unchanged: shot log lists every shot of the club, Target Values show hits and points",
+      "ok": true,
+      "detail": {
+        "log": 5,
+        "tv": [
+          "Practice here: 0 hits · 0 pts",
+          "Practice here: 0 hits · 0 pts",
+          "Practice here: 0 hits · 0 pts"
+        ],
+        "chip": "PRACTICE 5 shots"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 v41 practice under cond=fb-hidden: Spray Chart switch shown and on, all 5 balls on the map, practice shot records spray_on true",
+      "ok": true,
+      "detail": {
+        "toggleShown": true,
+        "checked": true,
+        "applied": true,
+        "balls": 5,
+        "sprayOn": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 5-shot card: the two questions, worded as specified",
+      "ok": true,
+      "detail": {
+        "q1": "At 100% power, how far does Driver A go on average? (yards)",
+        "q2": "You aim at a target 140 yd away with Driver A, using the power that sends the ball 140 yd on average. Out of 10 balls, how many land within 8 yd of its centre?"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 5-shot card: number boxes start empty (0–300 and 0–10), Save off, \"Answer both questions to save.\"",
+      "ok": true,
+      "detail": {
+        "q1": "At 100% power, how far does Driver A go on average? (yards)",
+        "q2": "You aim at a target 140 yd away with Driver A, using the power that sends the ball 140 yd on average. Out of 10 balls, how many land within 8 yd of its centre?",
+        "v1": "",
+        "v2": "",
+        "save": true,
+        "msg": "Answer both questions to save.",
+        "t1": "number",
+        "t2": "number",
+        "min1": "0",
+        "max1": "300",
+        "max2": "10"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 validation: 301 / 11 / 212.5 / −1 rejected with a message, one box empty keeps Save off, 212 + 6 turns Save on",
+      "ok": true,
+      "detail": {
+        "v301": {
+          "save": true,
+          "msg": "Distance: a whole number of yards from 0 to 300. Balls: a whole number from 0 to 10.",
+          "bad1": true,
+          "bad2": true
+        },
+        "vDec": {
+          "save": true,
+          "msg": "Distance: a whole number of yards from 0 to 300.",
+          "bad1": true,
+          "bad2": false
+        },
+        "vNeg": {
+          "save": true,
+          "msg": "Balls: a whole number from 0 to 10.",
+          "bad1": false,
+          "bad2": true
+        },
+        "vOne": {
+          "save": true,
+          "msg": "Answer both questions to save.",
+          "bad1": false,
+          "bad2": false
+        },
+        "vOk": {
+          "save": false,
+          "msg": "",
+          "bad1": false,
+          "bad2": false
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 practice bar shows both answers (\"212 yd at 100% · 6 of 10\", Change)",
+      "ok": true,
+      "detail": {
+        "v": "212 yd at 100% · 6 of 10",
+        "b": "Change"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 changing: the boxes show the saved answers (212, 6), Save on, Cancel",
+      "ok": true,
+      "detail": {
+        "v1": "212",
+        "v2": "6",
+        "save": false,
+        "later": "Cancel"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 validation: letters typed in a number box leave Save off",
+      "ok": true,
+      "detail": {
+        "save": true,
+        "val": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 required cards before choosing: 8 clubs without answers, boxes empty, Save off",
+      "ok": true,
+      "detail": {
+        "step": "BEFORE YOU CHOOSE · CLUB 1 OF 8",
+        "title": "Driver B",
+        "v1": "",
+        "v2": "",
+        "save": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 \"Choose your clubs\": every card shows both of the player's answers; each type names the two questions once",
+      "ok": true,
+      "detail": {
+        "heads": [
+          "DRIVERaverage distance at 100% power · balls of 10 within 8 yd of a target 140 yd away",
+          "HYBRIDaverage distance at 100% power · balls of 10 within 5 yd of a target 116 yd away",
+          "WEDGEaverage distance at 100% power · balls of 10 within 2 yd of a target 60 yd away"
+        ],
+        "cards": [
+          "Driver A 212 yd average at 100% 6 of 10 within 8 yd your answers · 5 practice shots",
+          "Driver B 75 yd average at 100% 3 of 10 within 8 yd your answers · 0 practice shots",
+          "Driver C 90 yd average at 100% 6 of 10 within 8 yd your answers · 0 practice shots"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 \"Choose your clubs\" still fits the 1280×720 iframe without scrolling",
+      "ok": true,
+      "detail": {
+        "scroll": false,
+        "inView": true,
+        "h": 480,
+        "vh": 634
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 \"Clubs chosen\" card shows both answers for each club",
+      "ok": true,
+      "detail": "Driver B 75 yd at 100% · 3 of 10 within 8 yd at 140 yd Hybrid C 135 yd at 100% · 4 of 10 within 5 yd at 116 yd Wedge A 150 yd at 100% · 7 of 10 within 2 yd at 60 yd"
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 estimate records: two per card (distance_100, hits_of_10), same card_no, club, action and response_ms",
+      "ok": true,
+      "detail": [
+        "1:distance_100:save:212 | 1:hits_of_10:save:6",
+        "2:distance_100:cancel:null | 2:hits_of_10:cancel:null",
+        "3:distance_100:cancel:null | 3:hits_of_10:cancel:null",
+        "4:distance_100:save:75 | 4:hits_of_10:save:3"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 estimate records: truth = max distance / simulated hits, question_text, target_yd, radius_yd, truth_power",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 first card (auto, saved): answers 212 and 6, start_value null, previous null; then a cancel (answer null, previous 212 / 6)",
+      "ok": true,
+      "detail": {
+        "first": [
+          {
+            "record_type": "estimate",
+            "record_id": "R_meas1-tp-practice-a1-e1",
+            "pid": "R_meas1",
+            "segment": "tp-practice",
+            "attempt": 1,
+            "load_id": "undi83c2",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": null,
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:32:50.245Z",
+            "estimate_no": 1,
+            "card_no": 1,
+            "club": "Driver A",
+            "club_type": "driver",
+            "variety": "vertical",
+            "letter": "A",
+            "question": "distance_100",
+            "question_text": "At 100% power, how far does Driver A go on average? (yards)",
+            "target_yd": null,
+            "radius_yd": null,
+            "answer": 212,
+            "truth": 230,
+            "truth_power": 100,
+            "previous": null,
+            "start_value": null,
+            "shots_at_time": 5,
+            "when": "auto",
+            "action": "save",
+            "response_ms": 584,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "estimate",
+            "record_id": "R_meas1-tp-practice-a1-e2",
+            "pid": "R_meas1",
+            "segment": "tp-practice",
+            "attempt": 1,
+            "load_id": "undi83c2",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": null,
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:32:50.245Z",
+            "estimate_no": 2,
+            "card_no": 1,
+            "club": "Driver A",
+            "club_type": "driver",
+            "variety": "vertical",
+            "letter": "A",
+            "question": "hits_of_10",
+            "question_text": "You aim at a target 140 yd away with Driver A, using the power that sends the ball 140 yd on average. Out of 10 balls, how many land within 8 yd of its centre?",
+            "target_yd": 140,
+            "radius_yd": 8,
+            "answer": 6,
+            "truth": 3.87,
+            "truth_power": 61,
+            "previous": null,
+            "start_value": null,
+            "shots_at_time": 5,
+            "when": "auto",
+            "action": "save",
+            "response_ms": 584,
+            "response_hidden_ms": 0
+          }
+        ],
+        "second": [
+          {
+            "record_type": "estimate",
+            "record_id": "R_meas1-tp-practice-a1-e3",
+            "pid": "R_meas1",
+            "segment": "tp-practice",
+            "attempt": 1,
+            "load_id": "undi83c2",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": null,
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:32:50.357Z",
+            "estimate_no": 3,
+            "card_no": 2,
+            "club": "Driver A",
+            "club_type": "driver",
+            "variety": "vertical",
+            "letter": "A",
+            "question": "distance_100",
+            "question_text": "At 100% power, how far does Driver A go on average? (yards)",
+            "target_yd": null,
+            "radius_yd": null,
+            "answer": null,
+            "truth": 230,
+            "truth_power": 100,
+            "previous": 212,
+            "start_value": 212,
+            "shots_at_time": 5,
+            "when": "edit",
+            "action": "cancel",
+            "response_ms": 51,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "estimate",
+            "record_id": "R_meas1-tp-practice-a1-e4",
+            "pid": "R_meas1",
+            "segment": "tp-practice",
+            "attempt": 1,
+            "load_id": "undi83c2",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": null,
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:32:50.358Z",
+            "estimate_no": 4,
+            "card_no": 2,
+            "club": "Driver A",
+            "club_type": "driver",
+            "variety": "vertical",
+            "letter": "A",
+            "question": "hits_of_10",
+            "question_text": "You aim at a target 140 yd away with Driver A, using the power that sends the ball 140 yd on average. Out of 10 balls, how many land within 8 yd of its centre?",
+            "target_yd": 140,
+            "radius_yd": 8,
+            "answer": null,
+            "truth": 3.87,
+            "truth_power": 61,
+            "previous": 6,
+            "start_value": 6,
+            "shots_at_time": 5,
+            "when": "edit",
+            "action": "cancel",
+            "response_ms": 51,
+            "response_hidden_ms": 0
+          }
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 club_summary ×9: final_est_distance / _hits, truth_distance / _hits, first_est_*",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 bag_choice: both answers and truths for the chosen clubs, both answers for every card",
+      "ok": true,
+      "detail": {
+        "test": false,
+        "driver_est_distance": 75,
+        "driver_est_hits": 3,
+        "driver_truth_distance": 195,
+        "driver_truth_hits": 7.31,
+        "hybrid_est_distance": 135,
+        "hybrid_est_hits": 4,
+        "hybrid_truth_distance": 145,
+        "hybrid_truth_hits": 7.86,
+        "wedge_est_distance": 150,
+        "wedge_est_hits": 7,
+        "wedge_truth_distance": 73,
+        "wedge_truth_hits": 4.5,
+        "est_distance_driver_a": 212,
+        "est_hits_driver_a": 6,
+        "est_distance_driver_b": 75,
+        "est_hits_driver_b": 3,
+        "est_distance_driver_c": 90,
+        "est_hits_driver_c": 6,
+        "est_distance_hybrid_a": 105,
+        "est_hits_hybrid_a": 9,
+        "est_distance_hybrid_b": 120,
+        "est_hits_hybrid_b": 1,
+        "est_distance_hybrid_c": 135,
+        "est_hits_hybrid_c": 4,
+        "est_distance_wedge_a": 150,
+        "est_hits_wedge_a": 7,
+        "est_distance_wedge_b": 165,
+        "est_hits_wedge_b": 10,
+        "est_distance_wedge_c": 180,
+        "est_hits_wedge_c": 2
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 nf-done (tp-practice): tp_est_d / _h / _w = the distance answers; exactly the 6 field-reference keys",
+      "ok": true,
+      "detail": {
+        "tp_bag": "DCHCWP",
+        "tp_letters": "B,C,A",
+        "tp_practice_shots": 5,
+        "tp_est_d": 75,
+        "tp_est_h": 135,
+        "tp_est_w": 150
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m2 tp-practice records: cond fb-hidden on every record; segment record feedback \"hidden\"",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: prediction card opens on each round's new course (drawn, Target Values shown) before ball 1; no shot possible, Space does nothing",
+      "ok": true,
+      "detail": [
+        {
+          "course": "sunset",
+          "lit": 2526,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "pines",
+          "lit": 4539,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "comet",
+          "lit": 3375,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "laser",
+          "lit": 4109,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "nova",
+          "lit": 4203,
+          "tv": 3,
+          "still": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: the two questions as specified; boxes empty; Start Round off; max = 12 × biggest bullseye",
+      "ok": true,
+      "detail": {
+        "q1": "How many points will you score this round?",
+        "q2": "I'm 90% sure my score will be between and pts.",
+        "max": [
+          1800,
+          1380,
+          1800,
+          960,
+          1680
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: the course stays visible behind the card (light backdrop)",
+      "ok": true,
+      "detail": "rgba(3, 1, 15, 0.45)"
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: rules — low above the prediction, high below it, above the max, a decimal, an empty box: Start off with a message; low = prediction = high is allowed",
+      "ok": true,
+      "detail": {
+        "pLow": {
+          "btn": true,
+          "msg": "Your prediction must be between your two numbers (the first one the lowest).",
+          "bad": [
+            "tp-predLow"
+          ]
+        },
+        "pHigh": {
+          "btn": true,
+          "msg": "Your prediction must be between your two numbers (the first one the lowest).",
+          "bad": [
+            "tp-predHigh"
+          ]
+        },
+        "pMax": {
+          "btn": true,
+          "msg": "Use whole numbers from 0 to 1800.",
+          "bad": [
+            "tp-predHigh"
+          ]
+        },
+        "pDec": {
+          "btn": true,
+          "msg": "Use whole numbers from 0 to 1800.",
+          "bad": [
+            "tp-predPoints"
+          ]
+        },
+        "pPart": {
+          "btn": true,
+          "msg": "Fill in all three numbers to start.",
+          "bad": []
+        },
+        "pEq": {
+          "btn": false,
+          "msg": "",
+          "bad": []
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: one prediction record per round: round, course, pred_points, pred_low, pred_high, max_points, response_ms (round 1 ≥ 1.6 s)",
+      "ok": true,
+      "detail": [
+        [
+          1,
+          "sunset",
+          170,
+          61,
+          421,
+          1800,
+          1984
+        ],
+        [
+          2,
+          "pines",
+          190,
+          62,
+          422,
+          1380,
+          97
+        ],
+        [
+          3,
+          "comet",
+          210,
+          63,
+          423,
+          1800,
+          80
+        ],
+        [
+          4,
+          "laser",
+          230,
+          64,
+          424,
+          960,
+          195
+        ],
+        [
+          5,
+          "nova",
+          250,
+          65,
+          425,
+          1680,
+          95
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: round records carry the prediction; ball 1's decision_ms and play_ms start after the prediction",
+      "ok": true,
+      "detail": {
+        "ball1_decision_ms": 290,
+        "pred_response_ms": 1984,
+        "play_ms": 9290
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: saves r1-pred, r1, r1-review … r5-pred, r5, final",
+      "ok": true,
+      "detail": [
+        "r1-pred",
+        "r1",
+        "r1-review",
+        "r2-pred",
+        "r2",
+        "r2-review",
+        "r3-pred",
+        "r3",
+        "r3-review",
+        "r4-pred",
+        "r4",
+        "r4-review",
+        "r5-pred",
+        "r5",
+        "final"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: every record carries cond=fb-visible and game_version v41; segment record feedback visible, predictions 5",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-visible: nf-done carries exactly tp_r1..tp_r5, tp_total, tp_best_aims (scores still sent in fb-hidden)",
+      "ok": true,
+      "detail": {
+        "tp_r1": 36,
+        "tp_r2": 77,
+        "tp_r3": 92,
+        "tp_r4": 48,
+        "tp_r5": 83,
+        "tp_total": 336,
+        "tp_best_aims": 38
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: prediction card opens on each round's new course (drawn, Target Values shown) before ball 1; no shot possible, Space does nothing",
+      "ok": true,
+      "detail": [
+        {
+          "course": "sunset",
+          "lit": 2526,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "pines",
+          "lit": 4539,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "comet",
+          "lit": 3375,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "laser",
+          "lit": 4109,
+          "tv": 3,
+          "still": true
+        },
+        {
+          "course": "nova",
+          "lit": 4203,
+          "tv": 3,
+          "still": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: the two questions as specified; boxes empty; Start Round off; max = 12 × biggest bullseye",
+      "ok": true,
+      "detail": {
+        "q1": "How many points will you score this round?",
+        "q2": "I'm 90% sure my score will be between and pts.",
+        "max": [
+          1800,
+          1380,
+          1800,
+          960,
+          1680
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: the course stays visible behind the card (light backdrop)",
+      "ok": true,
+      "detail": "rgba(3, 1, 15, 0.45)"
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: rules — low above the prediction, high below it, above the max, a decimal, an empty box: Start off with a message; low = prediction = high is allowed",
+      "ok": true,
+      "detail": {
+        "pLow": {
+          "btn": true,
+          "msg": "Your prediction must be between your two numbers (the first one the lowest).",
+          "bad": [
+            "tp-predLow"
+          ]
+        },
+        "pHigh": {
+          "btn": true,
+          "msg": "Your prediction must be between your two numbers (the first one the lowest).",
+          "bad": [
+            "tp-predHigh"
+          ]
+        },
+        "pMax": {
+          "btn": true,
+          "msg": "Use whole numbers from 0 to 1800.",
+          "bad": [
+            "tp-predHigh"
+          ]
+        },
+        "pDec": {
+          "btn": true,
+          "msg": "Use whole numbers from 0 to 1800.",
+          "bad": [
+            "tp-predPoints"
+          ]
+        },
+        "pPart": {
+          "btn": true,
+          "msg": "Fill in all three numbers to start.",
+          "bad": []
+        },
+        "pEq": {
+          "btn": false,
+          "msg": "",
+          "bad": []
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: one prediction record per round: round, course, pred_points, pred_low, pred_high, max_points, response_ms (round 1 ≥ 1.6 s)",
+      "ok": true,
+      "detail": [
+        [
+          1,
+          "sunset",
+          170,
+          61,
+          421,
+          1800,
+          2008
+        ],
+        [
+          2,
+          "pines",
+          190,
+          62,
+          422,
+          1380,
+          79
+        ],
+        [
+          3,
+          "comet",
+          210,
+          63,
+          423,
+          1800,
+          64
+        ],
+        [
+          4,
+          "laser",
+          230,
+          64,
+          424,
+          960,
+          162
+        ],
+        [
+          5,
+          "nova",
+          250,
+          65,
+          425,
+          1680,
+          78
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: round records carry the prediction; ball 1's decision_ms and play_ms start after the prediction",
+      "ok": true,
+      "detail": {
+        "ball1_decision_ms": 297,
+        "pred_response_ms": 2008,
+        "play_ms": 9238
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: saves r1-pred, r1, r1-review … r5-pred, r5, final",
+      "ok": true,
+      "detail": [
+        "r1-pred",
+        "r1",
+        "r1-review",
+        "r2-pred",
+        "r2",
+        "r2-review",
+        "r3-pred",
+        "r3",
+        "r3-review",
+        "r4-pred",
+        "r4",
+        "r4-review",
+        "r5-pred",
+        "r5",
+        "final"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: every record carries cond=fb-hidden and game_version v41; segment record feedback hidden, predictions 5",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "m3 fb-hidden: nf-done carries exactly tp_r1..tp_r5, tp_total, tp_best_aims (scores still sent in fb-hidden)",
+      "ok": true,
+      "detail": {
+        "tp_r1": 36,
+        "tp_r2": 77,
+        "tp_r3": 92,
+        "tp_r4": 48,
+        "tp_r5": 83,
+        "tp_total": 336,
+        "tp_best_aims": 38
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 same rng and bag: identical shots and scores in both conditions (the condition changes only the screen)",
+      "ok": true,
+      "detail": {
+        "visible": [
+          36,
+          77,
+          92,
+          48,
+          83
+        ],
+        "hidden": [
+          36,
+          77,
+          92,
+          48,
+          83
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 fb-visible (control): the totals scan finds running / round totals on screen, and every element still shows them",
+      "ok": true,
+      "detail": {
+        "checkpointsWithTotals": 17,
+        "sample": "Sunset Strip · Round 1 of 5 complete · 36 pts"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 fb-hidden: no running or round total in the visible text at any of 20 checkpoints (80 totals checked)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 fb-hidden during play: progress bar without \"Round score\", chips ✓ / ▶ / — only, Target Values without hits or points, shot log = latest shot only, result line kept",
+      "ok": true,
+      "detail": {
+        "progress": "Sunset Strip · Round 1 of 5 · Ball 9 of 12",
+        "chips": [
+          "R1 ✓",
+          "R2 ✓",
+          "R3 —",
+          "R4 —",
+          "R5 —"
+        ],
+        "tv": [
+          "",
+          "",
+          ""
+        ],
+        "result": "Hybrid C · 55% · aimed 5.0° right · 78 yd, 1.1 yd left of your aim · Missed the close targ"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 fb-hidden round chips: finished rounds ✓, current ▶, later —",
+      "ok": true,
+      "detail": [
+        "R1 ✓",
+        "R2 ✓",
+        "R3 ▶",
+        "R4 —",
+        "R5 —"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 fb-hidden round-complete card: only \"Round k Complete\" (and the Start Round button)",
+      "ok": true,
+      "detail": [
+        "Round 1 Complete Start Round 2 of 5: Pixel Pines",
+        "Round 2 Complete Start Round 3 of 5: Comet Ridge",
+        "Round 3 Complete Start Round 4 of 5: Laser Lane",
+        "Round 4 Complete Start Round 5 of 5: Nova Summit"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 fb-hidden \"All rounds complete\" card: rounds and courses with ✓, no score or other total (no number except round numbers)",
+      "ok": true,
+      "detail": "All 5 Rounds Complete ROUND 1 Sunset Strip ✓ ROUND 2 Pixel Pines ✓ ROUND 3 Comet Ridge ✓ ROUND 4 Laser Lane ✓ ROUND 5 Nova Summit ✓ The survey will continue. Continue"
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 v41 fb-hidden scored rounds: Spray Chart switch hidden and only the latest ball on the map (after balls 4, 8, 12 of every round)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 v41 fb-hidden: the switch stays hidden on the round-complete and end cards",
+      "ok": true,
+      "detail": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 v41 fb-visible (unchanged): Spray Chart switch shown and on, every ball of the round on the map (4, 8, 12)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 v41 shot records: spray_on = the state applied (fb-visible 60 × true, fb-hidden 60 × false)",
+      "ok": true,
+      "detail": {
+        "visible": [
+          true
+        ],
+        "hidden": [
+          false
+        ],
+        "n": [
+          60,
+          60
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 fb-hidden status bar after a round: no points",
+      "ok": true,
+      "detail": [
+        "Sunset Strip · Round 1 of 5 complete",
+        "Pixel Pines · Round 2 of 5 complete",
+        "Comet Ridge · Round 3 of 5 complete",
+        "Laser Lane · Round 4 of 5 complete",
+        "All 5 rounds complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "m4 unknown cond (\"fb-hiden\"): treated as fb-visible, console warning, cond logged as given",
+      "ok": true,
+      "detail": {
+        "hidden": false,
+        "seg": "fb-hiden",
+        "warns": [
+          "[target] unknown cond \"fb-hiden\"; totals are shown (fb-visible).",
+          "[nf-bridge] DATA_ENDPOINT is not set; saves are printed to the console."
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "m* no page or console errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "truth": [
+    {
+      "type": "driver",
+      "variety": "control",
+      "max_distance": 195,
+      "target_yd": 140,
+      "radius_yd": 8,
+      "power": 72,
+      "truth_hits": 7.31
+    },
+    {
+      "type": "driver",
+      "variety": "vertical",
+      "max_distance": 230,
+      "target_yd": 140,
+      "radius_yd": 8,
+      "power": 61,
+      "truth_hits": 3.87
+    },
+    {
+      "type": "driver",
+      "variety": "power",
+      "max_distance": 200,
+      "target_yd": 140,
+      "radius_yd": 8,
+      "power": 70,
+      "truth_hits": 5.6
+    },
+    {
+      "type": "hybrid",
+      "variety": "control",
+      "max_distance": 145,
+      "target_yd": 116,
+      "radius_yd": 5,
+      "power": 80,
+      "truth_hits": 7.86
+    },
+    {
+      "type": "hybrid",
+      "variety": "vertical",
+      "max_distance": 170,
+      "target_yd": 116,
+      "radius_yd": 5,
+      "power": 68,
+      "truth_hits": 3.26
+    },
+    {
+      "type": "hybrid",
+      "variety": "power",
+      "max_distance": 150,
+      "target_yd": 116,
+      "radius_yd": 5,
+      "power": 77,
+      "truth_hits": 4.43
+    },
+    {
+      "type": "wedge",
+      "variety": "control",
+      "max_distance": 68,
+      "target_yd": 60,
+      "radius_yd": 2,
+      "power": 88,
+      "truth_hits": 7.65
+    },
+    {
+      "type": "wedge",
+      "variety": "vertical",
+      "max_distance": 80,
+      "target_yd": 60,
+      "radius_yd": 2,
+      "power": 75,
+      "truth_hits": 2.94
+    },
+    {
+      "type": "wedge",
+      "variety": "power",
+      "max_distance": 73,
+      "target_yd": 60,
+      "radius_yd": 2,
+      "power": 82,
+      "truth_hits": 4.5
+    }
+  ],
+  "examples": {
+    "chromium": {
+      "estimate_distance": {
+        "record_type": "estimate",
+        "record_id": "R_meas1-tp-practice-a1-e1",
+        "pid": "R_meas1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "undi83c2",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-hidden",
+        "bag_seed": null,
+        "rng_seed": 7311,
+        "test": false,
+        "client_time": "2026-11-20T15:32:50.245Z",
+        "estimate_no": 1,
+        "card_no": 1,
+        "club": "Driver A",
+        "club_type": "driver",
+        "variety": "vertical",
+        "letter": "A",
+        "question": "distance_100",
+        "question_text": "At 100% power, how far does Driver A go on average? (yards)",
+        "target_yd": null,
+        "radius_yd": null,
+        "answer": 212,
+        "truth": 230,
+        "truth_power": 100,
+        "previous": null,
+        "start_value": null,
+        "shots_at_time": 5,
+        "when": "auto",
+        "action": "save",
+        "response_ms": 584,
+        "response_hidden_ms": 0
+      },
+      "estimate_hits": {
+        "record_type": "estimate",
+        "record_id": "R_meas1-tp-practice-a1-e2",
+        "pid": "R_meas1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "undi83c2",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-hidden",
+        "bag_seed": null,
+        "rng_seed": 7311,
+        "test": false,
+        "client_time": "2026-11-20T15:32:50.245Z",
+        "estimate_no": 2,
+        "card_no": 1,
+        "club": "Driver A",
+        "club_type": "driver",
+        "variety": "vertical",
+        "letter": "A",
+        "question": "hits_of_10",
+        "question_text": "You aim at a target 140 yd away with Driver A, using the power that sends the ball 140 yd on average. Out of 10 balls, how many land within 8 yd of its centre?",
+        "target_yd": 140,
+        "radius_yd": 8,
+        "answer": 6,
+        "truth": 3.87,
+        "truth_power": 61,
+        "previous": null,
+        "start_value": null,
+        "shots_at_time": 5,
+        "when": "auto",
+        "action": "save",
+        "response_ms": 584,
+        "response_hidden_ms": 0
+      },
+      "club_summary": {
+        "record_type": "club_summary",
+        "record_id": "R_meas1-tp-practice-a1-club-DR-B",
+        "pid": "R_meas1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "undi83c2",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-hidden",
+        "bag_seed": "DCHCWP",
+        "rng_seed": 7311,
+        "test": false,
+        "client_time": "2026-11-20T15:32:51.728Z",
+        "club": "Driver B",
+        "club_type": "driver",
+        "variety": "control",
+        "letter": "B",
+        "shots": 0,
+        "batch_shots": 0,
+        "time_ms": 0,
+        "hidden_ms": 0,
+        "idle_ms": 0,
+        "final_est_distance": 75,
+        "final_est_hits": 3,
+        "truth_distance": 195,
+        "truth_hits": 7.31,
+        "estimate_count": 1,
+        "first_est_distance": 75,
+        "first_est_hits": 3,
+        "first_estimate_shots": 0,
+        "asked_at_5": false,
+        "chosen": true
+      },
+      "bag_choice": {
+        "record_type": "bag_choice",
+        "record_id": "R_meas1-tp-practice-a1-bag",
+        "pid": "R_meas1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "undi83c2",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-hidden",
+        "bag_seed": "DCHCWP",
+        "rng_seed": 7311,
+        "test": false,
+        "client_time": "2026-11-20T15:32:51.728Z",
+        "letters_chosen": "B,C,A",
+        "practice_shots": 5,
+        "choose_ms": 339,
+        "choose_hidden_ms": 0,
+        "chooser_opens": 1,
+        "card_clicks": 3,
+        "nudge_shown": true,
+        "nudge_count": 1,
+        "clubs_under_5": 8,
+        "driver_club": "Driver B",
+        "driver_variety": "control",
+        "driver_letter": "B",
+        "driver_est_distance": 75,
+        "driver_est_hits": 3,
+        "driver_truth_distance": 195,
+        "driver_truth_hits": 7.31,
+        "hybrid_club": "Hybrid C",
+        "hybrid_variety": "control",
+        "hybrid_letter": "C",
+        "hybrid_est_distance": 135,
+        "hybrid_est_hits": 4,
+        "hybrid_truth_distance": 145,
+        "hybrid_truth_hits": 7.86,
+        "wedge_club": "Wedge A",
+        "wedge_variety": "power",
+        "wedge_letter": "A",
+        "wedge_est_distance": 150,
+        "wedge_est_hits": 7,
+        "wedge_truth_distance": 73,
+        "wedge_truth_hits": 4.5,
+        "est_distance_driver_a": 212,
+        "est_hits_driver_a": 6,
+        "est_distance_driver_b": 75,
+        "est_hits_driver_b": 3,
+        "est_distance_driver_c": 90,
+        "est_hits_driver_c": 6,
+        "est_distance_hybrid_a": 105,
+        "est_hits_hybrid_a": 9,
+        "est_distance_hybrid_b": 120,
+        "est_hits_hybrid_b": 1,
+        "est_distance_hybrid_c": 135,
+        "est_hits_hybrid_c": 4,
+        "est_distance_wedge_a": 150,
+        "est_hits_wedge_a": 7,
+        "est_distance_wedge_b": 165,
+        "est_hits_wedge_b": 10,
+        "est_distance_wedge_c": 180,
+        "est_hits_wedge_c": 2
+      }
+    }
+  },
+  "leakScan": {
+    "chromium": {
+      "hiddenTotalsChecked": 80,
+      "hiddenLeaks": [],
+      "visibleCheckpointsWithTotals": 17
+    }
+  },
+  "runs": {
+    "chromium": {
+      "fb-visible": {
+        "scores": [
+          36,
+          77,
+          92,
+          48,
+          83
+        ],
+        "saves": [
+          "r1-pred",
+          "r1",
+          "r1-review",
+          "r2-pred",
+          "r2",
+          "r2-review",
+          "r3-pred",
+          "r3",
+          "r3-review",
+          "r4-pred",
+          "r4",
+          "r4-review",
+          "r5-pred",
+          "r5",
+          "final"
+        ],
+        "predictions": [
+          {
+            "record_type": "prediction",
+            "record_id": "R_measV-tp-rounds-a1-r1-pred",
+            "pid": "R_measV",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "ov1vxnmb",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-visible",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:32:54.238Z",
+            "round": 1,
+            "course": "sunset",
+            "course_name": "Sunset Strip",
+            "pred_points": 170,
+            "pred_low": 61,
+            "pred_high": 421,
+            "max_points": 1800,
+            "response_ms": 1984,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measV-tp-rounds-a1-r2-pred",
+            "pid": "R_measV",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "ov1vxnmb",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-visible",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:33:05.254Z",
+            "round": 2,
+            "course": "pines",
+            "course_name": "Pixel Pines",
+            "pred_points": 190,
+            "pred_low": 62,
+            "pred_high": 422,
+            "max_points": 1380,
+            "response_ms": 97,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measV-tp-rounds-a1-r3-pred",
+            "pid": "R_measV",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "ov1vxnmb",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-visible",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:33:15.904Z",
+            "round": 3,
+            "course": "comet",
+            "course_name": "Comet Ridge",
+            "pred_points": 210,
+            "pred_low": 63,
+            "pred_high": 423,
+            "max_points": 1800,
+            "response_ms": 80,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measV-tp-rounds-a1-r4-pred",
+            "pid": "R_measV",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "ov1vxnmb",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-visible",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:33:26.588Z",
+            "round": 4,
+            "course": "laser",
+            "course_name": "Laser Lane",
+            "pred_points": 230,
+            "pred_low": 64,
+            "pred_high": 424,
+            "max_points": 960,
+            "response_ms": 195,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measV-tp-rounds-a1-r5-pred",
+            "pid": "R_measV",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "ov1vxnmb",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-visible",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:33:37.387Z",
+            "round": 5,
+            "course": "nova",
+            "course_name": "Nova Summit",
+            "pred_points": 250,
+            "pred_low": 65,
+            "pred_high": 425,
+            "max_points": 1680,
+            "response_ms": 95,
+            "response_hidden_ms": 0
+          }
+        ],
+        "round2": {
+          "record_type": "round",
+          "record_id": "R_measV-tp-rounds-a1-r2",
+          "pid": "R_measV",
+          "segment": "tp-rounds",
+          "attempt": 1,
+          "load_id": "ov1vxnmb",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": "DCHCWP",
+          "rng_seed": 7311,
+          "test": false,
+          "client_time": "2026-11-20T15:33:14.079Z",
+          "round": 2,
+          "course": "pines",
+          "course_name": "Pixel Pines",
+          "score": 77,
+          "hits": 3,
+          "scored": 3,
+          "bulls": 1,
+          "best_shots": 12,
+          "best_target": "near",
+          "near_points": 77,
+          "mid_points": 0,
+          "far_points": 0,
+          "aimed_near": 12,
+          "aimed_mid": 0,
+          "aimed_far": 0,
+          "play_ms": 8824,
+          "hidden_ms": 0,
+          "idle_ms": 0,
+          "review_ms": 1740,
+          "review_hidden_ms": 0,
+          "review_idle_ms": 0,
+          "pred_points": 190,
+          "pred_low": 62,
+          "pred_high": 422
+        },
+        "checkpoints": [
+          {
+            "round": 1,
+            "ball": 4,
+            "progress": "Sunset Strip · Round 1 of 5 · Ball 5 of 12 · Round score 8",
+            "chips": "R1 8 R2 — R3 — R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 1 hit · 8 pts"
+            ],
+            "log": 4,
+            "leaked": []
+          },
+          {
+            "round": 1,
+            "ball": 8,
+            "progress": "Sunset Strip · Round 1 of 5 · Ball 9 of 12 · Round score 28",
+            "chips": "R1 28 R2 — R3 — R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 2 hits · 28 pts"
+            ],
+            "log": 8,
+            "leaked": [
+              28
+            ]
+          },
+          {
+            "round": 1,
+            "ball": 12,
+            "progress": "Sunset Strip · Round 1 of 5 complete · 36 pts",
+            "chips": "R1 36 R2 — R3 — R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 3 hits · 36 pts"
+            ],
+            "log": 12,
+            "leaked": []
+          },
+          {
+            "round": 2,
+            "ball": 4,
+            "progress": "Pixel Pines · Round 2 of 5 · Ball 5 of 12 · Round score 54",
+            "chips": "R1 36 R2 54 R3 — R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 2 hits · 54 pts"
+            ],
+            "log": 4,
+            "leaked": [
+              54,
+              36
+            ]
+          },
+          {
+            "round": 2,
+            "ball": 8,
+            "progress": "Pixel Pines · Round 2 of 5 · Ball 9 of 12 · Round score 77",
+            "chips": "R1 36 R2 77 R3 — R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 3 hits · 77 pts"
+            ],
+            "log": 8,
+            "leaked": [
+              77,
+              36
+            ]
+          },
+          {
+            "round": 2,
+            "ball": 12,
+            "progress": "Pixel Pines · Round 2 of 5 complete · 77 pts",
+            "chips": "R1 36 R2 77 R3 — R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 3 hits · 77 pts"
+            ],
+            "log": 12,
+            "leaked": [
+              77,
+              36
+            ]
+          },
+          {
+            "round": 3,
+            "ball": 4,
+            "progress": "Comet Ridge · Round 3 of 5 · Ball 5 of 12 · Round score 14",
+            "chips": "R1 36 R2 77 R3 14 R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 1 hit · 10 pts",
+              "This round: 1 hit · 4 pts"
+            ],
+            "log": 4,
+            "leaked": [
+              14,
+              77
+            ]
+          },
+          {
+            "round": 3,
+            "ball": 8,
+            "progress": "Comet Ridge · Round 3 of 5 · Ball 9 of 12 · Round score 78",
+            "chips": "R1 36 R2 77 R3 78 R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 3 hits · 70 pts",
+              "This round: 2 hits · 8 pts"
+            ],
+            "log": 8,
+            "leaked": [
+              78,
+              77,
+              70
+            ]
+          },
+          {
+            "round": 3,
+            "ball": 12,
+            "progress": "Comet Ridge · Round 3 of 5 complete · 92 pts",
+            "chips": "R1 36 R2 77 R3 92 R4 — R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 4 hits · 80 pts",
+              "This round: 3 hits · 12 pts"
+            ],
+            "log": 12,
+            "leaked": [
+              92,
+              77,
+              80
+            ]
+          },
+          {
+            "round": 4,
+            "ball": 4,
+            "progress": "Laser Lane · Round 4 of 5 · Ball 5 of 12 · Round score 8",
+            "chips": "R1 36 R2 77 R3 92 R4 8 R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 1 hit · 8 pts"
+            ],
+            "log": 4,
+            "leaked": [
+              36,
+              77,
+              92
+            ]
+          },
+          {
+            "round": 4,
+            "ball": 8,
+            "progress": "Laser Lane · Round 4 of 5 · Ball 9 of 12 · Round score 8",
+            "chips": "R1 36 R2 77 R3 92 R4 8 R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 1 hit · 8 pts"
+            ],
+            "log": 8,
+            "leaked": [
+              36,
+              77,
+              92
+            ]
+          },
+          {
+            "round": 4,
+            "ball": 12,
+            "progress": "Laser Lane · Round 4 of 5 complete · 48 pts",
+            "chips": "R1 36 R2 77 R3 92 R4 48 R5 —",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 2 hits · 48 pts"
+            ],
+            "log": 12,
+            "leaked": [
+              48,
+              36,
+              77,
+              92
+            ]
+          },
+          {
+            "round": 5,
+            "ball": 4,
+            "progress": "Nova Summit · Round 5 of 5 · Ball 5 of 12 · Round score 28",
+            "chips": "R1 36 R2 77 R3 92 R4 48 R5 28",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 1 hit · 28 pts"
+            ],
+            "log": 4,
+            "leaked": [
+              77,
+              92,
+              48
+            ]
+          },
+          {
+            "round": 5,
+            "ball": 8,
+            "progress": "Nova Summit · Round 5 of 5 · Ball 9 of 12 · Round score 28",
+            "chips": "R1 36 R2 77 R3 92 R4 48 R5 28",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 1 hit · 28 pts"
+            ],
+            "log": 8,
+            "leaked": [
+              77,
+              92,
+              48
+            ]
+          },
+          {
+            "round": 5,
+            "ball": 12,
+            "progress": "All 5 rounds complete",
+            "chips": "R1 36 R2 77 R3 92 R4 48 R5 83",
+            "tv": [
+              "This round: 0 hits · 0 pts",
+              "This round: 0 hits · 0 pts",
+              "This round: 2 hits · 83 pts"
+            ],
+            "log": 12,
+            "leaked": [
+              83,
+              77,
+              92,
+              48
+            ]
+          }
+        ],
+        "cards": [
+          {
+            "round": 1,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 1 Complete · Sunset Strip 36 3 of 12 balls scored · 0 bullseyes Target Yards Hits Bullseyes Points CLOSE 60 3 0 36 MIDDLE 140 0 0 0 FAR 200 0 0 0 R1 36 R2 — R3 — R4 — R5 — Start Round 2 of 5: Pixel Pines",
+            "end_card": null,
+            "leaked": []
+          },
+          {
+            "round": 2,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 2 Complete · Pixel Pines 77 3 of 12 balls scored · 1 bullseye Target Yards Hits Bullseyes Points CLOSE 122 3 1 77 MIDDLE 138 0 0 0 FAR 150 0 0 0 R1 36 R2 77 R3 — R4 — R5 — Start Round 3 of 5: Comet Ridge",
+            "end_card": null,
+            "leaked": [
+              77,
+              36
+            ]
+          },
+          {
+            "round": 3,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 3 Complete · Comet Ridge 92 7 of 12 balls scored · 1 bullseye Target Yards Hits Bullseyes Points CLOSE 55 3 0 12 MIDDLE 140 4 1 80 FAR 197 0 0 0 R1 36 R2 77 R3 92 R4 — R5 — Start Round 4 of 5: Laser Lane",
+            "end_card": null,
+            "leaked": [
+              92,
+              77,
+              80
+            ]
+          },
+          {
+            "round": 4,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 4 Complete · Laser Lane 48 2 of 12 balls scored · 1 bullseye Target Yards Hits Bullseyes Points CLOSE 42 2 1 48 MIDDLE 55 0 0 0 FAR 66 0 0 0 R1 36 R2 77 R3 92 R4 48 R5 — Start Round 5 of 5: Nova Summit",
+            "end_card": null,
+            "leaked": [
+              48,
+              36,
+              77,
+              92
+            ]
+          },
+          {
+            "round": 5,
+            "card": "tp-endOverlay",
+            "round_card": null,
+            "end_card": "All 5 Rounds Complete ROUND 1 Sunset Strip 36 3/12 scored · 0 bullseyes Far 0 · Middle 0 · Close 36 ROUND 2 Pixel Pines 77 3/12 scored · 1 bullseye Far 0 · Middle 0 · Close 77 ROUND 3 Comet Ridge 92 7/12 scored · 1 bullseye Far 0 · Middle 80 · Close 12 ROUND 4 Laser Lane 48 2/12 scored · 1 bullseye Far 0 · Middle 0 · Close 48 ROUND 5 Nova Summit 83 2/12 scored · 1 bullseye Far 0 · Middle 0 · Close 83 The survey will continue. Continue",
+            "leaked": [
+              83,
+              77,
+              92,
+              48
+            ]
+          }
+        ],
+        "done": {
+          "tp_r1": 36,
+          "tp_r2": 77,
+          "tp_r3": 92,
+          "tp_r4": 48,
+          "tp_r5": 83,
+          "tp_total": 336,
+          "tp_best_aims": 38
+        }
+      },
+      "fb-hidden": {
+        "scores": [
+          36,
+          77,
+          92,
+          48,
+          83
+        ],
+        "saves": [
+          "r1-pred",
+          "r1",
+          "r1-review",
+          "r2-pred",
+          "r2",
+          "r2-review",
+          "r3-pred",
+          "r3",
+          "r3-review",
+          "r4-pred",
+          "r4",
+          "r4-review",
+          "r5-pred",
+          "r5",
+          "final"
+        ],
+        "predictions": [
+          {
+            "record_type": "prediction",
+            "record_id": "R_measH-tp-rounds-a1-r1-pred",
+            "pid": "R_measH",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "9kbak5ft",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:33:50.271Z",
+            "round": 1,
+            "course": "sunset",
+            "course_name": "Sunset Strip",
+            "pred_points": 170,
+            "pred_low": 61,
+            "pred_high": 421,
+            "max_points": 1800,
+            "response_ms": 2008,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measH-tp-rounds-a1-r2-pred",
+            "pid": "R_measH",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "9kbak5ft",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:34:01.218Z",
+            "round": 2,
+            "course": "pines",
+            "course_name": "Pixel Pines",
+            "pred_points": 190,
+            "pred_low": 62,
+            "pred_high": 422,
+            "max_points": 1380,
+            "response_ms": 79,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measH-tp-rounds-a1-r3-pred",
+            "pid": "R_measH",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "9kbak5ft",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:34:11.837Z",
+            "round": 3,
+            "course": "comet",
+            "course_name": "Comet Ridge",
+            "pred_points": 210,
+            "pred_low": 63,
+            "pred_high": 423,
+            "max_points": 1800,
+            "response_ms": 64,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measH-tp-rounds-a1-r4-pred",
+            "pid": "R_measH",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "9kbak5ft",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:34:22.483Z",
+            "round": 4,
+            "course": "laser",
+            "course_name": "Laser Lane",
+            "pred_points": 230,
+            "pred_low": 64,
+            "pred_high": 424,
+            "max_points": 960,
+            "response_ms": 162,
+            "response_hidden_ms": 0
+          },
+          {
+            "record_type": "prediction",
+            "record_id": "R_measH-tp-rounds-a1-r5-pred",
+            "pid": "R_measH",
+            "segment": "tp-rounds",
+            "attempt": 1,
+            "load_id": "9kbak5ft",
+            "game": "target",
+            "game_version": "v41",
+            "cond": "fb-hidden",
+            "bag_seed": "DCHCWP",
+            "rng_seed": 7311,
+            "test": false,
+            "client_time": "2026-11-20T15:34:33.250Z",
+            "round": 5,
+            "course": "nova",
+            "course_name": "Nova Summit",
+            "pred_points": 250,
+            "pred_low": 65,
+            "pred_high": 425,
+            "max_points": 1680,
+            "response_ms": 78,
+            "response_hidden_ms": 0
+          }
+        ],
+        "round2": {
+          "record_type": "round",
+          "record_id": "R_measH-tp-rounds-a1-r2",
+          "pid": "R_measH",
+          "segment": "tp-rounds",
+          "attempt": 1,
+          "load_id": "9kbak5ft",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-hidden",
+          "bag_seed": "DCHCWP",
+          "rng_seed": 7311,
+          "test": false,
+          "client_time": "2026-11-20T15:34:10.027Z",
+          "round": 2,
+          "course": "pines",
+          "course_name": "Pixel Pines",
+          "score": 77,
+          "hits": 3,
+          "scored": 3,
+          "bulls": 1,
+          "best_shots": 12,
+          "best_target": "near",
+          "near_points": 77,
+          "mid_points": 0,
+          "far_points": 0,
+          "aimed_near": 12,
+          "aimed_mid": 0,
+          "aimed_far": 0,
+          "play_ms": 8808,
+          "hidden_ms": 0,
+          "idle_ms": 0,
+          "review_ms": 1741,
+          "review_hidden_ms": 0,
+          "review_idle_ms": 0,
+          "pred_points": 190,
+          "pred_low": 62,
+          "pred_high": 422
+        },
+        "checkpoints": [
+          {
+            "round": 1,
+            "ball": 4,
+            "progress": "Sunset Strip · Round 1 of 5 · Ball 5 of 12",
+            "chips": "R1 ▶ R2 — R3 — R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 1,
+            "ball": 8,
+            "progress": "Sunset Strip · Round 1 of 5 · Ball 9 of 12",
+            "chips": "R1 ▶ R2 — R3 — R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 1,
+            "ball": 12,
+            "progress": "Sunset Strip · Round 1 of 5 complete",
+            "chips": "R1 ✓ R2 — R3 — R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 2,
+            "ball": 4,
+            "progress": "Pixel Pines · Round 2 of 5 · Ball 5 of 12",
+            "chips": "R1 ✓ R2 ▶ R3 — R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 2,
+            "ball": 8,
+            "progress": "Pixel Pines · Round 2 of 5 · Ball 9 of 12",
+            "chips": "R1 ✓ R2 ▶ R3 — R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 2,
+            "ball": 12,
+            "progress": "Pixel Pines · Round 2 of 5 complete",
+            "chips": "R1 ✓ R2 ✓ R3 — R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 3,
+            "ball": 4,
+            "progress": "Comet Ridge · Round 3 of 5 · Ball 5 of 12",
+            "chips": "R1 ✓ R2 ✓ R3 ▶ R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 3,
+            "ball": 8,
+            "progress": "Comet Ridge · Round 3 of 5 · Ball 9 of 12",
+            "chips": "R1 ✓ R2 ✓ R3 ▶ R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 3,
+            "ball": 12,
+            "progress": "Comet Ridge · Round 3 of 5 complete",
+            "chips": "R1 ✓ R2 ✓ R3 ✓ R4 — R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 4,
+            "ball": 4,
+            "progress": "Laser Lane · Round 4 of 5 · Ball 5 of 12",
+            "chips": "R1 ✓ R2 ✓ R3 ✓ R4 ▶ R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 4,
+            "ball": 8,
+            "progress": "Laser Lane · Round 4 of 5 · Ball 9 of 12",
+            "chips": "R1 ✓ R2 ✓ R3 ✓ R4 ▶ R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 4,
+            "ball": 12,
+            "progress": "Laser Lane · Round 4 of 5 complete",
+            "chips": "R1 ✓ R2 ✓ R3 ✓ R4 ✓ R5 —",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 5,
+            "ball": 4,
+            "progress": "Nova Summit · Round 5 of 5 · Ball 5 of 12",
+            "chips": "R1 ✓ R2 ✓ R3 ✓ R4 ✓ R5 ▶",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 5,
+            "ball": 8,
+            "progress": "Nova Summit · Round 5 of 5 · Ball 9 of 12",
+            "chips": "R1 ✓ R2 ✓ R3 ✓ R4 ✓ R5 ▶",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          },
+          {
+            "round": 5,
+            "ball": 12,
+            "progress": "All 5 rounds complete",
+            "chips": "R1 ✓ R2 ✓ R3 ✓ R4 ✓ R5 ✓",
+            "tv": [
+              "",
+              "",
+              ""
+            ],
+            "log": 1,
+            "leaked": []
+          }
+        ],
+        "cards": [
+          {
+            "round": 1,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 1 Complete Start Round 2 of 5: Pixel Pines",
+            "end_card": null,
+            "leaked": []
+          },
+          {
+            "round": 2,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 2 Complete Start Round 3 of 5: Comet Ridge",
+            "end_card": null,
+            "leaked": []
+          },
+          {
+            "round": 3,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 3 Complete Start Round 4 of 5: Laser Lane",
+            "end_card": null,
+            "leaked": []
+          },
+          {
+            "round": 4,
+            "card": "tp-roundOverlay",
+            "round_card": "Round 4 Complete Start Round 5 of 5: Nova Summit",
+            "end_card": null,
+            "leaked": []
+          },
+          {
+            "round": 5,
+            "card": "tp-endOverlay",
+            "round_card": null,
+            "end_card": "All 5 Rounds Complete ROUND 1 Sunset Strip ✓ ROUND 2 Pixel Pines ✓ ROUND 3 Comet Ridge ✓ ROUND 4 Laser Lane ✓ ROUND 5 Nova Summit ✓ The survey will continue. Continue",
+            "leaked": []
+          }
+        ],
+        "done": {
+          "tp_r1": 36,
+          "tp_r2": 77,
+          "tp_r3": 92,
+          "tp_r4": 48,
+          "tp_r5": 83,
+          "tp_total": 336,
+          "tp_best_aims": 38
+        }
+      }
+    }
+  },
+  "finished": "2026-11-20T15:34:43.987Z",
+  "failed": 0,
+  "not_run": 0
+}

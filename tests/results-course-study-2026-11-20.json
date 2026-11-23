@@ -1,0 +1,1368 @@
+{
+  "started": "2026-11-20T05:56:20.037Z",
+  "tests": [
+    {
+      "name": "Determinism: same pid, rng and scripted swings → identical shots (2 fresh runs)",
+      "ok": true,
+      "detail": "10 swings over holes 4,5,6; strokes 4/7/8 vs 4/7/8"
+    },
+    {
+      "name": "Determinism: another rng gives different shots",
+      "ok": true,
+      "detail": "rng 9001 strokes 4/6/6"
+    },
+    {
+      "name": "Every swing keeps its two random draws (zLat, zDist within ±3)",
+      "ok": true
+    },
+    {
+      "name": "course-s2 starts at hole 4: short How-to-play card, then the section 2 briefing",
+      "ok": true,
+      "detail": {
+        "how": {
+          "visible": true,
+          "title": "SAME CONTROLS AS BEFORE"
+        },
+        "first": {
+          "hole": 4,
+          "secVisible": true,
+          "secNum": "SECTION 2 OF 3",
+          "secMeta": "HOLES 4–6",
+          "cardNum": "HOLE 4 OF 9 · SECTION 2",
+          "hud": "HOLE 4 OF 9 · MAGMA BEND"
+        }
+      }
+    },
+    {
+      "name": "course-s2 plays exactly holes 4–6",
+      "ok": true,
+      "detail": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "name": "nf-done (one) carries exactly crs_s2_h4..h6, crs_s2_total, crs_s2_par with the played strokes",
+      "ok": true,
+      "detail": {
+        "crs_s2_h4": 4,
+        "crs_s2_h5": 7,
+        "crs_s2_h6": 8,
+        "crs_s2_total": 19,
+        "crs_s2_par": 14
+      }
+    },
+    {
+      "name": "Mock Qualtrics saved them as embedded data, attempt 1, then clicked Next",
+      "ok": true,
+      "detail": {
+        "crs_s2_h4": "4",
+        "crs_s2_h5": "7",
+        "crs_s2_h6": "8",
+        "crs_s2_total": "19",
+        "crs_s2_par": "14",
+        "crs_s2_saved": "0",
+        "crs_s2_attempt": "1",
+        "crs_s2_failed": "0",
+        "crs_s2_error": ""
+      }
+    },
+    {
+      "name": "No console errors in the three runs",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "bad-bag: error card shown (no seed card), nf-error BAG sent, survey page offers a way out",
+      "ok": true,
+      "detail": {
+        "sent": [
+          {
+            "type": "nf-error",
+            "segment": "course-s1",
+            "code": "BAG",
+            "text": "The club seed \"XXQQZZ\" isn't valid: \"XX\" isn't a club. Each pair needs D, H or W plus C, V or P."
+          }
+        ],
+        "set": {
+          "error": "BAG",
+          "failed": "1"
+        }
+      }
+    },
+    {
+      "name": "missing-bag: error card shown (no seed card), nf-error BAG sent, survey page offers a way out",
+      "ok": true,
+      "detail": {
+        "sent": [
+          {
+            "type": "nf-error",
+            "segment": "course-s1",
+            "code": "BAG",
+            "text": "No club seed (bag) was given in the link."
+          }
+        ],
+        "set": {
+          "error": "BAG",
+          "failed": "1"
+        }
+      }
+    },
+    {
+      "name": "bad segment (study): error card + nf-error SEGMENT",
+      "ok": true,
+      "detail": {
+        "msgs": [
+          {
+            "type": "nf-error",
+            "segment": "course-s4",
+            "code": "SEGMENT",
+            "text": "Unknown segment \"course-s4\" (expected course-s1, course-s2 or course-s3)."
+          }
+        ],
+        "text": "Unknown segment \"course-s4\" (expected course-s1, course-s2 or course-s3)."
+      }
+    },
+    {
+      "name": "missing segment (study): error card + nf-error SEGMENT",
+      "ok": true,
+      "detail": {
+        "msgs": [
+          {
+            "type": "nf-error",
+            "segment": "course-all",
+            "code": "SEGMENT",
+            "text": "No segment was given in the link (expected course-s1, course-s2 or course-s3)."
+          }
+        ],
+        "text": "No segment was given in the link (expected course-s1, course-s2 or course-s3)."
+      }
+    },
+    {
+      "name": "tp segment given to the course: error card + nf-error SEGMENT",
+      "ok": true,
+      "detail": {
+        "msgs": [
+          {
+            "type": "nf-error",
+            "segment": "tp-rounds",
+            "code": "SEGMENT",
+            "text": "Unknown segment \"tp-rounds\" (expected course-s1, course-s2 or course-s3)."
+          }
+        ],
+        "text": "Unknown segment \"tp-rounds\" (expected course-s1, course-s2 or course-s3)."
+      }
+    },
+    {
+      "name": "invalid bag (local testing): error card + nf-error BAG",
+      "ok": true,
+      "detail": {
+        "msgs": [
+          {
+            "type": "nf-error",
+            "segment": "course-s3",
+            "code": "BAG",
+            "text": "The club seed \"DCDPWV\" isn't valid: The seed lists the Driver twice."
+          }
+        ],
+        "text": "The club seed \"DCDPWV\" isn't valid: The seed lists the Driver twice."
+      }
+    },
+    {
+      "name": "Lockdown, pid, no debug: researcher tools hidden, no seed card, seed not stored",
+      "ok": true,
+      "detail": {
+        "research": false,
+        "spreadToggle": false,
+        "routesToggle": false,
+        "clubTable": false,
+        "reachTable": false,
+        "holeJumps": [],
+        "holeJumpVisible": false,
+        "seedCard": false,
+        "seedInput": false,
+        "bagPreview": false,
+        "againBtn": false,
+        "sdAgain": false,
+        "seedStored": "DPHCWC",
+        "bag": "DCHPWV",
+        "showSpread": false,
+        "showRoutes": false
+      }
+    },
+    {
+      "name": "Lockdown, pid, debug=0: researcher tools hidden, no seed card, seed not stored",
+      "ok": true,
+      "detail": {
+        "research": false,
+        "spreadToggle": false,
+        "routesToggle": false,
+        "clubTable": false,
+        "reachTable": false,
+        "holeJumps": [],
+        "holeJumpVisible": false,
+        "seedCard": false,
+        "seedInput": false,
+        "bagPreview": false,
+        "againBtn": false,
+        "sdAgain": false,
+        "seedStored": "DPHCWC",
+        "bag": "DCHPWV",
+        "showSpread": false,
+        "showRoutes": false
+      }
+    },
+    {
+      "name": "Lockdown, pid, debug=1: researcher tools shown, no seed card, seed not stored",
+      "ok": true,
+      "detail": {
+        "research": true,
+        "spreadToggle": true,
+        "routesToggle": true,
+        "clubTable": true,
+        "reachTable": true,
+        "holeJumps": [
+          "Play hole 1",
+          "Play hole 2",
+          "Play hole 3"
+        ],
+        "holeJumpVisible": true,
+        "seedCard": false,
+        "seedInput": false,
+        "bagPreview": false,
+        "againBtn": false,
+        "sdAgain": false,
+        "seedStored": "DPHCWC",
+        "bag": "DCHPWV",
+        "showSpread": false,
+        "showRoutes": false
+      }
+    },
+    {
+      "name": "Lockdown, no pid (local testing): researcher tools shown",
+      "ok": true,
+      "detail": {
+        "research": true,
+        "spreadToggle": true,
+        "routesToggle": true,
+        "clubTable": true,
+        "reachTable": true,
+        "holeJumps": [
+          "Play hole 1",
+          "Play hole 2",
+          "Play hole 3"
+        ],
+        "holeJumpVisible": true,
+        "seedCard": false,
+        "seedInput": false,
+        "bagPreview": false,
+        "againBtn": true,
+        "sdAgain": false,
+        "seedStored": "DCHPWV",
+        "bag": "DCHPWV",
+        "showSpread": false,
+        "showRoutes": false
+      }
+    },
+    {
+      "name": "Study mode, no bag, debug=1, a seed in localStorage: still the error card, no seed card",
+      "ok": true,
+      "detail": {
+        "seedCard": false,
+        "err": true,
+        "bag": null
+      }
+    },
+    {
+      "name": "Iframe 1000x620: no inner scrolling, cards and SWING fully visible, HUD and map key apart",
+      "ok": true,
+      "detail": {
+        "iframe": "942×620",
+        "map": [
+          562,
+          559
+        ],
+        "course": [
+          531,
+          539
+        ],
+        "cards": [
+          [
+            "howCard"
+          ],
+          [
+            "sectionCard"
+          ],
+          [
+            "holeCard"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Iframe 1000x620: Space/arrows/PageUp/PageDown/Home/End never scroll the survey page",
+      "ok": true,
+      "detail": {
+        "pageScrollable": true,
+        "y0": 76,
+        "yCard": 76,
+        "yAim": 76,
+        "ySwing": 76,
+        "ySlider": 76
+      }
+    },
+    {
+      "name": "Iframe 1000x620: a click on the map focuses the game and the keys reach it",
+      "ok": true,
+      "detail": {
+        "offAfterOut": false,
+        "focusAfterClick": {
+          "hasFocus": true,
+          "active": "game"
+        },
+        "aimMoved": true,
+        "power": [
+          100,
+          95
+        ],
+        "swung": 1
+      }
+    },
+    {
+      "name": "Iframe 1280x720: no inner scrolling, cards and SWING fully visible, HUD and map key apart",
+      "ok": true,
+      "detail": {
+        "iframe": "1216×634",
+        "map": [
+          836,
+          573
+        ],
+        "course": [
+          545,
+          553
+        ],
+        "cards": [
+          [
+            "howCard"
+          ],
+          [
+            "sectionCard"
+          ],
+          [
+            "holeCard"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Iframe 1280x720: Space/arrows/PageUp/PageDown/Home/End never scroll the survey page",
+      "ok": true,
+      "detail": {
+        "pageScrollable": true,
+        "y0": 76,
+        "yCard": 76,
+        "yAim": 76,
+        "ySwing": 76,
+        "ySlider": 76
+      }
+    },
+    {
+      "name": "Iframe 1280x720: a click on the map focuses the game and the keys reach it",
+      "ok": true,
+      "detail": {
+        "offAfterOut": false,
+        "focusAfterClick": {
+          "hasFocus": true,
+          "active": "game"
+        },
+        "aimMoved": true,
+        "power": [
+          100,
+          95
+        ],
+        "swung": 1
+      }
+    },
+    {
+      "name": "Iframe 1440x800: no inner scrolling, cards and SWING fully visible, HUD and map key apart",
+      "ok": true,
+      "detail": {
+        "iframe": "1373×704",
+        "map": [
+          993,
+          643
+        ],
+        "course": [
+          613,
+          623
+        ],
+        "cards": [
+          [
+            "howCard"
+          ],
+          [
+            "sectionCard"
+          ],
+          [
+            "holeCard"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "Iframe 1440x800: Space/arrows/PageUp/PageDown/Home/End never scroll the survey page",
+      "ok": true,
+      "detail": {
+        "pageScrollable": true,
+        "y0": 76,
+        "yCard": 76,
+        "yAim": 76,
+        "ySwing": 76,
+        "ySlider": 76
+      }
+    },
+    {
+      "name": "Iframe 1440x800: a click on the map focuses the game and the keys reach it",
+      "ok": true,
+      "detail": {
+        "offAfterOut": false,
+        "focusAfterClick": {
+          "hasFocus": true,
+          "active": "game"
+        },
+        "aimMoved": true,
+        "power": [
+          100,
+          95
+        ],
+        "swung": 1
+      }
+    },
+    {
+      "name": "Local testing (no pid): course-all, seed card → How to play → hole 1 with its briefing, 9 hole jumps, records test:true",
+      "ok": true,
+      "detail": {
+        "seg": "course-all",
+        "hole": 1,
+        "sec": true,
+        "jumps": 9,
+        "header": {
+          "record_type": "x",
+          "record_id": "local-test-course-all-a1-y",
+          "pid": "local-test",
+          "segment": "course-all",
+          "attempt": 1,
+          "load_id": "dxun2y0s",
+          "game": "course",
+          "game_version": "V20",
+          "cond": null,
+          "bag_seed": "DCHPWV",
+          "rng_seed": 1530110966,
+          "test": true,
+          "client_time": "2026-11-20T05:58:38.500Z"
+        }
+      }
+    }
+  ],
+  "runs": {
+    "A": {
+      "how": {
+        "visible": true,
+        "title": "SAME CONTROLS AS BEFORE"
+      },
+      "first": {
+        "hole": 4,
+        "secVisible": true,
+        "secNum": "SECTION 2 OF 3",
+        "secMeta": "HOLES 4–6",
+        "cardNum": "HOLE 4 OF 9 · SECTION 2",
+        "hud": "HOLE 4 OF 9 · MAGMA BEND"
+      },
+      "holes": [
+        {
+          "hole_no": 4,
+          "hole_id": 4,
+          "strokes": 4,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 89,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": -122.98478239100778,
+              "endY": 110.42545993770811,
+              "total": 165.28472071615667,
+              "lateral": -9.722559592074106,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -1.0658223815957522,
+              "zDist": -1.0536454113913925
+            },
+            {
+              "n": 2,
+              "club": "driver-control",
+              "power": 83,
+              "fromX": -122.98478239100778,
+              "fromY": 110.42545993770811,
+              "endX": -11.055480857763186,
+              "endY": 210.33618019972505,
+              "total": 150.03439793925588,
+              "lateral": -6.921170751796055,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -0.9349450861582602,
+              "zDist": -1.8070151222933044
+            }
+          ]
+        },
+        {
+          "hole_no": 5,
+          "hole_id": 5,
+          "strokes": 7,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 100,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": -184.58775930852696,
+              "endY": 80.95327006966589,
+              "total": 201.55910503253122,
+              "lateral": -8.423223007040932,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -0.6336263100632815,
+              "zDist": 0.6228969641530093
+            },
+            {
+              "n": 2,
+              "club": "hybrid-power",
+              "power": 85,
+              "fromX": -184.58775930852696,
+              "fromY": 80.95327006966589,
+              "endX": -142.30550609986832,
+              "endY": 205.53604431259208,
+              "total": 131.56236762260338,
+              "lateral": -6.981781550226756,
+              "hazard": "ob",
+              "dropX": -141.3,
+              "zLat": -1.0288198038084777,
+              "zDist": 0.6704904638877947
+            },
+            {
+              "n": 4,
+              "club": "driver-control",
+              "power": 85,
+              "fromX": -141.3,
+              "fromY": 204.4,
+              "endX": -63.99168848940043,
+              "endY": 352.1564883723315,
+              "total": 166.75897242650197,
+              "lateral": 4.248030328946896,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 0.4965016345608047,
+              "zDist": 0.14493606643711127
+            },
+            {
+              "n": 5,
+              "club": "hybrid-power",
+              "power": 63,
+              "fromX": -63.99168848940043,
+              "fromY": 352.1564883723315,
+              "endX": 20.460237344778804,
+              "endY": 386.58090348108004,
+              "total": 91.1985094871684,
+              "lateral": 4.939427600125452,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 1.3026700499794297,
+              "zDist": -0.9120824859855778
+            }
+          ]
+        },
+        {
+          "hole_no": 6,
+          "hole_id": 6,
+          "strokes": 8,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 92,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": 87.12833887100291,
+              "endY": 182.65068221366602,
+              "total": 202.36753481608145,
+              "lateral": -1.2814732729723346,
+              "hazard": "ob",
+              "dropX": 72.69999999999999,
+              "zLat": -0.10889031488839386,
+              "zDist": 2.6895832532439377
+            },
+            {
+              "n": 3,
+              "club": "driver-control",
+              "power": 100,
+              "fromX": 72.69999999999999,
+              "fromY": 167.8,
+              "endX": -82.09638427208523,
+              "endY": 297.0438471547541,
+              "total": 201.65786027594484,
+              "lateral": 8.402195965081816,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 0.6317339570826601,
+              "zDist": 0.632275429814326
+            },
+            {
+              "n": 4,
+              "club": "hybrid-power",
+              "power": 95,
+              "fromX": -82.09638427208523,
+              "fromY": 297.0438471547541,
+              "endX": -6.347785526252096,
+              "endY": 420.14954339531806,
+              "total": 144.5436358295696,
+              "lateral": -11.987892134775045,
+              "hazard": "ob",
+              "dropX": -19.30000000000001,
+              "zLat": -1.2950118840945717,
+              "zDist": 0.2429082667201092
+            },
+            {
+              "n": 6,
+              "club": "wedge-vertical",
+              "power": 34,
+              "fromX": -19.30000000000001,
+              "fromY": 398.8,
+              "endX": 6.07335447334275,
+              "endY": 403.1582042595735,
+              "total": 25.744923025677657,
+              "lateral": 1.0581842969803539,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 2.1108166599186706,
+              "zDist": -0.5991876903802109
+            }
+          ]
+        }
+      ],
+      "done": [
+        {
+          "origin": "http://localhost:35437",
+          "data": {
+            "type": "nf-done",
+            "segment": "course-s2",
+            "attempt": 1,
+            "saved": false,
+            "summary": {
+              "crs_s2_h4": 4,
+              "crs_s2_h5": 7,
+              "crs_s2_h6": 8,
+              "crs_s2_total": 19,
+              "crs_s2_par": 14
+            }
+          }
+        }
+      ],
+      "set": {
+        "crs_s2_h4": "4",
+        "crs_s2_h5": "7",
+        "crs_s2_h6": "8",
+        "crs_s2_total": "19",
+        "crs_s2_par": "14",
+        "crs_s2_saved": "0",
+        "crs_s2_attempt": "1",
+        "crs_s2_failed": "0",
+        "crs_s2_error": ""
+      },
+      "errors": [],
+      "log": [
+        "Page course-s2 loaded · page-load counter 1 · game course.html",
+        "iframe: http://localhost:35437/course.html?pid=R_det01&segment=course-s2&cond=fb-visible&rng=4242&bag=DCHPWV&letters=B%2CA%2CC&pos=&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A35437",
+        "received nf-ready [course-s2] from http://localhost:35437",
+        "received nf-done [course-s2] from http://localhost:35437 · attempt 1 · saved false · 5 summary fields",
+        "setEmbeddedData crs_s2_h4 = \"4\"",
+        "setEmbeddedData crs_s2_h5 = \"7\"",
+        "setEmbeddedData crs_s2_h6 = \"8\"",
+        "setEmbeddedData crs_s2_total = \"19\"",
+        "setEmbeddedData crs_s2_par = \"14\"",
+        "setEmbeddedData crs_s2_saved = \"0\"",
+        "setEmbeddedData crs_s2_attempt = \"1\"",
+        "setEmbeddedData crs_s2_failed = \"0\"",
+        "setEmbeddedData crs_s2_error = \"\"",
+        "Would click Next now (Qualtrics moves to the next page)."
+      ]
+    },
+    "B": {
+      "how": {
+        "visible": true,
+        "title": "SAME CONTROLS AS BEFORE"
+      },
+      "first": {
+        "hole": 4,
+        "secVisible": true,
+        "secNum": "SECTION 2 OF 3",
+        "secMeta": "HOLES 4–6",
+        "cardNum": "HOLE 4 OF 9 · SECTION 2",
+        "hud": "HOLE 4 OF 9 · MAGMA BEND"
+      },
+      "holes": [
+        {
+          "hole_no": 4,
+          "hole_id": 4,
+          "strokes": 4,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 89,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": -122.98478239100778,
+              "endY": 110.42545993770811,
+              "total": 165.28472071615667,
+              "lateral": -9.722559592074106,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -1.0658223815957522,
+              "zDist": -1.0536454113913925
+            },
+            {
+              "n": 2,
+              "club": "driver-control",
+              "power": 83,
+              "fromX": -122.98478239100778,
+              "fromY": 110.42545993770811,
+              "endX": -11.055480857763186,
+              "endY": 210.33618019972505,
+              "total": 150.03439793925588,
+              "lateral": -6.921170751796055,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -0.9349450861582602,
+              "zDist": -1.8070151222933044
+            }
+          ]
+        },
+        {
+          "hole_no": 5,
+          "hole_id": 5,
+          "strokes": 7,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 100,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": -184.58775930852696,
+              "endY": 80.95327006966589,
+              "total": 201.55910503253122,
+              "lateral": -8.423223007040932,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -0.6336263100632815,
+              "zDist": 0.6228969641530093
+            },
+            {
+              "n": 2,
+              "club": "hybrid-power",
+              "power": 85,
+              "fromX": -184.58775930852696,
+              "fromY": 80.95327006966589,
+              "endX": -142.30550609986832,
+              "endY": 205.53604431259208,
+              "total": 131.56236762260338,
+              "lateral": -6.981781550226756,
+              "hazard": "ob",
+              "dropX": -141.3,
+              "zLat": -1.0288198038084777,
+              "zDist": 0.6704904638877947
+            },
+            {
+              "n": 4,
+              "club": "driver-control",
+              "power": 85,
+              "fromX": -141.3,
+              "fromY": 204.4,
+              "endX": -63.99168848940043,
+              "endY": 352.1564883723315,
+              "total": 166.75897242650197,
+              "lateral": 4.248030328946896,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 0.4965016345608047,
+              "zDist": 0.14493606643711127
+            },
+            {
+              "n": 5,
+              "club": "hybrid-power",
+              "power": 63,
+              "fromX": -63.99168848940043,
+              "fromY": 352.1564883723315,
+              "endX": 20.460237344778804,
+              "endY": 386.58090348108004,
+              "total": 91.1985094871684,
+              "lateral": 4.939427600125452,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 1.3026700499794297,
+              "zDist": -0.9120824859855778
+            }
+          ]
+        },
+        {
+          "hole_no": 6,
+          "hole_id": 6,
+          "strokes": 8,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 92,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": 87.12833887100291,
+              "endY": 182.65068221366602,
+              "total": 202.36753481608145,
+              "lateral": -1.2814732729723346,
+              "hazard": "ob",
+              "dropX": 72.69999999999999,
+              "zLat": -0.10889031488839386,
+              "zDist": 2.6895832532439377
+            },
+            {
+              "n": 3,
+              "club": "driver-control",
+              "power": 100,
+              "fromX": 72.69999999999999,
+              "fromY": 167.8,
+              "endX": -82.09638427208523,
+              "endY": 297.0438471547541,
+              "total": 201.65786027594484,
+              "lateral": 8.402195965081816,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 0.6317339570826601,
+              "zDist": 0.632275429814326
+            },
+            {
+              "n": 4,
+              "club": "hybrid-power",
+              "power": 95,
+              "fromX": -82.09638427208523,
+              "fromY": 297.0438471547541,
+              "endX": -6.347785526252096,
+              "endY": 420.14954339531806,
+              "total": 144.5436358295696,
+              "lateral": -11.987892134775045,
+              "hazard": "ob",
+              "dropX": -19.30000000000001,
+              "zLat": -1.2950118840945717,
+              "zDist": 0.2429082667201092
+            },
+            {
+              "n": 6,
+              "club": "wedge-vertical",
+              "power": 34,
+              "fromX": -19.30000000000001,
+              "fromY": 398.8,
+              "endX": 6.07335447334275,
+              "endY": 403.1582042595735,
+              "total": 25.744923025677657,
+              "lateral": 1.0581842969803539,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 2.1108166599186706,
+              "zDist": -0.5991876903802109
+            }
+          ]
+        }
+      ],
+      "done": [
+        {
+          "origin": "http://localhost:35437",
+          "data": {
+            "type": "nf-done",
+            "segment": "course-s2",
+            "attempt": 1,
+            "saved": false,
+            "summary": {
+              "crs_s2_h4": 4,
+              "crs_s2_h5": 7,
+              "crs_s2_h6": 8,
+              "crs_s2_total": 19,
+              "crs_s2_par": 14
+            }
+          }
+        }
+      ],
+      "set": {
+        "crs_s2_h4": "4",
+        "crs_s2_h5": "7",
+        "crs_s2_h6": "8",
+        "crs_s2_total": "19",
+        "crs_s2_par": "14",
+        "crs_s2_saved": "0",
+        "crs_s2_attempt": "1",
+        "crs_s2_failed": "0",
+        "crs_s2_error": ""
+      },
+      "errors": [],
+      "log": [
+        "Page course-s2 loaded · page-load counter 1 · game course.html",
+        "iframe: http://localhost:35437/course.html?pid=R_det01&segment=course-s2&cond=fb-visible&rng=4242&bag=DCHPWV&letters=B%2CA%2CC&pos=&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A35437",
+        "received nf-ready [course-s2] from http://localhost:35437",
+        "received nf-done [course-s2] from http://localhost:35437 · attempt 1 · saved false · 5 summary fields",
+        "setEmbeddedData crs_s2_h4 = \"4\"",
+        "setEmbeddedData crs_s2_h5 = \"7\"",
+        "setEmbeddedData crs_s2_h6 = \"8\"",
+        "setEmbeddedData crs_s2_total = \"19\"",
+        "setEmbeddedData crs_s2_par = \"14\"",
+        "setEmbeddedData crs_s2_saved = \"0\"",
+        "setEmbeddedData crs_s2_attempt = \"1\"",
+        "setEmbeddedData crs_s2_failed = \"0\"",
+        "setEmbeddedData crs_s2_error = \"\"",
+        "Would click Next now (Qualtrics moves to the next page)."
+      ]
+    },
+    "C": {
+      "holes": [
+        {
+          "hole_no": 4,
+          "hole_id": 4,
+          "strokes": 4,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 89,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": -112.32503879716566,
+              "endY": 122.3362829516621,
+              "total": 166.0815476421565,
+              "lateral": 6.23252092605567,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 0.6797207158473616,
+              "zDist": -0.9520671095070284
+            },
+            {
+              "n": 2,
+              "club": "hybrid-power",
+              "power": 98,
+              "fromX": -112.32503879716566,
+              "fromY": 122.3362829516621,
+              "endX": -6.809945949719946,
+              "endY": 219.8739552363385,
+              "total": 143.69075242797646,
+              "lateral": -11.591050259537482,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -1.1898466472343379,
+              "zDist": -0.360213265569925
+            }
+          ]
+        },
+        {
+          "hole_no": 5,
+          "hole_id": 5,
+          "strokes": 6,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 100,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": -184.72839274184636,
+              "endY": 69.8303935740767,
+              "total": 197.48636143211584,
+              "lateral": -18.475775339635383,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -1.420142634315827,
+              "zDist": 0.23612169345829523
+            },
+            {
+              "n": 2,
+              "club": "hybrid-power",
+              "power": 92,
+              "fromX": -184.72839274184636,
+              "fromY": 69.8303935740767,
+              "endX": -137.55572477526238,
+              "endY": 201.86159493734124,
+              "total": 140.20520224482573,
+              "lateral": -0.8755714051865198,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -0.10345645250746215,
+              "zDist": 0.2874878816166681
+            },
+            {
+              "n": 3,
+              "club": "driver-control",
+              "power": 85,
+              "fromX": -137.55572477526238,
+              "fromY": 201.86159493734124,
+              "endX": -67.43243765151107,
+              "endY": 360.0693043917556,
+              "total": 173.05188449668054,
+              "lateral": -2.1476132175193783,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -0.24186119017268523,
+              "zDist": 1.0488952807125669
+            },
+            {
+              "n": 4,
+              "club": "hybrid-power",
+              "power": 63,
+              "fromX": -67.43243765151107,
+              "fromY": 360.0693043917556,
+              "endX": 22.162797219761174,
+              "endY": 392.8602239780932,
+              "total": 95.4072875568533,
+              "lateral": -0.48831145206031223,
+              "hazard": null,
+              "dropX": null,
+              "zLat": -0.12304111070999844,
+              "zDist": 0.2506507552095873
+            }
+          ]
+        },
+        {
+          "hole_no": 6,
+          "hole_id": 6,
+          "strokes": 6,
+          "shots": [
+            {
+              "n": 1,
+              "club": "driver-control",
+              "power": 92,
+              "fromX": 0,
+              "fromY": 0,
+              "endX": 66.8196787192125,
+              "endY": 179.79764756552163,
+              "total": 191.81257397322602,
+              "lateral": -18.311063852093277,
+              "hazard": "ob",
+              "dropX": 64.69999999999999,
+              "zLat": -1.6440536944836388,
+              "zDist": 1.453558309821957
+            },
+            {
+              "n": 3,
+              "club": "driver-control",
+              "power": 96,
+              "fromX": 64.69999999999999,
+              "fromY": 176.8,
+              "endX": -82.13268876669719,
+              "endY": 286.85046035654494,
+              "total": 183.49643679141352,
+              "lateral": 0.2389027427874595,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 0.0209775373616044,
+              "zDist": -0.38944865155234687
+            },
+            {
+              "n": 4,
+              "club": "driver-control",
+              "power": 77,
+              "fromX": -82.13268876669719,
+              "fromY": 286.85046035654494,
+              "endX": 8.31003816499603,
+              "endY": 401.84904541324073,
+              "total": 146.302978164776,
+              "lateral": 10.481354946391733,
+              "hazard": null,
+              "dropX": null,
+              "zLat": 1.6485839202157182,
+              "zDist": -0.7196963776343519
+            }
+          ]
+        }
+      ]
+    },
+    "fit-1000x620": {
+      "box": {
+        "x": 29,
+        "y": 80.390625,
+        "width": 942,
+        "height": 620
+      },
+      "L1": {
+        "frame": [
+          942,
+          620
+        ],
+        "docScrolls": false,
+        "cards": [
+          "howCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          562,
+          559
+        ],
+        "course": [
+          531,
+          539
+        ]
+      },
+      "L1b": {
+        "frame": [
+          942,
+          620
+        ],
+        "docScrolls": false,
+        "cards": [
+          "sectionCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          562,
+          559
+        ],
+        "course": [
+          531,
+          539
+        ]
+      },
+      "L2": {
+        "frame": [
+          942,
+          620
+        ],
+        "docScrolls": false,
+        "cards": [
+          "holeCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          562,
+          559
+        ],
+        "course": [
+          531,
+          539
+        ]
+      },
+      "L3": {
+        "frame": [
+          942,
+          620
+        ],
+        "docScrolls": false,
+        "cards": [],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          562,
+          559
+        ],
+        "course": [
+          531,
+          539
+        ]
+      }
+    },
+    "fit-1280x720": {
+      "box": {
+        "x": 31.796875,
+        "y": 80.390625,
+        "width": 1216.390625,
+        "height": 633.59375
+      },
+      "L1": {
+        "frame": [
+          1216,
+          634
+        ],
+        "docScrolls": false,
+        "cards": [
+          "howCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          836,
+          573
+        ],
+        "course": [
+          545,
+          553
+        ]
+      },
+      "L1b": {
+        "frame": [
+          1216,
+          634
+        ],
+        "docScrolls": false,
+        "cards": [
+          "sectionCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          836,
+          573
+        ],
+        "course": [
+          545,
+          553
+        ]
+      },
+      "L2": {
+        "frame": [
+          1216,
+          634
+        ],
+        "docScrolls": false,
+        "cards": [
+          "holeCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          836,
+          573
+        ],
+        "course": [
+          545,
+          553
+        ]
+      },
+      "L3": {
+        "frame": [
+          1216,
+          634
+        ],
+        "docScrolls": false,
+        "cards": [],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          836,
+          573
+        ],
+        "course": [
+          545,
+          553
+        ]
+      }
+    },
+    "fit-1440x800": {
+      "box": {
+        "x": 33.40625,
+        "y": 80.390625,
+        "width": 1373.1875,
+        "height": 704
+      },
+      "L1": {
+        "frame": [
+          1373,
+          704
+        ],
+        "docScrolls": false,
+        "cards": [
+          "howCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          993,
+          643
+        ],
+        "course": [
+          613,
+          623
+        ]
+      },
+      "L1b": {
+        "frame": [
+          1373,
+          704
+        ],
+        "docScrolls": false,
+        "cards": [
+          "sectionCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          993,
+          643
+        ],
+        "course": [
+          613,
+          623
+        ]
+      },
+      "L2": {
+        "frame": [
+          1373,
+          704
+        ],
+        "docScrolls": false,
+        "cards": [
+          "holeCard"
+        ],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          993,
+          643
+        ],
+        "course": [
+          613,
+          623
+        ]
+      },
+      "L3": {
+        "frame": [
+          1373,
+          704
+        ],
+        "docScrolls": false,
+        "cards": [],
+        "cardOk": true,
+        "swingInView": true,
+        "hudLegendOverlap": false,
+        "map": [
+          993,
+          643
+        ],
+        "course": [
+          613,
+          623
+        ]
+      }
+    }
+  },
+  "finished": "2026-11-20T05:58:38.555Z",
+  "failed": 0
+}

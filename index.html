@@ -1,0 +1,140 @@
+<!doctype html>
+<!--
+  index.html · Neon Fairway test launcher (researchers only; participants never see it)
+  Changelog
+  - 2026-11-19: first version, with the GitHub Pages repo.
+  - 2026-11-20 (prompt 2): links to stub.html and test/mock-qualtrics.html.
+  - 2026-11-20 (prompt 3): note updated for course.html V19 (segments, bag from the link).
+  - 2026-11-20 (prompt 3 follow-up): course.html V20.
+  - 2026-11-20 (prompt 4): course.html V21 (data logging).
+  - 2026-11-20 (prompt 5): target.html v38 (segments). A `letters` setting; tp-rounds links (also the
+    local-test one) carry bag and letters; notes and segment descriptions updated.
+  - 2026-11-20 (prompt 6): note updated for target.html v39 (data logging).
+  - 2026-11-20 (prompt 7): note updated for target.html v40; the cond box suggests fb-visible / fb-hidden.
+  - 2026-11-20 (prompt 7/8 review): note updated for target.html v41.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Neon Fairway · Test launcher</title>
+<style>
+  :root{ color-scheme:dark; --bg:#07020f; --panel:#120828; --ink:#efe6ff; --muted:#a894cf; --line:#2f1d55; --cyan:#00f0ff; --pink:#ff2bd6; --gold:#ffd23f; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,'Segoe UI',sans-serif;padding:24px 16px 48px}
+  main{max-width:980px;margin:0 auto}
+  h1{font-size:1.4rem;letter-spacing:2px;margin:0 0 4px;color:var(--cyan)}
+  .sub{color:var(--muted);margin:0 0 20px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:16px}
+  .card h2{font-size:.8rem;letter-spacing:2px;color:var(--pink);margin:0 0 10px}
+  form{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end}
+  label{display:flex;flex-direction:column;gap:4px;font-size:.8rem;color:var(--muted)}
+  input,select{font:inherit;color:var(--ink);background:#1c0f3a;border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:120px}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.7rem;letter-spacing:1.5px;color:var(--cyan);font-weight:700}
+  td.seg code{color:var(--gold)}
+  a{color:var(--cyan)} a:hover{color:#fff}
+  .links a{display:inline-block;margin:0 10px 4px 0}
+  small,.note{color:var(--muted)}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.85em}
+  .url{word-break:break-all;font-size:.75rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+  <h1>NEON FAIRWAY · TEST LAUNCHER</h1>
+  <p class="sub">Opens each game for each Qualtrics segment, with and without a fake participant id. For testing only.</p>
+
+  <div class="card">
+    <h2>FAKE PARTICIPANT SETTINGS</h2>
+    <form id="opts" onsubmit="return false">
+      <label>pid <input id="pid" value="R_test1" autocomplete="off"></label>
+      <label>bag (club seed) <input id="bag" value="DCHPWV" maxlength="6" autocomplete="off"></label>
+      <label>letters (D,H,W) <input id="letters" value="B,A,C" autocomplete="off"></label>
+      <label>cond <input id="cond" placeholder="fb-visible or fb-hidden" list="condList" autocomplete="off"></label>
+      <datalist id="condList"><option value="fb-visible"><option value="fb-hidden"></datalist>
+      <label>rng seed <input id="rng" placeholder="optional, e.g. 12345" autocomplete="off"></label>
+      <label>debug
+        <select id="debug"><option value="1" selected>debug=1 (researcher tools on)</option><option value="">no debug (participant view)</option></select>
+      </label>
+    </form>
+    <p class="note">The links below update as you type.</p>
+  </div>
+
+  <div class="card">
+    <h2>SEGMENTS</h2>
+    <table>
+      <thead><tr><th>Segment</th><th>Game</th><th>What it is</th><th>Open</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>QUALTRICS CONNECTION</h2>
+    <p class="links"><a href="test/mock-qualtrics.html">Mock Qualtrics page</a> <a href="stub.html">Stub game</a></p>
+    <p class="note">The mock runs the Qualtrics page script from the setup guide with the stub (or the real game) in the iframe, and shows what Qualtrics would save.</p>
+  </div>
+
+  <div class="card">
+    <h2>NOTES</h2>
+    <ul class="note">
+      <li><b>Local testing</b> = no <code>pid</code> in the link. The games then use the whole-game segment (<code>tp-all</code> / <code>course-all</code>), debug is on, and every record is marked <code>test: true</code>.</li>
+      <li><b>Study mode</b> = a <code>pid</code> in the link (as Qualtrics will send). Researcher tools and test shortcuts are hidden unless <code>debug=1</code>.</li>
+      <li><code>course.html</code> (V21) reads these settings: it plays only the chosen section, takes the bag from the link (no seed card with a pid) and shows an error card for a bad bag or segment. <code>target.html</code> plays <code>tp-practice</code> (ends at "Clubs chosen") or <code>tp-rounds</code> (bag and labels from <code>bag</code> and <code>letters</code>); with no segment it plays the whole game (<code>tp-all</code>). <code>course.html</code> logs shot, hole and segment records (with debug: <b>Download data</b> in the researcher panel). <code>target.html</code> (v41) logs shot, estimate, club summary, bag choice, prediction, round and segment records (with debug: <b>Download data</b> above the game). <code>cond=fb-hidden</code> hides every running and round total in the scored rounds; <code>fb-visible</code> or no cond shows them.</li>
+      <li>Open these pages from a web server (GitHub Pages, or <code>python3 -m http.server</code>), not by double-clicking the file.</li>
+    </ul>
+  </div>
+</main>
+<script>
+(function () {
+  'use strict';
+  var SEGMENTS = [
+    { seg: 'tp-practice', page: 'target.html', what: 'Target Practice: practice round, estimates, choose 3 clubs' },
+    { seg: 'tp-rounds',   page: 'target.html', what: 'Target Practice: 5 scored rounds with the bag and letters above' },
+    { seg: 'course-s1',   page: 'course.html', what: 'Course section 1 (holes 1–3): no penalty, replay' },
+    { seg: 'course-s2',   page: 'course.html', what: 'Course section 2 (holes 4–6): +1, drop on nearest fairway' },
+    { seg: 'course-s3',   page: 'course.html', what: 'Course section 3 (holes 7–9): +1, replay (stroke and distance)' }
+  ];
+  var LOCAL = [
+    { page: 'target.html', what: 'Whole Target Practice game (default segment tp-all)' },
+    { page: 'course.html', what: 'Whole 9-hole course (default segment course-all)' }
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  function studyUrl(page, seg) {
+    var q = new URLSearchParams();
+    var pid = $('pid').value.trim() || 'R_test1';
+    q.set('pid', pid);
+    q.set('segment', seg);
+    if ($('bag').value.trim()) q.set('bag', $('bag').value.trim().toUpperCase());
+    if (seg === 'tp-rounds' && $('letters').value.trim()) q.set('letters', $('letters').value.trim().toUpperCase());
+    if ($('cond').value.trim()) q.set('cond', $('cond').value.trim());
+    if ($('rng').value.trim()) q.set('rng', $('rng').value.trim());
+    if ($('debug').value) q.set('debug', $('debug').value);
+    return page + '?' + q.toString();
+  }
+  function link(href, text) { return '<a href="' + esc(href) + '">' + esc(text) + '</a>'; }
+  function render() {
+    var html = '';
+    SEGMENTS.forEach(function (s) {
+      var withPid = studyUrl(s.page, s.seg);
+      var noPid = s.page + '?segment=' + encodeURIComponent(s.seg);
+      if (s.seg === 'tp-rounds') noPid += '&bag=' + encodeURIComponent(($('bag').value.trim() || 'DCHPWV').toUpperCase()) + '&letters=' + encodeURIComponent(($('letters').value.trim() || 'B,A,C').toUpperCase());
+      html += '<tr><td class="seg"><code>' + s.seg + '</code></td><td>' + s.page + '</td><td>' + esc(s.what) +
+        '<div class="url">' + esc(withPid) + '</div></td><td class="links">' +
+        link(withPid, 'with fake pid') + link(noPid, 'local test (no pid)') + '</td></tr>';
+    });
+    LOCAL.forEach(function (l) {
+      html += '<tr><td class="seg"><code>' + (l.page === 'target.html' ? 'tp-all' : 'course-all') + '</code></td><td>' + l.page +
+        '</td><td>' + esc(l.what) + '</td><td class="links">' + link(l.page, 'local test (no pid)') + '</td></tr>';
+    });
+    $('rows').innerHTML = html;
+  }
+  ['pid', 'bag', 'letters', 'cond', 'rng', 'debug'].forEach(function (id) { $(id).addEventListener('input', render); $(id).addEventListener('change', render); });
+  render();
+})();
+</script>
+</body>
+</html>

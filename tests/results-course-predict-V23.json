@@ -1,0 +1,492 @@
+{
+  "started": "2026-11-20T21:27:03.151Z",
+  "engines": {
+    "chromium": {
+      "version": "153.0.8010.12",
+      "prediction": {
+        "hole1": {
+          "record_type": "hole",
+          "record_id": "R_pred_chromium-course-s1-a1-h1",
+          "pid": "R_pred_chromium",
+          "segment": "course-s1",
+          "attempt": 1,
+          "load_id": "kq8rtm35",
+          "game": "course",
+          "game_version": "V23",
+          "cond": "fb-visible",
+          "bag_seed": "DCHPWV",
+          "rng_seed": 2468,
+          "test": false,
+          "client_time": "2026-11-20T21:27:22.530Z",
+          "hole_no": 1,
+          "try": 1,
+          "hole_id": 7,
+          "hole_name": "Neon Gorge",
+          "par": 4,
+          "yards": 354,
+          "section": 1,
+          "ob_rule": "no-penalty-replay",
+          "strokes": 4,
+          "swings": 2,
+          "putts": 2,
+          "penalty_strokes": 0,
+          "ob_count": 0,
+          "ob_no_penalty": 0,
+          "picked_up": false,
+          "route_first_shot": "safe_1",
+          "shortcut_aims": 0,
+          "card_ms": 8980,
+          "play_ms": 9423,
+          "idle_ms": 0,
+          "hidden_ms": 3008,
+          "pred_strokes": 4,
+          "pred_low": 2,
+          "pred_high": 7,
+          "pred_ms": 6979
+        },
+        "swing2": {
+          "record_type": "shot",
+          "record_id": "R_pred_chromium-course-s1-a1-h1-s2",
+          "pid": "R_pred_chromium",
+          "segment": "course-s1",
+          "attempt": 1,
+          "load_id": "kq8rtm35",
+          "game": "course",
+          "game_version": "V23",
+          "cond": "fb-visible",
+          "bag_seed": "DCHPWV",
+          "rng_seed": 2468,
+          "test": false,
+          "client_time": "2026-11-20T21:27:21.693Z",
+          "hole_no": 1,
+          "try": 1,
+          "swing_no": 2,
+          "stroke_no": 2,
+          "club": "driver-control",
+          "club_type": "driver",
+          "variety": "control",
+          "power": 93,
+          "from_x": -24.3,
+          "from_y": 190.4,
+          "from_lie": "fairway",
+          "from_to_pin": 180.5,
+          "aim_x": 66,
+          "aim_y": 346.7,
+          "aim_dist": 180.5,
+          "aim_deg": 30,
+          "aim_vs_pin_deg": 0.7,
+          "aim_zone": "other",
+          "aim_zone_dist": 146.7,
+          "nominal": 181.4,
+          "z_lat": -0.4,
+          "z_dist": 0.404,
+          "offset_deg": -1.4,
+          "total": 184.9,
+          "lateral": -4.4,
+          "land_x": 64.4,
+          "land_y": 352.7,
+          "land_terrain": "green",
+          "land_to_pin": 4.9,
+          "ob": false,
+          "penalty_added": 0,
+          "swing_counted": true,
+          "relief": "none",
+          "drop_x": null,
+          "drop_y": null,
+          "drop_yards": null,
+          "on_green": true,
+          "putts": 2,
+          "decision_ms": 4285,
+          "decision_hidden_ms": 3008,
+          "aim_changes": 1,
+          "club_changes": 0,
+          "power_changes": 1,
+          "spread_preview_on": false
+        }
+      },
+      "fb-visible": {
+        "scores": [
+          5,
+          4,
+          4
+        ],
+        "total": 13,
+        "seen": [
+          {
+            "where": "hole 1 complete",
+            "scorecard": "H1 5 H2 – H3 – TOTAL 5 BAG DCHPWV",
+            "card": "HOLE 1 · NEON GORGE BOGEY 5 strokes · par 4 NEXT HOLE",
+            "hud": "PAR 4 · 354 YD · STROKE 6"
+          },
+          {
+            "where": "hole 2 complete",
+            "scorecard": "H1 5 H2 4 H3 – TOTAL 9 BAG DCHPWV",
+            "card": "HOLE 2 · GLITCH SLIDE PAR 4 strokes · par 4 NEXT HOLE",
+            "hud": "PAR 4 · 350 YD · STROKE 5"
+          },
+          {
+            "where": "hole 3 complete",
+            "scorecard": "H1 5 H2 4 H3 4 TOTAL 13 BAG DCHPWV",
+            "card": "HOLE 3 · SYNTH RIDGE PAR 4 strokes · par 4 FINISH SECTION",
+            "hud": "PAR 4 · 336 YD · STROKE 5"
+          },
+          {
+            "where": "section complete",
+            "scorecard": "H1 5 H2 4 H3 4 TOTAL 13 BAG DCHPWV",
+            "card": "SECTION 1 OF 3 · HOLES 1–3 SECTION COMPLETE 13 STROKES · PAR 12 The survey will continue. CONTINUE",
+            "hud": "PAR 4 · 336 YD · STROKE 5"
+          }
+        ]
+      },
+      "fb-hidden": {
+        "scores": [
+          5,
+          4,
+          4
+        ],
+        "total": 13,
+        "seen": [
+          {
+            "where": "hole 1 complete",
+            "scorecard": "H1 H2 H3 BAG DCHPWV",
+            "card": "HOLE 1 COMPLETE NEXT HOLE",
+            "hud": "PAR 4 · 354 YD"
+          },
+          {
+            "where": "hole 2 complete",
+            "scorecard": "H1 H2 H3 BAG DCHPWV",
+            "card": "HOLE 2 COMPLETE NEXT HOLE",
+            "hud": "PAR 4 · 350 YD"
+          },
+          {
+            "where": "hole 3 complete",
+            "scorecard": "H1 H2 H3 BAG DCHPWV",
+            "card": "HOLE 3 COMPLETE FINISH SECTION",
+            "hud": "PAR 4 · 336 YD"
+          },
+          {
+            "where": "section complete",
+            "scorecard": "H1 H2 H3 BAG DCHPWV",
+            "card": "SECTION 1 OF 3 · HOLES 1–3 SECTION COMPLETE The survey will continue. CONTINUE",
+            "hud": "PAR 4 · 336 YD"
+          }
+        ]
+      }
+    },
+    "firefox": {
+      "notRun": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/firefox-1543/firefox/firefox"
+    },
+    "webkit": {
+      "notRun": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/webkit-2359/pw_run.sh"
+    }
+  },
+  "tests": [
+    {
+      "engine": "chromium",
+      "name": "P1 hole card: three empty boxes, TEE OFF disabled, \"Fill in all three…\", first box focused",
+      "ok": true,
+      "detail": {
+        "disabled": true,
+        "msg": "Fill in all three numbers to tee off.",
+        "bad": [],
+        "values": [
+          "",
+          "",
+          ""
+        ],
+        "focus": "predStrokes"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "P2 validation: one box only → off; 0 (below 1) → off; 13 (above 12) → off; 4.5 (not whole) → off; low above the prediction → off; prediction above high → off; all equal (allowed) → on; 1 to 12 (the limits) → on; prediction cleared again → off",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "P3 Enter on an invalid card, digits and Space typed in a box: still on the card, club unchanged, no swing",
+      "ok": true,
+      "detail": {
+        "club": "driver-control",
+        "phase": "card",
+        "swings": 0,
+        "card": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "P4 valid prediction (4; 2–7): no message, TEE OFF on; play starts",
+      "ok": true,
+      "detail": {
+        "disabled": false,
+        "msg": "",
+        "bad": [],
+        "values": [
+          "4",
+          "2",
+          "7"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "P5 hole 1 record: pred_strokes 4, pred_low 2, pred_high 7 = typed; try 1, id …-h1",
+      "ok": true,
+      "detail": {
+        "pred_strokes": 4,
+        "pred_low": 2,
+        "pred_high": 7,
+        "try": 1,
+        "id": "R_pred_chromium-course-s1-a1-h1"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "P6 pred_ms 6979 ≈ time from START SECTION to TEE OFF (6964 ms by the test clock); the 1 s briefing is in card_ms (8980) but not pred_ms",
+      "ok": true,
+      "detail": {
+        "pred_ms": 6979,
+        "wall": 6964,
+        "card_ms": 8980
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "P7 hole 1 hidden_ms 3008 ≈ 3000 (tab hidden mid-hole), ≤ play_ms 9423; idle_ms 0",
+      "ok": true,
+      "detail": {
+        "hidden_ms": 3008,
+        "play_ms": 9423,
+        "idle_ms": 0
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "P8 shot records: swing 2 decision_hidden_ms 3008 ≈ 3000 and ≤ decision_ms 4285; the other 1 swings 0; all try 1",
+      "ok": true,
+      "detail": [
+        [
+          "h1-s1",
+          781,
+          0
+        ],
+        [
+          "h1-s2",
+          4285,
+          3008
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "P9 hole 2: Enter in a box tees off; the arrow keys then aim (2 aim changes), keyboard back on the game",
+      "ok": true,
+      "detail": {
+        "target": {
+          "x": -62.91874507147496,
+          "y": 344.405635143548
+        },
+        "aimChanges": 2,
+        "active": "game"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "P10 holes 1–3: each hole record has its typed prediction and pred_ms ≤ card_ms; each per-hole save carries that exact record (hidden_ms 3008, 0, 0)",
+      "ok": true,
+      "detail": [
+        {
+          "h": 1,
+          "pred": [
+            4,
+            2,
+            7
+          ],
+          "pred_ms": 6979,
+          "card_ms": 8980,
+          "hidden_ms": 3008
+        },
+        {
+          "h": 2,
+          "pred": [
+            5,
+            4,
+            9
+          ],
+          "pred_ms": 673,
+          "card_ms": 678,
+          "hidden_ms": 0
+        },
+        {
+          "h": 3,
+          "pred": [
+            6,
+            4,
+            8
+          ],
+          "pred_ms": 793,
+          "card_ms": 804,
+          "hidden_ms": 0
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "P11 no page errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "V0 fb-visible: the game applied cond=fb-visible; mid-hole HUD keeps the stroke counter (\"PAR 4 · 354 YD · STROKE 1\")",
+      "ok": true,
+      "detail": {
+        "applied": "fb-visible",
+        "midHud": "PAR 4 · 354 YD · STROKE 1"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "V1 fb-visible: scores shown as before (scorecard \"H1 5 H2 4 H3 4 TOTAL 13 BAG DCHPWV\", section card \"13 STROKES · PAR 12\"); the fb-hidden scan finds them here",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "V2 fb-visible: CONTINUE sends nf-done with the scores (crs_s1_total 13); records carry cond=fb-visible",
+      "ok": true,
+      "detail": {
+        "crs_s1_h1": 5,
+        "crs_s1_h2": 4,
+        "crs_s1_h3": 4,
+        "crs_s1_total": 13,
+        "crs_s1_par": 12,
+        "crs_s1_ob": 0,
+        "crs_s1_pen": 0,
+        "crs_s1_shortcut": 0,
+        "crs_s1_pickups": 0
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "V3 fb-visible: no page errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "V0 fb-hidden: the game applied cond=fb-hidden; mid-hole HUD keeps the stroke counter (\"PAR 4 · 354 YD · STROKE 1\")",
+      "ok": true,
+      "detail": {
+        "applied": "fb-hidden",
+        "midHud": "PAR 4 · 354 YD · STROKE 1"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "V1 fb-hidden: no completed-hole score or total anywhere (scores were 5, 4, 4, total 13); scorecard \"H1 H2 H3 BAG DCHPWV\"; hole card \"HOLE 1 COMPLETE NEXT HOLE\"; section card \"SECTION 1 OF 3 · HOLES 1–3 SECTION COMPLETE The survey will continue. CONTINUE\"",
+      "ok": true,
+      "detail": [
+        {
+          "where": "hole 1 complete",
+          "scorecard": "H1 H2 H3 BAG DCHPWV",
+          "card": "HOLE 1 COMPLETE NEXT HOLE",
+          "hud": "PAR 4 · 354 YD"
+        },
+        {
+          "where": "hole 2 complete",
+          "scorecard": "H1 H2 H3 BAG DCHPWV",
+          "card": "HOLE 2 COMPLETE NEXT HOLE",
+          "hud": "PAR 4 · 350 YD"
+        },
+        {
+          "where": "hole 3 complete",
+          "scorecard": "H1 H2 H3 BAG DCHPWV",
+          "card": "HOLE 3 COMPLETE FINISH SECTION",
+          "hud": "PAR 4 · 336 YD"
+        },
+        {
+          "where": "section complete",
+          "scorecard": "H1 H2 H3 BAG DCHPWV",
+          "card": "SECTION 1 OF 3 · HOLES 1–3 SECTION COMPLETE The survey will continue. CONTINUE",
+          "hud": "PAR 4 · 336 YD"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "V2 fb-hidden: CONTINUE sends nf-done with the scores (crs_s1_total 13); records carry cond=fb-hidden",
+      "ok": true,
+      "detail": {
+        "crs_s1_h1": 5,
+        "crs_s1_h2": 4,
+        "crs_s1_h3": 4,
+        "crs_s1_total": 13,
+        "crs_s1_par": 12,
+        "crs_s1_ob": 0,
+        "crs_s1_pen": 0,
+        "crs_s1_shortcut": 0,
+        "crs_s1_pickups": 0
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "V3 fb-hidden: no page errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "V4 local testing, course-all, fb-hidden: round card \"ROUND COMPLETE SCORECARD SECTION 1 SECTION 2 SECTION 3 Hole 1 2 3 4 5 6 7 8 9 Par 4 4 4 4 5 5 5 5 5 PLAY AGAIN…\" has hole numbers and pars only; header \"H1 H2 H3 H4 H5 H6 H7 H8 H9 BAG DCHPWV\"",
+      "ok": true,
+      "detail": {
+        "round": "ROUND COMPLETE SCORECARD SECTION 1 SECTION 2 SECTION 3 Hole 1 2 3 4 5 6 7 8 9 Par 4 4 4 4 5 5 5 5 5 PLAY AGAIN",
+        "errors": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "R1 hole 4 replayed: try 1 4 swings, try 2 2, try 3 left after 1, try 4 played; 3 hole + 9 shot records, all ids unique, each try's shots match its hole record and its own save (…_h4.json, …_h4-t2.json, …_h4-t4.json)",
+      "ok": true,
+      "detail": [
+        "h4-s1",
+        "h4-s2",
+        "h4-s3",
+        "h4-s4",
+        "h4-t2-s1",
+        "h4-t2-s2",
+        "h4-t3-s1",
+        "h4-t4-s1",
+        "h4-t4-s2"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "R2 final save carries every try (5 hole, 17 shot records); the summary uses hole 4's latest try (crs_s2_h4 4 = try 4's 4)",
+      "ok": true,
+      "detail": {
+        "holes": [
+          "h4",
+          "h4-t2",
+          "h4-t4",
+          "h5",
+          "h6"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "R3 study mode without debug: no researcher hole buttons",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "R4 no page errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "finished": "2026-11-20T21:31:40.103Z",
+  "failed": 0
+}

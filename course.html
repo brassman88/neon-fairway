@@ -1,0 +1,1729 @@
+<!doctype html>
+<!--
+  course.html · Neon Fairway Course Mode V23
+  Changelog
+  - V23 (2026-11-20, prompt 9): logging only, no change to play or screens.
+    · Segment record: `feedback` ('hidden' or 'visible'), the condition the game applied, as Target
+      Practice has had since v40. A mistyped cond in the survey shows up here as 'visible', so the
+      launch pilot can compare it with Qualtrics' cond for both games.
+  - V22 (2026-11-20, prompt 8): predictions, the hidden-feedback condition, hidden-tab time, replay tries.
+    No change to clubs, shots, holes, scoring or the map.
+    · Hole card: "How many strokes will you take on this hole?" and "I'm 90% sure it will be between
+      __ and __ strokes." Whole numbers 1–12, boxes start empty, low ≤ prediction ≤ high; TEE OFF stays
+      disabled until all three are valid (Enter in a box = TEE OFF when valid). Hole record:
+      pred_strokes, pred_low, pred_high, pred_ms (hole card shown → TEE OFF; for a section's first hole
+      the clock starts when START SECTION reveals the hole card).
+    · cond=fb-hidden (fb-visible, no cond, or an unknown cond = as before; unknown → console warning).
+      Hidden: the hole scores and TOTAL in the header scorecard (hole numbers only), the score name and
+      strokes / penalties / par on the hole-complete card ("HOLE 4 COMPLETE" only), strokes and par on the
+      Section complete card, the HUD stroke counter once the hole is complete (it would read final + 1),
+      and, on the course-all round card (local testing), the "You" row, totals and the summary line.
+      Kept: the HUD stroke counter during the hole, the per-shot toasts and the shot log.
+    · Hidden-tab time (NFBridge.activity().hidden_ms, visibilitychange): hole record hidden_ms (part of
+      play_ms), shot record decision_hidden_ms (part of decision_ms).
+    · Replay tries: each time a hole's card opens in an attempt is a new try (a researcher hole button
+      replaying it, debug only). Hole and shot records carry `try`; tries after the first get their own
+      ids (h4-t2, h4-t2-s1) and save file (…_h4-t2.json), so nothing is overwritten or mixed. Try 1 ids
+      and file names are unchanged (h4, h4-s1, …_h4.json). The summary uses each hole's latest try.
+  - V21 (2026-11-20, prompt 4): data logging through NFBridge (claude/course-data-logging-spec.md).
+    No gameplay change: logging only reads the game state, and a logging error can't stop play.
+    · Shot record for every swing, built in landed(): every field of the spec's shot table.
+      aim_zone / aim_zone_dist from NF.classifyTarget(hole, from, aimDeg, res.nominal); z_lat / z_dist
+      from simulateShot; decision_ms from the start of the aim phase (setPhase('aim')) to SWING;
+      aim_changes (◀ ▶ buttons and keys, Aim at pin, a click on the map, one per drag), club_changes
+      (a different club picked), power_changes (each new value from − / + / keys; one per slider drag);
+      out of bounds: penalty_added, swing_counted, relief (replay / fairway / none) and drop_x / drop_y /
+      drop_yards when the ball is placed on the fairway.
+    · Hole record in holeDone(): every field of the spec's hole table. card_ms = how-to-play card (first
+      hole of the segment) + section card + hole card, up to TEE OFF; play_ms = TEE OFF to the hole done
+      card; idle_ms = idle time inside play_ms (NFBridge rule: no input for 60 s, visible tab).
+      pred_strokes / pred_low / pred_high stay null until prompt 8.
+    · Saved after every hole: NFBridge.save('h' + holeNo, { holes: [hole], shots: [that hole's shots] }).
+    · Segment record adds ob_count and penalty_strokes. Qualtrics summary adds crs_sN_ob, crs_sN_pen,
+      crs_sN_shortcut (holes whose tee shot aimed at the shortcut) and crs_sN_pickups.
+    · Researcher panel (debug only): "Download data" button (NFBridge.download(): CSV + JSON).
+  - V20 (2026-11-20, prompt 3 follow-up):
+    · "How to play" card before the first section briefing, with the old start card's points
+      (minus seed and training), the bag's three clubs as the club buttons name them, and the
+      keys. Full card on course-s1 and course-all; course-s2 / -s3 get a short "Same controls
+      as before" card with the keys. Time on it is kept in S.howCardMs (for card_ms, prompt 4).
+    · Section complete card: a CONTINUE button. NFBridge.finish (and so nf-done, which makes
+      Qualtrics move on) starts only when it is clicked; meanwhile it reads "Saving…", disabled.
+  - V19 (2026-11-20, prompt 3): runs as a study segment inside Qualtrics.
+    · Loads js/nf-bridge.js. Segment from the `segment` URL setting: course-s1 / -s2 / -s3
+      play only that section's holes (numbers stay course-wide: "HOLE 4 OF 9");
+      course-all (local testing default) plays all 9. Anything else: error card + nf-error SEGMENT.
+    · Bag from the `bag` URL setting (NF.parseSeed). Study mode (pid given) never shows the
+      seed card; a missing or invalid bag shows an error card + nf-error BAG. Local testing
+      with no bag keeps the seed card; a given but invalid bag is an error there too.
+    · Starts straight at the segment's first hole (section briefing first). NFBridge.init at
+      boot, NFBridge.ready() once the first card shows. After the segment's last hole:
+      "Section complete" card, then NFBridge.finish with crs_sN_h#, crs_sN_total, crs_sN_par.
+      No Play Again in study mode.
+    · Researcher tools only with debug (NFBridge.settings.debug; the #participant /
+      ?participant check is gone). Hole-jump buttons only list the segment's holes.
+      The club seed is not read from or written to localStorage in study mode.
+    · Seeded luck: each hole has its own stream NF.rng(NF.subSeed(rng, 'hole', holeNo)),
+      passed to NF.simulateShot (was Math.random). Shots keep zLat / zDist for logging.
+      Cosmetic effects still use Math.random.
+    · Iframe fit: Space, arrows, PageUp/PageDown, Home/End no longer scroll the parent page
+      when framed; a click on the map focuses the game; cards scroll if taller than the map.
+    · HUD reads "HOLE 4 OF 9 · …"; the header scorecard lists only this segment's holes.
+  - V18 (2026-11-19): repo refactor, no gameplay change. The shared club model and
+    shot math (the "NEON FAIRWAY CORE" script) moved to js/nf-core.js unchanged;
+    hole geometry moved from the inline <script id="nf-course"> JSON to
+    data/course-data.js (window.NF_COURSE_DATA); Phaser 3.80.1 now loads from
+    vendor/phaser.min.js instead of cdnjs.
+    Wording and colour fixes: header and tab title read "The Course" (was
+    "STEP 2 · Clubs & shots"), the start card says the clubs were chosen in
+    Target Practice (Learn Mode is gone since Target Practice v30), and power
+    colours now use Target Practice's scale (NF.powerColor).
+  - V17: three sections with their own out-of-bounds rules.
+-->
+<html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Neon Fairway Course V22</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f3effa; --panel:#ffffff; --ink:#1d1330; --muted:#6b5c86; --line:#d9cfe9; --chip:#efe8f8;
+    --accent:#b0199a; --accent2:#0a8fa3; --good:#0c8a5c; --bad:#c8254a;
+    --display:'Orbitron','Arial Black',system-ui,sans-serif; --body:'Rajdhani','Segoe UI',system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){ --bg:#07020f; --panel:#120828; --ink:#efe6ff; --muted:#a894cf; --line:#2f1d55; --chip:#1c0f3a; --accent:#ff2bd6; --accent2:#00f0ff; --good:#2dffc8; --bad:#ff3860; }
+  }
+  :root[data-theme="dark"]{ --bg:#07020f; --panel:#120828; --ink:#efe6ff; --muted:#a894cf; --line:#2f1d55; --chip:#1c0f3a; --accent:#ff2bd6; --accent2:#00f0ff; --good:#2dffc8; --bad:#ff3860; }
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  html,body{margin:0;height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.35}
+  button{font-family:var(--body);font-weight:700;font-size:.95rem;color:var(--ink);background:var(--chip);border:1px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer}
+  button:hover:not(:disabled){border-color:var(--accent2)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+  button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .app{display:grid;grid-template-rows:auto 1fr;height:100%}
+  header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--display);font-size:.62rem;letter-spacing:3px;color:var(--accent);margin:0}
+  h1{font-family:var(--display);font-weight:900;font-size:1.25rem;letter-spacing:2px;margin:0}
+  #scorecard{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--display);font-size:.66rem;letter-spacing:1.5px;color:var(--muted)}
+  #scorecard b{color:var(--ink);font-size:.85rem}
+  .stage{display:grid;grid-template-columns:minmax(0,1fr) 380px;min-height:0}
+  .mapwrap{position:relative;min-height:0;background:#07020f}
+  #game{position:absolute;inset:0;touch-action:none}
+  #game:focus{outline:none}
+  #game canvas{display:block;cursor:crosshair}
+  .hud{position:absolute;top:10px;left:10px;background:rgba(10,3,24,.82);color:#efe6ff;border:1px solid rgba(0,240,255,.3);border-radius:8px;padding:8px 11px;pointer-events:none;max-width:calc(100% - 20px)}
+  #hudHole{font-family:var(--display);font-size:.72rem;letter-spacing:1.5px;color:#00f0ff}
+  #hudMeta,#hudLie{font-size:.86rem;color:#c9b8ea}
+  #hudPin{font-family:var(--display);font-size:.66rem;letter-spacing:1.5px;color:#c9b8ea;margin-top:2px}
+  #hudPin b{font-size:1rem;color:#ff62c6}
+  #hudLie b{color:#ffd23f;font-weight:700}
+  .toast{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);width:min(440px,calc(100% - 24px));background:rgba(10,3,24,.9);color:#efe6ff;border:1px solid rgba(0,240,255,.45);border-radius:8px;padding:9px 14px;text-align:center;pointer-events:none}
+  .toast strong{display:block;font-family:var(--display);font-size:.8rem;letter-spacing:2px;color:#00f0ff}
+  .toast.bad{border-color:#ff3860} .toast.bad strong{color:#ff3860}
+  .toast.good strong{color:#2dffc8}
+  aside{overflow:auto;border-left:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px}
+  .card h2{font-family:var(--display);font-size:.64rem;letter-spacing:2px;color:var(--accent2);margin:0 0 7px}
+  .card h2:not(:first-child){margin-top:12px}
+  #clubs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+  #clubs button{padding:8px 4px;line-height:1.15}
+  #clubs .v{display:block;font-size:.72rem;color:var(--muted);font-weight:600}
+  #clubs button[aria-pressed="true"] .v{color:#fff}
+  #clubs .k{display:block;font-size:.62rem;color:var(--muted);font-weight:600}
+  #clubs button[aria-pressed="true"] .k{color:#fff}
+  #powerBox{display:flex;flex-direction:column;gap:4px}
+  .pw-row{display:grid;grid-template-columns:46px 1fr 46px;gap:6px;align-items:center}
+  .pw-row button{padding:6px 0;font-size:1.15rem;line-height:1}
+  .pw-row button:disabled{opacity:.4;cursor:not-allowed}
+  #powerVal{text-align:center;font-family:var(--display);font-weight:900;font-size:1.3rem;letter-spacing:1px;font-variant-numeric:tabular-nums;border-bottom:3px solid var(--pc);padding-bottom:3px}
+  #powerSlider{-webkit-appearance:none;appearance:none;width:100%;height:30px;margin:0;background:transparent;cursor:pointer}
+  #powerSlider::-webkit-slider-runnable-track{height:10px;border-radius:5px;background:var(--pgrad)}
+  #powerSlider::-moz-range-track{height:10px;border-radius:5px;background:var(--pgrad)}
+  #powerSlider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;margin-top:-7px;border-radius:50%;background:var(--pc);border:3px solid #fff;box-shadow:0 0 8px var(--pc)}
+  #powerSlider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--pc);border:3px solid #fff;box-shadow:0 0 8px var(--pc)}
+  #powerSlider:disabled{opacity:.45;cursor:not-allowed}
+  #powerSlider:focus-visible{outline:2px solid var(--accent2);outline-offset:2px;border-radius:6px}
+  .pw-scale{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);padding:0 4px}
+  #aimRead{margin:0 0 6px;font-size:.95rem} #aimRead b{color:var(--accent)}
+  .row{display:flex;gap:6px;flex-wrap:wrap}
+  .swing{width:100%;margin-top:10px;font-family:var(--display);font-weight:900;letter-spacing:3px;font-size:1rem;padding:13px;border:none;color:#fff;background:linear-gradient(90deg,#ff2bd6,#7b2ff7)}
+  .swing:disabled{background:#6b5c86}
+  .keys{font-size:.76rem;color:var(--muted);margin:7px 0 0}
+  #log{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:5px;max-height:190px;overflow:auto}
+  #log li{display:flex;gap:8px;font-size:.88rem;border-left:4px solid var(--pc);background:var(--chip);border-radius:4px;padding:5px 8px}
+  #log li.bad{border-left-color:var(--bad)} #log .n{color:var(--muted);min-width:14px}
+  #log:empty::before{content:'No shots yet on this hole.';font-size:.85rem;color:var(--muted);font-style:italic}
+  details.card summary{font-family:var(--display);font-size:.64rem;letter-spacing:2px;color:var(--accent);cursor:pointer}
+  .research label{display:flex;gap:7px;align-items:flex-start;margin-top:9px;font-weight:600}
+  .fine{font-size:.82rem;color:var(--muted);margin:6px 0}
+  #spreadStats{font-size:.86rem;margin:5px 0 0}
+  table.t{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:4px}
+  table.t th,table.t td{border:1px solid var(--line);padding:4px 5px;text-align:center;vertical-align:top}
+  table.t td:first-child{text-align:left}
+  table.t th{font-family:var(--display);font-size:.55rem;letter-spacing:1px}
+  table.t small{display:block;color:var(--muted);font-size:.7rem;white-space:nowrap}
+  table.t td.hi{color:var(--good);font-weight:700}
+  .overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(7,2,15,.6);z-index:5;overflow:auto}
+  /* V19: margin:auto keeps a card centred but lets it scroll from its top when it is taller than the map (small iframes). */
+  .cardx{margin:auto;width:min(460px,100%);background:rgba(18,8,40,.96);color:#efe6ff;border:1px solid rgba(0,240,255,.4);border-radius:12px;padding:22px 24px;box-shadow:0 0 40px rgba(255,43,214,.25)}
+  .cardx .eyebrow{color:#ff2bd6}
+  .cardx h2{font-family:var(--display);font-size:1.5rem;letter-spacing:2px;margin:4px 0;color:#00f0ff;text-shadow:0 0 12px rgba(0,240,255,.5)}
+  .cardx .meta{font-family:var(--display);font-size:.74rem;letter-spacing:2px;color:#ffd23f;margin:0 0 12px}
+  .cardx ul{padding-left:18px;margin:0 0 14px} .cardx li{margin-bottom:5px} .cardx b{color:#00f0ff}
+  .cardx p{margin:0 0 12px;color:#d6c8f0}
+  .go{font-family:var(--display);font-weight:900;letter-spacing:2px;border:none;color:#fff;background:linear-gradient(90deg,#ff2bd6,#7b2ff7);padding:11px 20px}
+  #trainName{display:flex;align-items:center;gap:10px}
+  #trainName .sw{width:22px;height:16px;border-radius:4px;border:2px solid var(--e);background:var(--f);flex:none}
+  #trainTable td:first-child b{color:var(--c)}
+  .seedlab{display:block;font-family:var(--display);font-size:.66rem;letter-spacing:2px;color:#ffd23f;margin:4px 0 6px}
+  #seedInput{width:100%;font-family:var(--display);font-weight:700;font-size:1.3rem;letter-spacing:6px;text-transform:uppercase;text-align:center;
+    color:#efe6ff;background:rgba(255,255,255,.06);border:1px solid rgba(0,240,255,.5);border-radius:8px;padding:9px 10px}
+  #seedInput[aria-invalid="true"]{border-color:#ff3860}
+  .seedmsg{font-size:.86rem;margin:6px 0 10px;color:#c9b8ea}
+  .seedmsg.bad{color:#ff8aa0}
+  .bagprev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 14px}
+  .bagprev:empty{display:none}
+  .bagprev div{border:1px solid rgba(0,240,255,.35);border-radius:8px;padding:7px 6px;text-align:center;background:rgba(0,240,255,.06)}
+  .bagprev b{display:block;font-family:var(--display);font-size:.66rem;letter-spacing:1.5px;color:#00f0ff}
+  .bagprev span{font-size:.9rem;color:#efe6ff}
+  .bagprev small{display:block;font-size:.76rem;color:#c9b8ea}
+  table.t tr.inbag td{background:rgba(0,240,255,.08)}
+  .cardx.err{border-color:#ff3860;box-shadow:0 0 40px rgba(255,56,96,.25)}
+  .cardx.err h2{color:#ff3860;text-shadow:none}
+  .cardx code{font-size:.85rem;color:#ffd23f}
+  #sdStatus{font-size:.86rem;color:#c9b8ea;margin:0}
+  #sdStatus:empty{display:none}
+  /* V20: the How to play card is wider and tighter so it fits a 1000×620 iframe without scrolling. */
+  #howCard .cardx{width:min(540px,100%);padding:18px 22px}
+  #howCard h2{font-size:1.3rem;margin:2px 0 8px}
+  #howCard ul{margin:0 0 10px} #howCard li{font-size:.95rem;line-height:1.3;margin-bottom:4px}
+  .cardx .keylab{font-family:var(--display);font-size:.62rem;letter-spacing:2px;color:#ffd23f;margin:0 0 6px}
+  .howkeys{display:grid;grid-template-columns:auto 1fr auto 1fr;gap:5px 10px;margin:0 0 14px;font-size:.9rem;color:#d6c8f0;align-items:baseline}
+  .howkeys dt{margin:0;white-space:nowrap}
+  .howkeys dd{margin:0}
+  .howkeys kbd{display:inline-block;min-width:1.6em;text-align:center;font-family:var(--body);font-weight:700;font-size:.85rem;color:#efe6ff;
+    background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.4);border-radius:5px;padding:0 5px;line-height:1.45}
+  #doneScore{font-family:var(--display);font-weight:900;font-size:2.4rem;letter-spacing:3px;color:#ff62c6;margin:4px 0}
+  /* V22: fb-hidden hole-complete card: "HOLE 4 COMPLETE" only, at heading size so it fits one line. */
+  #doneScore.plain{font-size:1.5rem;letter-spacing:2px;color:#00f0ff;text-shadow:0 0 12px rgba(0,240,255,.5);margin:6px 0 16px}
+  /* V22: prediction boxes on the hole card (same look as Target Practice's prediction). The hole card is
+     as wide and tight as the How to play card, so each question fits one line and the longest card
+     (hole 2) still fits a 620 px tall iframe with TEE OFF in view. */
+  #holeCard .cardx{width:min(540px,100%);padding:18px 22px}
+  #holeCard ul{margin:0 0 10px} #holeCard li{margin-bottom:4px;line-height:1.3}
+  .pred{margin:0 0 12px}
+  .pred-q{display:flex;align-items:center;justify-content:space-between;gap:6px 12px;flex-wrap:wrap;margin:6px 0 0;padding:6px 11px;border-radius:8px;
+    background:rgba(0,240,255,.05);border:1px solid rgba(0,240,255,.25)}
+  .pred-q > label,.pred-q > span:first-child{flex:1 1 180px;font-size:.98rem;line-height:1.3;color:#efe6ff}
+  .pred-in{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-weight:700;color:#d6c8f0}
+  .pred-in input{width:64px;padding:5px 7px;border-radius:6px;border:1px solid #ffd23f;background:rgba(255,255,255,.07);color:#ffd23f;
+    font-family:var(--display);font-weight:700;font-size:1.02rem;text-align:right}
+  .pred-in input:focus{outline:2px solid #ffd23f;outline-offset:1px}
+  .pred-in input.bad{border-color:#ff5d7a;color:#ff8fa3}
+  .pred-msg{min-height:1.2em;margin:7px 0 0!important;font-size:.85rem;color:#ff8fa3!important}
+  .pred-msg.ok{color:#c9b8ea!important;opacity:.8}
+  .cardx table.t th,.cardx table.t td{border-color:rgba(0,240,255,.25)}
+  .hud{width:216px}
+  .legend{position:absolute;left:10px;bottom:10px;width:216px;display:grid;grid-template-columns:auto 1fr;gap:6px 9px;align-items:center;
+    background:rgba(10,3,24,.85);color:#efe6ff;border:1px solid rgba(0,240,255,.3);border-radius:8px;padding:9px 11px;pointer-events:none;font-size:.86rem;line-height:1.15}
+  .legend::before{content:'MAP KEY';grid-column:1 / -1;font-family:var(--display);font-size:.6rem;letter-spacing:2px;color:#00f0ff}
+  .legend .sw{width:20px;height:14px;border-radius:3px;border:2px solid var(--e);background:var(--f)}
+  .legend .lt b{display:block;font-weight:700;color:#fff}
+  .legend .lt small{display:block;color:#c9b8ea;font-size:.78rem}
+  @media (max-width:760px){
+    .hud{width:auto}
+    .legend{width:auto;max-width:calc(100% - 20px);grid-template-columns:auto auto auto auto;font-size:.76rem;padding:7px 9px;gap:4px 7px}
+    .legend::before{display:none}
+    .legend .lt small{display:none}
+  }
+  @media (max-width:900px){
+    .app{height:auto}
+    .stage{grid-template-columns:minmax(0,1fr)}
+    .mapwrap{height:68vh}
+    aside{border-left:none;border-top:1px solid var(--line);overflow:visible}
+  }
+</style>
+<div class="app">
+  <header>
+    <div><p class="eyebrow">NEON FAIRWAY</p><h1>The Course</h1></div>
+    <div id="scorecard" aria-label="Scorecard"></div>
+  </header>
+  <main class="stage">
+    <section class="mapwrap">
+      <div id="game" tabindex="-1" aria-label="Course map. Click or drag to aim."></div>
+      <div class="hud"><div id="hudHole"></div><div id="hudMeta"></div><div id="hudPin"></div><div id="hudLie"></div></div>
+      <div class="legend" id="legend" aria-label="Map key"></div>
+      <div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+
+      <div class="overlay" id="startCard" hidden><div class="cardx">
+        <p class="eyebrow" id="courseMeta">9 HOLES · PAR 41</p><h2>NEON FAIRWAY</h2>
+        <ul>
+          <li>You play with the <b>three clubs</b> you chose in Target Practice. Pick a club and a <b>power %</b>.</li>
+          <li><b>Click or drag</b> on the course to aim.</li>
+          <li>The ball <b>stops where it lands</b>. No bounce, no roll.</li>
+          <li>Only the <b>black fairway</b> and the <b>green</b> are in play. Everything else is <b>out of bounds</b> (the bubbling purple ground).</li>
+          <li>The course has <b>three sections</b> of three holes. What happens when you land <b>out of bounds</b> changes in each section, and you get a short briefing before each one.</li>
+          <li>Balls that land on the green are putted for you.</li>
+          <li id="trainBullet">First, a short <b>training range</b> shows how each kind of ground changes your shots.</li>
+        </ul>
+        <label class="seedlab" for="seedInput">YOUR CLUB SEED</label>
+        <input id="seedInput" type="text" maxlength="12" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="DCHPWV" aria-describedby="seedMsg">
+        <p class="seedmsg" id="seedMsg">Enter the 6-letter seed shown at the end of Target Practice.</p>
+        <div class="bagprev" id="bagPreview"></div>
+        <button class="go" id="startBtn" type="button" disabled>START TRAINING</button>
+      </div></div>
+      <div class="overlay" id="trainCard" hidden><div class="cardx">
+        <p class="eyebrow" id="trainNum"></p><h2 id="trainName"></h2>
+        <p id="trainText"></p>
+        <ul id="trainTips"></ul>
+        <button class="go" id="trainBtn" type="button">HIT 3 SHOTS</button>
+      </div></div>
+      <div class="overlay" id="trainDone" hidden><div class="cardx">
+        <p class="eyebrow">TRAINING COMPLETE</p><h2>WHAT THE GROUND DOES</h2>
+        <p>Your shots from each kind of ground. Distance is shown as a share of the same swing from the fairway.</p>
+        <table class="t" id="trainTable"></table>
+        <p id="trainRule" style="margin-top:12px"></p>
+        <div class="row"><button class="go" id="trainToCourse" type="button">START HOLE 1</button><button id="trainAgain" type="button">Practice again</button></div>
+      </div></div>
+      <div class="overlay" id="sectionCard" hidden><div class="cardx">
+        <p class="eyebrow" id="secNum"></p><h2 id="secName"></h2><p class="meta" id="secMeta"></p>
+        <p id="secText"></p><ul id="secTips"></ul>
+        <button class="go" id="secBtn" type="button">START SECTION</button>
+      </div></div>
+      <div class="overlay" id="holeCard" hidden><div class="cardx">
+        <p class="eyebrow" id="cardNum"></p><h2 id="cardName"></h2><p class="meta" id="cardMeta"></p>
+        <ul id="cardNotes"></ul>
+        <!-- V22: prediction before TEE OFF (whole numbers 1–12, low ≤ prediction ≤ high) -->
+        <div class="pred" id="predBox">
+          <p class="keylab">YOUR PREDICTION</p>
+          <div class="pred-q">
+            <label for="predStrokes">How many strokes will you take on this hole?</label>
+            <span class="pred-in"><input type="number" id="predStrokes" min="1" max="12" step="1" inputmode="numeric" autocomplete="off"></span>
+          </div>
+          <div class="pred-q">
+            <span id="predRangeQ">I'm 90% sure it will be between</span>
+            <span class="pred-in"><input type="number" id="predLow" min="1" max="12" step="1" inputmode="numeric" autocomplete="off" aria-label="Fewest strokes (90% sure)">
+              <span>and</span>
+              <input type="number" id="predHigh" min="1" max="12" step="1" inputmode="numeric" autocomplete="off" aria-label="Most strokes (90% sure)"> <span>strokes.</span></span>
+          </div>
+          <p class="pred-msg" id="predMsg" role="status" aria-live="polite"></p>
+        </div>
+        <button class="go" id="teeBtn" type="button" disabled>TEE OFF</button>
+      </div></div>
+      <div class="overlay" id="doneCard" hidden><div class="cardx" style="text-align:center">
+        <p class="eyebrow" id="doneNum"></p><div id="doneScore"></div><p class="meta" id="doneMeta"></p>
+        <button class="go" id="nextBtn" type="button">NEXT HOLE</button>
+      </div></div>
+      <div class="overlay" id="roundCard" hidden><div class="cardx">
+        <p class="eyebrow">ROUND COMPLETE</p><h2>SCORECARD</h2><p class="meta" id="roundMeta"></p>
+        <table class="t" id="roundTable"></table><p></p>
+        <button class="go" id="againBtn" type="button">PLAY AGAIN</button>
+      </div></div>
+      <div class="overlay" id="howCard" hidden><div class="cardx">
+        <p class="eyebrow" id="howNum">NEON FAIRWAY · THE COURSE</p><h2 id="howTitle">HOW TO PLAY</h2>
+        <ul id="howList"></ul>
+        <p class="keylab">KEYS</p>
+        <dl class="howkeys" id="howKeys"></dl>
+        <button class="go" id="howBtn" type="button">GOT IT</button>
+      </div></div>
+      <div class="overlay" id="sectionDone" hidden><div class="cardx">
+        <p class="eyebrow" id="sdNum"></p><h2>SECTION COMPLETE</h2><p class="meta" id="sdMeta"></p>
+        <p>The survey will continue.</p>
+        <p id="sdStatus" role="status" aria-live="polite"></p>
+        <div class="row" style="margin-top:12px;align-items:center"><button class="go" id="sdContinue" type="button">CONTINUE</button>
+        <button id="sdAgain" type="button" hidden>Play this section again (testing)</button></div>
+      </div></div>
+      <div class="overlay" id="errorCard" hidden><div class="cardx err" role="alert">
+        <p class="eyebrow">NEON FAIRWAY</p><h2>THE GAME CAN'T START</h2>
+        <p id="errText"></p>
+        <p id="errHelp">Please use the button on the survey page to continue with the survey.</p>
+        <p class="fine" style="color:#c9b8ea">Code: <code id="errCode"></code></p>
+      </div></div>
+    </section>
+
+    <aside>
+      <div class="card">
+        <h2>CLUB</h2><div id="clubs" role="group" aria-label="Club"></div>
+        <h2>POWER</h2>
+        <div id="powerBox">
+          <div class="pw-row">
+            <button id="pwDown" type="button" aria-label="1% less power">−</button>
+            <output id="powerVal" for="powerSlider">100%</output>
+            <button id="pwUp" type="button" aria-label="1% more power">+</button>
+          </div>
+          <input type="range" id="powerSlider" min="1" max="100" step="1" value="100" aria-label="Power, in percent">
+          <div class="pw-scale" aria-hidden="true"><span>1%</span><span>50%</span><span>100%</span></div>
+        </div>
+        <h2>AIM</h2><p id="aimRead"></p>
+        <div class="row"><button id="rotL" type="button" aria-label="Aim 1 degree left">◀ 1°</button><button id="rotR" type="button" aria-label="Aim 1 degree right">1° ▶</button><button id="aimPin" type="button">Aim at pin</button></div>
+        <button class="swing" id="swing" type="button">SWING</button>
+        <p class="keys">Keys: 1–3 club · ↑/↓ power ±5% (Shift ±1%) · ←/→ aim (Shift = ¼°) · Space swing</p>
+      </div>
+      <div class="card"><h2 id="logTitle">SHOT LOG</h2><ol id="log"></ol></div>
+      <details class="card research" id="research" open>
+        <summary>RESEARCHER TOOLS</summary>
+        <p class="fine">Shown only in local testing (no <code>pid</code> in the link) or with <code>debug=1</code>. Participants never see this panel.</p>
+        <label><input type="checkbox" id="spreadToggle"> <span>Preview shot spread for the current club, power and aim</span></label>
+        <div id="spreadStats" class="fine"></div>
+        <label><input type="checkbox" id="routesToggle"> <span>Show your drawn routes (red safe, blue shortcut, pink other path)</span></label>
+        <div class="row" id="holeJump" style="margin-top:9px"></div>
+        <div class="row" style="margin-top:9px;align-items:center"><button id="dlBtn" type="button">Download data</button>
+        <span class="fine">Every record so far, as CSV and JSON.</span></div>
+        <h2 style="margin-top:14px">CLUB MODEL · ALL 9 CLUBS</h2>
+        <p class="fine">Average distance from a clean lie, then ±1 standard deviation of distance and ↔ 1 standard deviation of sideways miss, in yards. Highlighted rows are in the current bag.</p>
+        <table class="t" id="clubTable"></table>
+        <h2 style="margin-top:14px">SHORTCUT REACH</h2>
+        <p class="fine">Share of simulated swings with each club in the current bag that land safely in the shortcut zone, or on the green, at that club's best power.</p>
+        <table class="t" id="reachTable"></table>
+        <button id="reachBtn" type="button" style="margin-top:6px">Recalculate</button>
+      </details>
+    </aside>
+  </main>
+</div>
+<script src="vendor/phaser.min.js"></script>
+<script src="js/nf-core.js"></script>
+<script src="data/course-data.js"></script>
+<script src="js/nf-bridge.js"></script>
+<script>
+/* NEON FAIRWAY — Step 2: clubs, power, and shot variance on the traced courses */
+(function () {
+  'use strict';
+  const NF = window.NF;
+  const $ = (id) => document.getElementById(id);
+  const DEG = Math.PI / 180;
+  const DPR = Math.min(2, window.devicePixelRatio || 1);
+  // V19: URL settings come from js/nf-bridge.js (pid, segment, bag, rng, debug, …).
+  const BRIDGE = window.NFBridge, SET = BRIDGE.settings;
+  const GAME_VERSION = 'V23';   // V23: prompt 9
+  const STUDY = !SET.localTest;          // a pid in the link = study mode
+  const SEGMENT_GIVEN = SET.segment;     // before init() fills in the default
+  // V22: feedback condition. cond=fb-hidden hides completed-hole scores and totals (header
+  // scorecard, hole-complete card, Section complete card, course-all round card). fb-visible, no
+  // cond, or anything else: as before. The HUD stroke counter during a hole, the per-shot toasts
+  // and the shot log are the same in both. cond is on every record header.
+  const FB_CONDS = ['fb-visible', 'fb-hidden'];
+  const FB_HIDDEN = SET.cond === 'fb-hidden';
+  if (SET.cond != null && !FB_CONDS.includes(SET.cond)) console.warn('[course] unknown cond "' + SET.cond + '"; scores are shown (fb-visible).');
+  const PRED_MIN = 1, PRED_MAX = 12;     // V22: prediction boxes (12 = the stroke cap)
+  const FRAMED = (() => { try { return window.top !== window; } catch (e) { return true; } })();
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const angDiff = (a, b) => ((b - a + 540) % 360) - 180;
+
+  // ---------------- CONFIG ----------------
+  const CONFIG = {
+    // V19: researcher panel (spread preview, routes, hole jumps, club and reach tables)
+    // only with debug: local testing (no pid) or debug=1 in the link.
+    researcherTools: SET.debug,
+    // V5: every hole uses the same five kinds of ground, so a colour means
+    // the same thing everywhere:
+    //   fairway (black) · rough (dark purple) · pink dunes · green · out of bounds
+    // The traced shapes are folded into those five by UNIFY_TERRAIN below.
+    lieOverrides: {
+      rough: { label: 'Rough', dist: 0.85, spread: 1.15 },
+      dunes: { label: 'Pink dunes', dist: 0.55, wedgeDist: 0.90, spread: 1.3, roll: 0 },
+      // V14: out of bounds = +1 stroke, then replay from the spot the shot
+      // was hit from. (relief: 'fairway' instead places the ball on the
+      // nearest point of the fairway, as in V13.)
+      ob:    { label: 'Out of bounds', hazard: 'ob', relief: 'replay' }
+    },
+    rules: { penaltyStrokes: 1, maxStrokes: 12 },
+    // V17: the course is played in three sections, each with its own
+    // out-of-bounds rule. Each hole below says which section it is in.
+    //   penaltyStrokes — strokes added on top of the swing that went out
+    //   swingCounts    — false = the out-of-bounds swing isn't counted either (a free do-over)
+    //   relief         — 'replay': play again from the spot you hit from
+    //                    'fairway': ball placed on the nearest point of the fairway to where it landed
+    sections: {
+      1: { name: 'No penalty', penaltyStrokes: 0, swingCounts: true, relief: 'replay',
+           text: 'Land out of bounds and there is <b>no penalty</b>. Your swing still counts, and you simply <b>replay the shot</b> from the same spot.',
+           example: 'Hit your 2nd shot out of bounds: no penalty, and you hit your 3rd shot from where you hit your 2nd.' },
+      2: { name: 'Penalty and drop', penaltyStrokes: 1, swingCounts: true, relief: 'fairway',
+           text: 'Land out of bounds and it costs you <b>1 penalty stroke</b>. Your ball is then <b>placed on the nearest fairway</b> to where it landed, and you play on from there.',
+           example: 'Hit your 2nd shot out of bounds: +1 penalty, and you hit your 4th shot from the nearest fairway.' },
+      3: { name: 'Stroke and distance', penaltyStrokes: 1, swingCounts: true, relief: 'replay',
+           text: 'Land out of bounds and it costs you <b>1 penalty stroke</b>, and you <b>replay the shot</b> from the spot you just hit from.',
+           example: 'Hit your 2nd shot out of bounds: +1 penalty, and you hit your 4th shot from where you hit your 2nd.' }
+    },
+    // Only used with relief: 'fairway'. true = the drop may not be nearer the
+    // pin than where the ball landed.
+    dropNoNearerHole: false,
+    // Shrinks every hole evenly in both directions (fairways, hazards,
+    // greens and route zones alike). V4: 0.9 = 10% smaller than the screenshots
+    // (V3 used 0.95).
+    courseScale: 0.9,
+    // V6: a short training range before hole 1. The ball sits on each kind
+    // of ground in turn and the player hits a few shots from it.
+    // V13: off. It taught how rough and dunes change shots, and those are now
+    // out of bounds. Set true to bring it back (it still uses the old grounds).
+    training: false,
+    trainingShots: 3,              // shots from each kind of ground
+    trainingTarget: 150,           // yards to the practice target
+    trainingPreview: false,        // true = faint dots showing where most shots would land (off: players see only their own shots)
+    // The list order is the order holes are played. The ids only link each
+    // entry to its shape data and notes; they are not hole numbers.
+    holes: [
+      // ---- Section 1 (holes 1-3): no penalty, replay the shot (the swing still counts) ----
+      // V15: three new opening holes, traced from screenshots and stored in
+      // yards. Each screenshot was shrunk (82-84%) so its drawn routes fit the
+      // clubs: the safe route takes two shots to the green, and the shortcut
+      // drive sits at the edge of a Control Driver's reach.
+      { id: 7, par: 4, base: 'ob', section: 1 },   // Hole 1 · Neon Gorge: wide bay left (188 yd) or long drive into the neck (217 yd), 354 yd
+      { id: 8, par: 4, base: 'ob', section: 1 },   // Hole 2 · Glitch Slide: wide left side (152 yd) or narrow right tongue (200 yd), approach carries the rockslide, 350 yd
+      { id: 9, par: 4, base: 'ob', section: 1 },   // Hole 3 · Synth Ridge: one route, up the channel then left over the ridge, 336 yd (no shortcut)
+      // ---- Section 2 (holes 4-6): +1 stroke, ball placed on the nearest fairway ----
+      // V8: traced from screenshots and stored in yards (courseScale doesn't apply).
+      { id: 4, par: 4, base: 'ob', section: 2 },   // Hole 4 · Magma Bend: dogleg left round lava; shortcut hops to an island in the bend (215 yd)
+      { id: 5, par: 5, base: 'ob', section: 2 },   // Hole 5 · Ember Fork: three paths; shortcut carries lava to an island (398 yd). V16: fairway runs on below the tee to the map edge
+      { id: 6, par: 5, base: 'ob', section: 2 },   // Hole 6 · Misty Marsh: shortcut carries the marsh to a plateau (410 yd)
+      // ---- Section 3 (holes 7-9): +1 stroke, replay from where you hit ----
+      // The original traced holes (courseScale applies).
+      { id: 1, par: 5, base: 'waste', section: 3 },   // Hole 7 · Voltage Lake: mountain rock → rough, lake → out of bounds
+      { id: 2, par: 5, base: 'sand', section: 3 },    // Hole 8 · Pink Dunes: open desert → out of bounds. V16: 4 small islands removed, 3 gaps round the green filled
+      { id: 3, par: 5, base: 'waste', section: 3 }    // Hole 9 · Sunset Canyon: canyon → rough, basin → out of bounds. V16: 5 small islands removed, 2 areas added
+    ],
+    // Traced shapes left out entirely.
+    dropShapes: [],
+    // Hole 2's fallen columns lie in the desert. Each becomes out of bounds,
+    // widened by this many yards so the sand traced around it goes too.
+    columnHaloYards: 7,
+    // Bridges, palms, orbs and other decoration. Off in V5 to keep the map clean.
+    showDecor: false
+  };
+  // V13: on the course only the fairway, the green and the tee are in play.
+  // Every other traced surface (rough, rock, canyon, dunes, bunkers, sand,
+  // ruins, water, quicksand) is out of bounds.
+  const UNIFY_TERRAIN = {
+    fairway: 'fairway', green: 'green', tee: 'tee',
+    rough: 'ob', waste: 'ob', rock: 'ob', canyon: 'ob', ruins: 'ob',
+    sand: 'ob', bunker: 'ob', dunes: 'ob',
+    water: 'ob', quicksand: 'ob', ob: 'ob', column: 'ob'
+  };
+  // The V5-V12 mapping (fairway · rough · pink dunes · green · out of bounds),
+  // kept for the optional training range.
+  const TRAINING_TERRAIN = {
+    fairway: 'fairway', rough: 'rough', green: 'green', tee: 'tee',
+    waste: 'rough', rock: 'rough', canyon: 'rough', ruins: 'rough',
+    sand: 'dunes', bunker: 'dunes', dunes: 'dunes',
+    water: 'ob', quicksand: 'ob', ob: 'ob', column: 'ob'
+  };
+  const RULES = Object.assign({}, NF.DEFAULT_RULES, CONFIG.rules);
+  const SEED_STORE_KEY = 'neonFairway.course.seed';
+  // V18: same power colours as Target Practice (js/nf-core.js): 40% and below
+  // blue · 75% gold · 85% orange · 100% pink. (V17 had its own violet → pink scale.)
+  const POWER_STOPS = NF.POWER_COLOR_STOPS;
+  function powerColor(p) { return NF.powerColor(p); }
+  const pcol = (p) => parseInt(powerColor(p).slice(1), 16);
+
+  // fill = area colour, edge = outline where this ground meets another kind,
+  // rank = which outline wins on a shared border (out of bounds always shows).
+  const STYLE = {
+    // V14: fairway outlined in neon blue, green in neon green; both now win
+    // over out of bounds on a shared border.
+    fairway: { fill: '#050309', edge: '#00f0ff', w: 1.6, rank: 4, name: 'Fairway' },
+    rough:   { fill: '#1a0d33', edge: '#5b3d96', w: 1.1, rank: 1, name: 'Rough' },
+    dunes:   { fill: '#ff62c6', edge: '#ffd6f1', w: 1.1, rank: 2, name: 'Pink dunes' },
+    green:   { fill: '#020106', edge: '#3dffb0', w: 1.8, rank: 5, name: 'Green' },
+    tee:     { fill: '#2a1250', edge: '#ffd23f', w: 1.2, rank: 3, name: 'Tee' },
+    ob:      { fill: '#4a0d50', edge: '#ff2fd0', w: 1.8, rank: 3.5, name: 'Out of bounds' }
+  };
+  const HAZARD_TEXT = {
+    ob: ['OUT OF BOUNDS', '+1 penalty stroke. Replay from the spot you just hit from.']
+  };
+  // V17: what landing out of bounds does on this hole (from its section).
+  function obRule(hole) { return hole.section || CONFIG.sections[3]; }
+  function obSummary(hole) {
+    const R = obRule(hole), pen = R.penaltyStrokes ? `+${R.penaltyStrokes} stroke` : (R.swingCounts ? 'no penalty' : 'free do-over');
+    return R.relief === 'fairway' ? `${pen}, ball placed on the nearest fairway` : `${pen}, replay the shot`;
+  }
+  function obToast(hole) {
+    const R = obRule(hole);
+    if (!R.penaltyStrokes) return R.swingCounts ? 'No penalty. Replay the shot from the same spot.' : 'No penalty, and that swing doesn\'t count. Replay the shot.';
+    return `+${R.penaltyStrokes} penalty stroke${R.penaltyStrokes > 1 ? 's' : ''}. Replay from the spot you just hit from.`;
+  }
+  // V13: one rule on every hole, so the same line opens each hole card.
+  const OB_NOTE = 'Only the <b>fairway</b> and the <b>green</b> are in play. Everything else is <b>out of bounds</b>: +1 stroke, and you replay from the spot you hit from.';
+  // V17: OB_NOTE in HOLE_NOTES is swapped for the hole's own section rule.
+  function obNote(hole) {
+    return `Only the <b>fairway</b> and the <b>green</b> are in play. Everything else is <b>out of bounds</b>: ${obSummary(hole)}.`;
+  }
+  const HOLE_NOTES = {
+    7: [OB_NOTE, 'Play to the wide <b>bay</b> on the left, or drive long into the <b>narrow neck</b> straight ahead for a shorter approach.', 'The sand trap on the green is out of bounds too.'],
+    8: [OB_NOTE, 'Drive to the wide left side, or to the <b>narrow tongue</b> on the right for a shorter shot in. Both approaches carry the <b>rockslide</b>.', 'Too far to reach the green? Lay up on the fairway past the rockslide. The sand trap by the green is out of bounds.'],
+    9: [OB_NOTE, 'Drive up the middle channel, then turn <b>left</b> across the ridge to the green.', 'The sand traps by the green are out of bounds too.'],
+    1: [OB_NOTE],
+    2: [OB_NOTE, 'The sand traps inside the fairway are out of bounds too.'],
+    3: [OB_NOTE, 'The sand traps inside the fairway are out of bounds too.'],
+    4: [OB_NOTE, 'Follow the path left and back right, or hop to the <b>island</b> in the bend and go straight at the green.'],
+    5: [OB_NOTE, 'Paths wind up the left and the right. A small <b>island</b> in the middle cuts the hole short, if you can carry to it.'],
+    6: [OB_NOTE, 'Carry the marsh to the plateau in the middle, or go right and back across to the left.']
+  };
+
+  // ---------------- HOLES ----------------
+  // Convex outline of a shape pushed outward by r (used for hole 2's columns).
+  function widenShape(flat, r) {
+    const pts = [];
+    for (let i = 0; i < flat.length; i += 2) pts.push([flat[i], flat[i + 1]]);
+    pts.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    const cross = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    const lower = [], upper = [];
+    for (const q of pts) { while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], q) <= 0) lower.pop(); lower.push(q); }
+    for (let i = pts.length - 1; i >= 0; i--) { const q = pts[i]; while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], q) <= 0) upper.pop(); upper.push(q); }
+    const hull = lower.slice(0, -1).concat(upper.slice(0, -1));   // counter-clockwise
+    const out = [];
+    for (let i = 0; i < hull.length; i++) {
+      const a = hull[i], prev = hull[(i - 1 + hull.length) % hull.length], next = hull[(i + 1) % hull.length];
+      // outward normals of the two edges meeting at a, averaged; arc between them
+      const n1 = norm([a[1] - prev[1], -(a[0] - prev[0])]), n2 = norm([next[1] - a[1], -(next[0] - a[0])]);
+      const a1 = Math.atan2(n1[1], n1[0]); let a2 = Math.atan2(n2[1], n2[0]);
+      while (a2 < a1) a2 += Math.PI * 2;
+      const steps = Math.max(1, Math.ceil((a2 - a1) / 0.35));
+      for (let k = 0; k <= steps; k++) { const t = a1 + (a2 - a1) * k / steps; out.push(a[0] + Math.cos(t) * r, a[1] + Math.sin(t) * r); }
+    }
+    return out;
+    function norm(v) { const l = Math.hypot(v[0], v[1]) || 1; return [v[0] / l, v[1] / l]; }
+  }
+  function buildFx(hole) {
+    const g = hole.grid, rng = NF.mulberry32(hole.id * 977 + 5);
+    let water = [], quick = [];
+    for (let j = 2; j < g.h; j += 5) for (let i = 2; i < g.w; i += 5) {
+      const t = NF.TERRAIN_IDS[g.data[j * g.w + i]];
+      if (t !== 'ob') continue;
+      const x = g.minX + (i + rng() * 4 - 2) * g.res, y = g.minY + (j + rng() * 4 - 2) * g.res;
+      if (NF.terrainAt(hole, x, y) === t) quick.push({ x, y, ph: rng() });
+    }
+    const pick = (arr, n) => { for (let i = arr.length - 1; i > 0; i--) { const k = Math.floor(rng() * (i + 1)); [arr[i], arr[k]] = [arr[k], arr[i]]; } return arr.slice(0, n); };
+    water = []; quick = pick(quick, 130);
+    for (const a of water) a.nb = water.filter((b) => b !== a && Math.hypot(a.x - b.x, a.y - b.y) < 22);
+    return { water: water.filter((a) => a.nb.length), quick };
+  }
+  const COURSE = window.NF_COURSE_DATA;   // V18: data/course-data.js (was inline JSON)
+  const HOLES = CONFIG.holes.map((hc) => {
+    const raw = COURSE.holes.find((h) => h.id === hc.id);
+    const polys = raw.polys
+      .filter((p) => !CONFIG.dropShapes.includes(p.t))
+      .map((p) => (p.t === 'column' ? { t: 'ob', p: widenShape(p.p, CONFIG.columnHaloYards) } : p));
+    const src = Object.assign({}, raw, { polys });
+    const designed = raw.units === 'yards';   // V7 holes are drawn in final yards
+    const scale = designed ? 1 : (src.srcYards / Math.hypot(src.pin[0], src.pin[1])) * CONFIG.courseScale;   // screenshot yardage sets the scale
+    const sec = CONFIG.sections[hc.section] || CONFIG.sections[3];
+    const lieOverrides = Object.assign({}, CONFIG.lieOverrides, { ob: Object.assign({}, CONFIG.lieOverrides.ob, { relief: sec.relief }) });
+    const hole = NF.prepareHole(src, { scale, par: hc.par, base: hc.base, classMap: UNIFY_TERRAIN, lieOverrides });
+    hole.section = sec; hole.sectionNo = hc.section || 3;
+    hole.par = hc.par; hole.yards = designed ? Math.round(Math.hypot(src.pin[0], src.pin[1])) : Math.round(src.srcYards * CONFIG.courseScale); hole.fx = buildFx(hole);
+    return hole;
+  });
+
+  // ---------------- SEGMENT (V19) ----------------
+  // course-s1 / -s2 / -s3: the holes whose CONFIG.holes entry has that section, in
+  // course order. course-all: all 9. Hole numbers stay course-wide (index + 1).
+  function resolveSegment(seg) {
+    if (seg === 'course-all') return { id: seg, all: true, section: null, idx: HOLES.map((h, i) => i) };
+    const m = /^course-s(\d+)$/.exec(seg || '');
+    if (!m) return null;
+    const n = +m[1], idx = CONFIG.holes.map((hc, i) => (hc.section === n ? i : -1)).filter((i) => i >= 0);
+    return idx.length ? { id: seg, all: false, section: n, idx } : null;
+  }
+  let SEG = null;            // set in boot()
+  let FATAL = null;          // { code, text } when the game can't start
+  let urlBag = null;         // NF.parseSeed result for the bag URL setting, if one was given
+
+  // ---------------- TRAINING RANGE (V6) ----------------
+  // One small range per kind of ground: open fairway to land on, with the
+  // ball sitting on a patch of that ground. Shots never go out of bounds here.
+  const TRAINING = [
+    { lie: 'fairway', name: 'Fairway', col: 0x2dffc8, css: '#2dffc8' },
+    { lie: 'rough',   name: 'Rough',   col: 0xb388ff, css: '#b388ff' },
+    { lie: 'dunes',   name: 'Pink dunes', col: 0xff62c6, css: '#ff62c6' }
+  ];
+  function makeTrainingHole(stage) {
+    const W = 95, BACK = -55, FAR = 300, ring = [];
+    for (let k = 0; k < 32; k++) { const a = k / 32 * Math.PI * 2; ring.push(Math.cos(a) * 12, Math.sin(a) * 12); }
+    const src = {
+      id: 'T-' + stage.lie, name: 'Training range', bounds: { minX: -W, maxX: W, minY: BACK, maxY: FAR },
+      pin: [0, CONFIG.trainingTarget], polys: stage.lie === 'fairway' ? [] : [{ t: stage.lie, p: ring }],
+      zones: { safe: [], shortcut: [] }, decor: {}
+    };
+    const lies = Object.assign({}, CONFIG.lieOverrides, { ob: { label: 'Off the range', dist: 1, spread: 1 } });
+    const hole = NF.prepareHole(src, { scale: 1, par: 0, base: 'fairway', classMap: TRAINING_TERRAIN, lieOverrides: lies, smartAim: false });
+    hole.par = 0; hole.yards = CONFIG.trainingTarget; hole.fx = buildFx(hole);
+    hole.training = true; hole.yardLines = [50, 100, 150, 200, 250]; hole.padEdge = stage.css;
+    return hole;
+  }
+  const TRAIN_HOLES = TRAINING.map(makeTrainingHole);
+
+  // ---------------- STATE ----------------
+  const S = {
+    phase: 'boot', holeIdx: 0, hole: HOLES[0], ball: { x: 0, y: 0, lie: 'tee' }, target: { x: 0, y: 200 },
+    bag: null, seed: null, club: null, power: 100, strokes: 0, penalties: 0, shots: [], scores: [], anim: null, tracer: [],
+    effect: null, spread: null, spreadKey: '', showSpread: false, showRoutes: false, dragging: false,
+    rng: null, segDone: false,
+    // V21: data logging (read-only with respect to play).
+    holeShots: [],        // shot records of the current hole
+    holeStats: [],        // by hole index: { ob, pen, picked, shortcutTee } for the segment record and summary
+    holeT: null,          // current hole's timers: { cardAt, howMs, cardMs, teeAt, teeAct, predAt, predMs, pred }
+    tries: {},            // V22: by hole index, how many times its card has opened in this attempt
+    holeTry: 1,           // V22: try number of the current hole
+    pickedUp: false,      // the 12-stroke cap ended the current hole before the green
+    track: { aimStart: null, aimHidden: null, aim: 0, club: 0, power: 0 },   // since the aim phase started
+    gest: { map: { active: false, counted: false }, slider: { active: false, counted: false } }   // a drag counts once
+  };
+  let scene = null, MX = null, texN = 0;
+
+  // ---------------- DATA LOGGING (V21) ----------------
+  // Yards and degrees to 0.1; the random draws (standard units) to 0.001.
+  const r1 = (v) => (v == null || !isFinite(v)) ? null : Math.round(v * 10) / 10;
+  const r3 = (v) => (v == null || !isFinite(v)) ? null : Math.round(v * 1000) / 1000;
+  // The spec's names for the three out-of-bounds rules.
+  function obRuleName(R) {
+    if (!R.penaltyStrokes) return R.swingCounts ? 'no-penalty-replay' : 'free-replay';
+    return R.relief === 'fairway' ? 'penalty-drop' : 'stroke-distance';
+  }
+  // Logging must never stop the game: report the problem and carry on.
+  function safeLog(what, fn) {
+    try { return fn(); } catch (e) { console.error('[course] logging failed (' + what + '):', e); return null; }
+  }
+  // Start of an aim phase: the decision timer and the change counters start again.
+  // V22: hidden-tab time so far (bridge 3), the base for decision_hidden_ms and hidden_ms.
+  function hiddenNow() { const a = safeLog('activity', () => BRIDGE.activity()); return a ? a.hidden_ms : null; }
+  function aimPhaseStarted() {
+    S.track = { aimStart: performance.now(), aimHidden: hiddenNow(), aim: 0, club: 0, power: 0 };
+  }
+  // V22: id part for the current hole: h4 on the first try, h4-t2 on a replay (debug hole buttons).
+  function holeTag() { return 'h' + (S.holeIdx + 1) + (S.holeTry > 1 ? '-t' + S.holeTry : ''); }
+  // One adjustment before the swing. g = 'map' or 'slider': a whole drag counts as one change.
+  function countChange(kind, g) {
+    if (S.phase !== 'aim') return;
+    if (g) { const G = S.gest[g]; if (G.active) { if (G.counted) return; G.counted = true; } }
+    S.track[kind]++;
+  }
+  function gestureStart(g) { S.gest[g] = { active: true, counted: false }; }
+  function gestureEnd(g) { S.gest[g].active = false; }
+  // Shot record (spec 3c). A = S.anim at landing; o = what landed() decided.
+  function shotRecord(A, res, shot, o) {
+    const hole = S.hole, from = A.from, pin = hole.pin, club = NF.getClub(res.club);
+    const zone = NF.classifyTarget(hole, from, A.aimDeg, res.nominal);
+    const holeNo = S.holeIdx + 1, swingNo = S.holeShots.length + 1;
+    return Object.assign(BRIDGE.header('shot', `${holeTag()}-s${swingNo}`), {   // V22: h4-t2-s1 on a replay
+      hole_no: holeNo, try: S.holeTry, swing_no: swingNo, stroke_no: typeof shot.n === 'number' ? shot.n : null,
+      club: res.club, club_type: club.type, variety: club.variety, power: res.power,
+      from_x: r1(from.x), from_y: r1(from.y), from_lie: from.lie, from_to_pin: r1(NF.dist(from, pin)),
+      aim_x: r1(A.target.x), aim_y: r1(A.target.y), aim_dist: r1(NF.dist(from, A.target)), aim_deg: r1(A.aimDeg),
+      aim_vs_pin_deg: r1(angDiff(NF.headingTo(from, pin), A.aimDeg)),     // + = right of the pin line
+      aim_zone: zone.zone, aim_zone_dist: r1(zone.zoneDistance),
+      nominal: r1(res.nominal), z_lat: r3(res.zLat), z_dist: r3(res.zDist),
+      offset_deg: r1(res.offsetAngle), total: r1(shot.total), lateral: r1(shot.lateral),
+      land_x: r1(res.endX), land_y: r1(res.endY), land_terrain: res.endTerrain,
+      land_to_pin: r1(NF.dist({ x: res.endX, y: res.endY }, pin)),
+      ob: res.hazard === 'ob',
+      penalty_added: o.penaltyAdded, swing_counted: o.swingCounted, relief: o.relief,
+      drop_x: o.drop ? r1(o.drop.x) : null, drop_y: o.drop ? r1(o.drop.y) : null, drop_yards: o.drop ? r1(o.drop.d) : null,
+      on_green: o.onGreen, putts: o.putts,
+      decision_ms: A.decisionMs, decision_hidden_ms: A.decisionHiddenMs, aim_changes: A.changes.aim, club_changes: A.changes.club, power_changes: A.changes.power,
+      spread_preview_on: A.spreadOn
+    });
+  }
+  // Hole record (spec 3b), at the hole done card.
+  function holeRecord() {
+    const hole = S.hole, shots = S.holeShots, holeNo = S.holeIdx + 1, T = S.holeT || {};
+    const count = (f) => shots.filter(f).length, sum = (k) => shots.reduce((a, s) => a + (s[k] || 0), 0);
+    const actNow = T.teeAct ? BRIDGE.activity() : null, idleNow = actNow ? actNow.idle_ms : null;
+    const playMs = T.teeAt != null ? Math.round(performance.now() - T.teeAt) : null;
+    const P = T.pred || {};
+    return Object.assign(BRIDGE.header('hole', holeTag()), {   // V22: h4-t2 on a replay
+      hole_no: holeNo, try: S.holeTry, hole_id: hole.id, hole_name: hole.name, par: hole.par, yards: hole.yards,
+      section: hole.sectionNo, ob_rule: obRuleName(hole.section),
+      strokes: S.strokes, swings: shots.length, putts: sum('putts'),
+      penalty_strokes: sum('penalty_added'), ob_count: count((s) => s.ob), ob_no_penalty: S.replays || 0,
+      picked_up: S.pickedUp,
+      route_first_shot: shots.length ? shots[0].aim_zone : null,
+      shortcut_aims: count((s) => s.aim_zone === 'shortcut'),
+      card_ms: T.cardMs != null ? T.cardMs : null,
+      play_ms: playMs,
+      idle_ms: idleNow != null ? Math.max(0, idleNow - T.teeAct.idle_ms) : null,
+      // V22: the part of play_ms with the tab hidden (active play = play_ms − hidden_ms − idle_ms)
+      hidden_ms: actNow ? Math.min(playMs, Math.max(0, actNow.hidden_ms - T.teeAct.hidden_ms)) : null,
+      // V22: the prediction made on the hole card, and the time from the card showing to TEE OFF
+      pred_strokes: P.strokes != null ? P.strokes : null, pred_low: P.low != null ? P.low : null, pred_high: P.high != null ? P.high : null,
+      pred_ms: T.predMs != null ? T.predMs : null
+    });
+  }
+  // TEE OFF: the cards before this hole are done, play starts.
+  // V22: pred = the hole card's three answers ({ strokes, low, high }).
+  function teeOff(pred) {
+    const T = S.holeT; if (!T || T.teeAt != null) return;
+    T.teeAt = performance.now();
+    T.cardMs = T.howMs + Math.round(T.teeAt - T.cardAt);
+    T.pred = pred || null;
+    T.predMs = T.predAt != null ? Math.round(T.teeAt - T.predAt) : null;
+    T.teeAct = BRIDGE.activity();
+  }
+  // ---------------- PREDICTION (V22) ----------------
+  // Read one box: empty, or a whole number PRED_MIN–PRED_MAX (same rule as Target Practice).
+  function readWhole(input) {
+    const raw = String(input.value || '').trim();
+    const bad = !!(input.validity && input.validity.badInput);   // e.g. letters typed in Firefox
+    if (raw === '' && !bad) return { empty: true, ok: false, v: null };
+    const v = Number(raw), ok = !bad && Number.isInteger(v) && v >= PRED_MIN && v <= PRED_MAX;
+    return { empty: false, ok, v: ok ? v : null };
+  }
+  // Check the three boxes, mark bad ones, set the message and TEE OFF. Returns the answers or null.
+  function validatePrediction() {
+    const p = readWhole($('predStrokes')), lo = readWhole($('predLow')), hi = readWhole($('predHigh'));
+    const errs = [];
+    [[p, 'predStrokes'], [lo, 'predLow'], [hi, 'predHigh']].forEach(([r, id]) => $(id).classList.toggle('bad', !r.empty && !r.ok));
+    if ([p, lo, hi].some((r) => !r.empty && !r.ok)) errs.push(`Use whole numbers from ${PRED_MIN} to ${PRED_MAX}.`);
+    let ordered = true;
+    if (p.ok && lo.ok && hi.ok && !(lo.v <= p.v && p.v <= hi.v)) {
+      ordered = false;
+      errs.push('Your prediction must be between your two numbers (the first one the lowest).');
+      if (lo.v > p.v || lo.v > hi.v) $('predLow').classList.add('bad');
+      if (hi.v < p.v || hi.v < lo.v) $('predHigh').classList.add('bad');
+    }
+    const all = p.ok && lo.ok && hi.ok, ok = all && ordered;
+    $('predMsg').textContent = errs.length ? errs.join(' ') : (all ? '' : 'Fill in all three numbers to tee off.');
+    $('predMsg').classList.toggle('ok', !errs.length);
+    $('teeBtn').disabled = !ok;
+    return ok ? { strokes: p.v, low: lo.v, high: hi.v } : null;
+  }
+  function resetPrediction() {
+    ['predStrokes', 'predLow', 'predHigh'].forEach((id) => { $(id).value = ''; $(id).classList.remove('bad'); });
+    validatePrediction();
+  }
+  // The hole card is on screen: the prediction clock starts and the first box gets focus.
+  function holeCardShown() {
+    if (S.holeT) S.holeT.predAt = performance.now();
+    try { $('predStrokes').focus({ preventScroll: true }); } catch (e) { /* ignore */ }
+  }
+  function onTeeOff() {
+    if ($('holeCard').hidden) return;
+    const pred = validatePrediction(); if (!pred) return;
+    // Keys go to the game again (a focused box hidden with its card could otherwise keep them).
+    const ae = document.activeElement;
+    if (ae && $('holeCard').contains(ae)) { try { $('game').focus({ preventScroll: true }); } catch (e) { /* ignore */ } }
+    $('holeCard').hidden = true; safeLog('tee off', () => teeOff(pred)); setPhase('aim');
+  }
+
+  // ---------------- MAP TRANSFORM ----------------
+  // On wide screens the hole info and map key get their own column on the
+  // left, so they never cover the course.
+  const INFO_COL = 236;
+  function computeMX(W, H) {
+    const b = S.hole.bounds, pad = 10 * DPR;
+    const left = W / DPR >= 760 ? INFO_COL * DPR : 0;
+    const s = Math.min((W - left - 2 * pad) / (b.maxX - b.minX), (H - 2 * pad) / (b.maxY - b.minY));
+    return { s, ox: left + (W - left - s * (b.maxX - b.minX)) / 2, oy: (H - s * (b.maxY - b.minY)) / 2, b };
+  }
+  const sx = (x) => MX.ox + (x - MX.b.minX) * MX.s;
+  const sy = (y) => MX.oy + (MX.b.maxY - y) * MX.s;
+  const toWorld = (px, py) => ({ x: MX.b.minX + (px - MX.ox) / MX.s, y: MX.b.maxY - (py - MX.oy) / MX.s });
+
+  function terrainCanvas(hole, s) {
+    const b = hole.bounds, W = Math.ceil((b.maxX - b.minX) * s), H = Math.ceil((b.maxY - b.minY) * s);
+    const c = document.createElement('canvas'); c.width = W; c.height = H;
+    const ctx = c.getContext('2d'), X = (x) => (x - b.minX) * s, Y = (y) => (b.maxY - y) * s;
+    const look = (t) => STYLE[t] || STYLE.rough;
+    ctx.fillStyle = look(hole.base).fill; ctx.fillRect(0, 0, W, H);
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    const trace = (p) => { ctx.beginPath(); for (let i = 0; i < p.p.length; i += 2) i ? ctx.lineTo(X(p.p[i]), Y(p.p[i + 1])) : ctx.moveTo(X(p.p[i]), Y(p.p[i + 1])); ctx.closePath(); };
+    // 1) Fills. A hairline in the same colour hides seams between touching
+    //    shapes of the same kind, so merged areas read as one surface.
+    for (const p of hole.polys) {
+      const st = look(p.t); trace(p);
+      ctx.fillStyle = st.fill; ctx.fill();
+      ctx.strokeStyle = st.fill; ctx.lineWidth = 1.5 * DPR; ctx.stroke();
+    }
+    // 2) Outlines, drawn only where the kind of ground actually changes
+    //    (checked against the same terrain grid the ball uses).
+    const STEP = 1.5, OFF = 1.6;
+    for (const p of hole.polys) {
+      const pts = p.p, n = pts.length / 2;
+      let run = null;
+      const flush = () => {
+        if (run && run.pts.length > 1) {
+          const st = STYLE[run.style];
+          ctx.strokeStyle = st.edge; ctx.lineWidth = st.w * DPR; ctx.beginPath();
+          run.pts.forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1])));
+          ctx.stroke();
+        }
+        run = null;
+      };
+      for (let i = 0; i < n; i++) {
+        const ax = pts[2 * i], ay = pts[2 * i + 1], bx = pts[2 * ((i + 1) % n)], by = pts[2 * ((i + 1) % n) + 1];
+        const len = Math.hypot(bx - ax, by - ay); if (len < 1e-6) continue;
+        const nx = -(by - ay) / len, ny = (bx - ax) / len, k = Math.max(1, Math.ceil(len / STEP));
+        for (let j = 0; j < k; j++) {
+          const t0 = j / k, t1 = (j + 1) / k, tm = (j + 0.5) / k;
+          const mx = ax + (bx - ax) * tm, my = ay + (by - ay) * tm;
+          const sa = NF.terrainAt(hole, mx + nx * OFF, my + ny * OFF), sb = NF.terrainAt(hole, mx - nx * OFF, my - ny * OFF);
+          let style = null;
+          if (sa !== sb && (sa === p.t || sb === p.t)) {
+            const other = sa === p.t ? sb : sa;
+            style = (look(other).rank || 0) > (look(p.t).rank || 0) && STYLE[other] ? other : p.t;
+            if (!STYLE[style]) style = null;
+          }
+          if (!style) { flush(); continue; }
+          const p0 = [X(ax + (bx - ax) * t0), Y(ay + (by - ay) * t0)], p1 = [X(ax + (bx - ax) * t1), Y(ay + (by - ay) * t1)];
+          if (!run || run.style !== style) { flush(); run = { style, pts: [p0] }; }
+          run.pts.push(p1);
+        }
+      }
+      flush();
+    }
+    if (CONFIG.showDecor) {
+      const d = hole.decor || {};
+      const seg = (l, col, w) => { ctx.strokeStyle = col; ctx.lineWidth = w; ctx.beginPath(); ctx.moveTo(X(l[0]), Y(l[1])); ctx.lineTo(X(l[2]), Y(l[3])); ctx.stroke(); };
+      (d.bridges || []).forEach((l) => { seg(l, 'rgba(255,43,214,.35)', 7 * DPR); seg(l, '#ff9ee6', 2.2 * DPR); });
+      (d.logs || []).forEach((l) => seg(l, '#efe9fb', 4.5 * DPR));
+      (d.orbs || []).forEach((o) => { ctx.fillStyle = '#bfe9ff'; ctx.beginPath(); ctx.arc(X(o[0]), Y(o[1]), 3.6 * DPR, 0, 7); ctx.fill(); });
+    }
+    if (hole.yardLines) {
+      ctx.save();
+      ctx.font = `600 ${11 * DPR}px Rajdhani, sans-serif`; ctx.textBaseline = 'bottom'; ctx.fillStyle = 'rgba(201,184,234,.75)';
+      for (const d of hole.yardLines) {
+        ctx.strokeStyle = 'rgba(0,240,255,.16)'; ctx.lineWidth = 1 * DPR; ctx.setLineDash([5 * DPR, 6 * DPR]);
+        ctx.beginPath(); ctx.moveTo(0, Y(d)); ctx.lineTo(W, Y(d)); ctx.stroke();
+        ctx.fillText(`${d} yd`, 6 * DPR, Y(d) - 3 * DPR);
+      }
+      ctx.setLineDash([]);
+      const pad = hole.polys[0];
+      if (pad) {
+        ctx.setLineDash([]); ctx.strokeStyle = hole.padEdge; ctx.lineWidth = 2.2 * DPR; ctx.beginPath();
+        for (let i = 0; i < pad.p.length; i += 2) i ? ctx.lineTo(X(pad.p[i]), Y(pad.p[i + 1])) : ctx.moveTo(X(pad.p[i]), Y(pad.p[i + 1]));
+        ctx.closePath(); ctx.stroke();
+      }
+      for (const r of [10, 20]) {
+        ctx.strokeStyle = 'rgba(61,255,176,.35)'; ctx.lineWidth = 1.2 * DPR;
+        ctx.beginPath(); ctx.arc(X(hole.pin.x), Y(hole.pin.y), r * s, 0, Math.PI * 2); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    // Map edge: everything beyond it is out of bounds too.
+    ctx.strokeStyle = STYLE.ob.edge; ctx.lineWidth = 2 * DPR; ctx.setLineDash([6 * DPR, 4 * DPR]); ctx.strokeRect(DPR, DPR, W - 2 * DPR, H - 2 * DPR);
+    return c;
+  }
+  function rebuildTerrain() {
+    if (!scene) return;
+    MX = computeMX(scene.scale.width, scene.scale.height);
+    const key = 'terrain' + (++texN);
+    scene.textures.addCanvas(key, terrainCanvas(S.hole, MX.s));
+    const old = scene.terrain.texture.key;
+    scene.terrain.setTexture(key).setPosition(MX.ox, MX.oy).setVisible(true);
+    if (old && old.startsWith('terrain')) scene.textures.remove(old);
+  }
+
+  // ---------------- UI ----------------
+  // ---------------- BAG (from the club seed) ----------------
+  function setBag(parsed) {
+    S.bag = parsed.clubs; S.seed = parsed.seed; S.club = S.bag[0].id;
+    window.NF_CLUB_SEED = parsed.seed;   // same variable name as Learn Mode / Target Practice
+    if (!STUDY) { try { localStorage.setItem(SEED_STORE_KEY, parsed.seed); } catch (e) {} }   // V19: never in study mode
+    BRIDGE.set({ bag_seed: parsed.seed });
+    $('clubs').innerHTML = '';
+    S.bag.forEach((c, i) => {
+      const b = document.createElement('button'); b.type = 'button'; b.dataset.club = c.id;
+      b.innerHTML = `<span class="k">${i + 1}</span>${c.name}<span class="v">${c.varietyName}</span>`;
+      b.onclick = () => setClub(c.id); $('clubs').appendChild(b);
+    });
+    if (CONFIG.researcherTools) { buildClubTable(); setTimeout(computeReach, 200); }
+  }
+  function bagClub(id) { return NF.getClub(id); }
+  function checkSeed() {
+    const raw = $('seedInput').value, r = NF.parseSeed(raw), msg = $('seedMsg');
+    const typed = raw.replace(/[^A-Za-z]/g, '').length;
+    $('startBtn').disabled = !r.ok;
+    $('seedInput').setAttribute('aria-invalid', String(!r.ok && typed >= 6));
+    if (r.ok) {
+      msg.className = 'seedmsg'; msg.textContent = `Seed ${r.seed} · your bag for this round:`;
+      $('bagPreview').innerHTML = r.clubs.map((c) => `<div><b>${c.name.toUpperCase()}</b><span>${c.varietyName}</span><small>${c.maxDistance} yd max</small></div>`).join('');
+    } else {
+      msg.className = 'seedmsg' + (typed >= 6 ? ' bad' : '');
+      msg.textContent = typed >= 6 ? r.error : 'Enter the 6-letter seed shown at the end of Target Practice.';
+      $('bagPreview').innerHTML = '';
+    }
+    return r;
+  }
+  // The seed card: local testing without a bag in the link only (V19: never in study mode).
+  function showStartCard() {
+    if (STUDY || FATAL) return;
+    hideCards(); setPhase('start'); $('startCard').hidden = false;
+    $('startBtn').textContent = CONFIG.training && !S.trainedOnce ? 'START TRAINING' : 'START ROUND';
+    if (!$('seedInput').value) { try { $('seedInput').value = localStorage.getItem(SEED_STORE_KEY) || ''; } catch (e) {} }
+    checkSeed();
+    setTimeout(() => $('seedInput').focus(), 50);
+  }
+  function startRound() {
+    const r = checkSeed(); if (!r.ok) return;
+    setBag(r); S.scores = []; S.holeStats = []; S.tries = {}; S.segDone = false;   // V22: tries
+    $('startCard').hidden = true;
+    showHowCard();
+  }
+  // V19: bag from the URL → straight to the segment's first hole (its section briefing shows first).
+  function startFromUrlBag() {
+    setBag(urlBag); S.scores = []; S.holeStats = []; S.tries = {}; S.segDone = false;   // V22: tries
+    showHowCard();
+  }
+  // ---------------- HOW TO PLAY (V20) ----------------
+  // Before the first section briefing. course-s1 and course-all: the full card (the old start
+  // card's points, without the seed and training lines). course-s2 / -s3: a short reminder.
+  const HOW_KEYS = [
+    ['<kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd>', 'choose a club'],
+    ['<kbd>Space</kbd>', 'swing'],
+    ['<kbd>↑</kbd> <kbd>↓</kbd>', 'power ±5% (Shift ±1%)'],
+    ['<kbd>←</kbd> <kbd>→</kbd>', 'aim ±1° (Shift ¼°)']
+  ];
+  function showHowCard() {
+    hideCards();
+    const first = SEG.idx[0], full = SEG.all || SEG.section === 1;
+    // Draw the segment's first hole behind the card.
+    S.holeIdx = first; S.hole = HOLES[first]; S.ball = { x: 0, y: 0, lie: 'tee' }; S.shots = []; S.strokes = 0;
+    S.target = { x: S.hole.pin.x, y: S.hole.pin.y };
+    rebuildTerrain(); buildLegend(S.hole);
+    const clubs = S.bag.map((c) => `<b>${c.name}</b> (${c.varietyName})`);
+    $('howTitle').textContent = full ? 'HOW TO PLAY' : 'SAME CONTROLS AS BEFORE';
+    $('howList').innerHTML = full ? [
+      `You play with the <b>three clubs</b> you chose in Target Practice: ${clubs.slice(0, -1).join(', ')} and ${clubs[clubs.length - 1]}.`,
+      'Pick a club and a <b>power %</b>, then <b>click or drag</b> on the course to aim.',
+      'The ball <b>stops where it lands</b>. No bounce, no roll.',
+      'Only the <b>black fairway</b> and the <b>green</b> are in play. Everything else is <b>out of bounds</b> (the bubbling purple ground).',
+      'The course has <b>three sections</b> of three holes. What happens when you land <b>out of bounds</b> changes in each section, and you get a short briefing before each one.',
+      'Balls that land on the green are putted for you.'
+    ].map((t) => `<li>${t}</li>`).join('') : '';
+    $('howList').hidden = !full;
+    $('howKeys').innerHTML = HOW_KEYS.map(([k, d]) => `<dt>${k}</dt><dd>${d}</dd>`).join('');
+    setPhase('card'); $('howCard').hidden = false;
+    S.howShownAt = performance.now(); S.howCardMs = null; S.howCardUsed = false;
+  }
+  function closeHowCard() {
+    if ($('howCard').hidden) return;
+    S.howCardMs = Math.round(performance.now() - S.howShownAt);   // time on this card; V21: added to the first hole's card_ms
+    $('howCard').hidden = true;
+    if (CONFIG.training && !S.trainedOnce) startTraining(); else enterHole(SEG.idx[0]);
+  }
+  function showError(code, text) {
+    hideCards(); setPhase('error');
+    $('errText').textContent = text;
+    $('errCode').textContent = code;
+    if (!STUDY) $('errHelp').textContent = 'Local testing: fix the segment or bag in the link and reload.';
+    $('errorCard').hidden = false;
+  }
+
+  // ---------------- TRAINING FLOW ----------------
+  function startTraining() {
+    S.training = { stage: 0, shots: [] };
+    S.rng = NF.rng(NF.subSeed(SET.rng, 'training'));   // V19: own stream (training is off by default)
+    showTrainingCard(0);
+  }
+  function trainingText(stage) {
+    const L = TRAIN_HOLES[0].lies[stage.lie], pct = (v) => Math.round(v * 100) + '%';
+    const wider = Math.round(((L.spread || 1) - 1) * 100);
+    if (stage.lie === 'fairway') return 'Your ball sits on the <b>fairway</b>. This is a normal shot: full distance and your club\'s usual spread.';
+    let t = `Your ball sits in the <b>${stage.name.toLowerCase()}</b>. Shots fly about <b>${pct(L.dist)}</b> as far and spread about <b>${wider}% wider</b>.`;
+    if (L.wedgeDist) t += ` Your <b>Wedge</b> still flies about <b>${pct(L.wedgeDist)}</b>.`;
+    return t;
+  }
+  function showTrainingCard(i) {
+    hideCards();
+    const T = S.training, stage = TRAINING[i];
+    T.stage = i; T.inStage = 0;
+    S.hole = TRAIN_HOLES[i]; S.ball = { x: 0, y: 0, lie: stage.lie };
+    S.strokes = 0; S.penalties = 0; S.shots = T.shots;
+    S.club = S.club || S.bag[0].id; S.anim = null; S.tracer = []; S.effect = null; S.spreadKey = '';
+    S.target = { x: S.hole.pin.x, y: S.hole.pin.y };
+    $('log').innerHTML = '';
+    rebuildTerrain();
+    const st = STYLE[stage.lie];
+    $('trainNum').textContent = `TRAINING · ${i + 1} OF ${TRAINING.length}`;
+    $('trainName').innerHTML = `<span class="sw" style="--f:${st.fill};--e:${st.edge}"></span>${stage.name.toUpperCase()}`;
+    $('trainText').innerHTML = trainingText(stage);
+    const tips = [`Hit <b>${CONFIG.trainingShots} shots</b> at the target with any club and power.`];
+    if (i > 0) tips.push('Try the same club and power you used before to see the difference.');
+    if (CONFIG.trainingPreview) tips.push('The faint dots show where most shots from here would land with your current club and power.');
+    $('trainTips').innerHTML = tips.map((t) => `<li>${t}</li>`).join('');
+    $('trainBtn').textContent = `HIT ${CONFIG.trainingShots} SHOTS`;
+    setPhase('card'); $('trainCard').hidden = false;
+  }
+  function trainingLanded(shot, res) {
+    const T = S.training, stage = TRAINING[T.stage], club = bagClub(shot.club);
+    shot.stage = T.stage; shot.col = stage.col;
+    shot.normal = club.maxDistance * shot.power / 100;          // same swing from the fairway
+    shot.pct = shot.total / shot.normal;
+    T.inStage++; shot.n = T.inStage;
+    T.shots.push(shot); addLogRow(shot);
+    const side = Math.abs(shot.lateral) < 1.5 ? 'right on your line' : `${Math.abs(shot.lateral).toFixed(0)} yd ${shot.lateral < 0 ? 'left' : 'right'}`;
+    toast(`${stage.name.toUpperCase()} · SHOT ${T.inStage} OF ${CONFIG.trainingShots}`,
+      `${Math.round(shot.total)} yd · ${side} · ${Math.round(shot.pct * 100)}% of a fairway shot`, 'good');
+    setTimeout(() => {
+      S.anim = null; S.tracer = []; S.spreadKey = '';
+      S.ball = { x: 0, y: 0, lie: stage.lie };
+      if (T.inStage < CONFIG.trainingShots) return setPhase('aim');
+      if (T.stage + 1 < TRAINING.length) return showTrainingCard(T.stage + 1);
+      showTrainingSummary();
+    }, 1100);
+  }
+  function showTrainingSummary() {
+    hideCards();
+    const T = S.training, L = TRAIN_HOLES[0].lies, pct = (v) => Math.round(v * 100) + '%';
+    let html = '<tr><th>Ground</th><th>Shots</th><th>Distance vs fairway</th><th>Average miss off your line</th></tr>';
+    TRAINING.forEach((stage, i) => {
+      const sh = T.shots.filter((x) => x.stage === i), n = sh.length || 1;
+      const avgPct = sh.reduce((a, x) => a + x.pct, 0) / n, avgMiss = sh.reduce((a, x) => a + Math.abs(x.lateral), 0) / n;
+      const used = {}; sh.forEach((x) => { const c = bagClub(x.club).name; used[c] = (used[c] || 0) + 1; });
+      const usedTxt = Object.entries(used).map(([c, k]) => `${c} ×${k}`).join(', ');
+      html += `<tr><td style="--c:${stage.css}"><b>${stage.name}</b><small>${usedTxt}</small></td><td>${sh.length}</td><td>${pct(avgPct)}</td><td>${avgMiss.toFixed(1)} yd</td></tr>`;
+    });
+    $('trainTable').innerHTML = html;
+    $('trainRule').innerHTML = `Over many shots: the <b>rough</b> flies about ${pct(L.rough.dist)} as far and spreads ${Math.round((L.rough.spread - 1) * 100)}% wider. ` +
+      `The <b>pink dunes</b> fly about ${pct(L.dunes.dist)} as far (Wedge ${pct(L.dunes.wedgeDist)}) and spread ${Math.round((L.dunes.spread - 1) * 100)}% wider. ` +
+'Short clubs like the Wedge miss by fewer yards, and a few shots can look different by chance.';
+    setPhase('card'); $('trainDone').hidden = false;
+  }
+  function finishTraining() {
+    S.training = null; S.shots = []; S.trainedOnce = true;   // "Play again" goes straight to hole 1
+    hideCards(); enterHole(SEG.idx[0]);
+  }
+
+  function buildLegend(hole) {
+    const rows = [
+      ['fairway', 'in play, full distance'],
+      ['green', 'putted for you'],
+      ['ob', hole ? obSummary(hole) : '+1 stroke, replay the shot']
+    ];
+    $('legend').innerHTML = rows.map(([k, note]) =>
+      `<span class="sw" style="--f:${STYLE[k].fill};--e:${STYLE[k].edge}"></span><span class="lt"><b>${STYLE[k].name}</b><small>${note}</small></span>`).join('');
+  }
+
+  function buildUI() {
+    buildLegend();
+    $('courseMeta').textContent = `${HOLES.length} HOLES · PAR ${HOLES.reduce((a, h) => a + h.par, 0)}`;
+    $('powerBox').style.setProperty('--pgrad', 'linear-gradient(90deg,' + POWER_STOPS.map(([p, c]) => `${c} ${((p - 1) / 99 * 100).toFixed(1)}%`).join(',') + ')');
+    $('powerSlider').oninput = (e) => setPower(+e.target.value, 'slider');
+    // V21: a drag on the slider counts as one power change.
+    $('powerSlider').addEventListener('pointerdown', () => gestureStart('slider'));
+    ['pointerup', 'pointercancel'].forEach((ev) => window.addEventListener(ev, () => gestureEnd('slider'), true));
+    $('pwDown').onclick = () => setPower(S.power - 1);
+    $('pwUp').onclick = () => setPower(S.power + 1);
+    $('rotL').onclick = () => rotateAim(-1); $('rotR').onclick = () => rotateAim(1);
+    $('aimPin').onclick = () => { if (S.phase === 'aim') { if (S.target.x !== S.hole.pin.x || S.target.y !== S.hole.pin.y) countChange('aim'); S.target = { x: S.hole.pin.x, y: S.hole.pin.y }; aimChanged(); } };
+    $('swing').onclick = swing;
+    $('startBtn').onclick = startRound;
+    $('seedInput').oninput = checkSeed;
+    $('seedInput').onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); startRound(); } };
+    $('teeBtn').onclick = onTeeOff;   // V22: only with a valid prediction
+    $('secBtn').onclick = () => { $('sectionCard').hidden = true; $('holeCard').hidden = false; holeCardShown(); };
+    // V22: prediction boxes. Enter in a box tees off once all three are valid.
+    ['predStrokes', 'predLow', 'predHigh'].forEach((id) => {
+      $(id).addEventListener('input', validatePrediction);
+      $(id).addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); onTeeOff(); } });
+    });
+    $('nextBtn').onclick = nextHole;
+    $('trainBtn').onclick = () => { $('trainCard').hidden = true; setPhase('aim'); };
+    $('trainToCourse').onclick = finishTraining;
+    $('trainAgain').onclick = () => { hideCards(); startTraining(); };
+    $('againBtn').onclick = playAgain;
+    $('againBtn').hidden = STUDY;               // V19: no Play Again in study mode
+    $('sdAgain').onclick = playAgain;
+    $('howBtn').onclick = closeHowCard;
+    $('sdContinue').onclick = () => { if (S.segDone) return; $('sdContinue').disabled = true; $('sdContinue').textContent = 'Saving…'; endSegment(); };
+    $('research').hidden = !CONFIG.researcherTools;
+    $('spreadToggle').onchange = (e) => { S.showSpread = e.target.checked; S.spreadKey = ''; if (!e.target.checked) $('spreadStats').innerHTML = ''; };
+    $('routesToggle').onchange = (e) => { S.showRoutes = e.target.checked; };
+    // V19: researcher hole jumps only list this segment's holes.
+    if (CONFIG.researcherTools && SEG) {
+      SEG.idx.forEach((i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = `Play hole ${i + 1}`; b.onclick = () => { if (!S.bag || FATAL) return showStartCard(); S.training = null; hideCards(); enterHole(i); }; $('holeJump').appendChild(b); });
+      if (CONFIG.training) { const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Training range'; b.onclick = () => { if (!S.bag || FATAL) return showStartCard(); hideCards(); startTraining(); }; $('holeJump').prepend(b); }
+    }
+    $('trainBullet').hidden = !CONFIG.training;
+    $('reachBtn').onclick = computeReach;
+    $('dlBtn').onclick = () => BRIDGE.download();   // V21: researcher panel only (debug)
+    if (CONFIG.researcherTools) buildClubTable();
+    document.addEventListener('keydown', onKey);
+    // V19: inside the Qualtrics iframe, keys that scroll must not scroll the survey page.
+    if (FRAMED) window.addEventListener('keydown', stopScrollKeys);
+    // V19: a click on the map focuses the game (Phaser cancels mousedown on the canvas, which
+    // would otherwise leave keyboard focus on the survey page).
+    document.addEventListener('pointerdown', focusGame, true);
+  }
+  const SCROLL_KEYS = new Set([' ', 'Spacebar', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown', 'Home', 'End']);
+  function stopScrollKeys(e) {
+    if (e.defaultPrevented || !SCROLL_KEYS.has(e.key) || e.ctrlKey || e.metaKey || e.altKey) return;
+    const t = e.target, tag = t && t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;   // they use these keys
+    if ((e.key === ' ' || e.key === 'Spacebar') && (tag === 'BUTTON' || tag === 'SUMMARY')) return;       // Space presses the button
+    e.preventDefault();
+  }
+  function focusGame(e) {
+    const t = e.target;
+    if (t && t.closest && t.closest('button, input, select, textarea, summary, label, a')) return;   // these take focus themselves
+    if (document.hasFocus() && document.activeElement && document.activeElement !== document.body) return;
+    try { window.focus(); } catch (err) { /* ignore */ }
+    try { $('game').focus({ preventScroll: true }); } catch (err) { /* ignore */ }
+  }
+  function hideCards() { ['startCard', 'howCard', 'sectionCard', 'holeCard', 'doneCard', 'roundCard', 'trainCard', 'trainDone', 'sectionDone', 'errorCard'].forEach((id) => { $(id).hidden = true; }); }
+  function setPhase(p) { if (p === 'aim' && S.phase !== 'aim') aimPhaseStarted(); S.phase = p; refresh(); }   // V21: decision timer
+  function setClub(id) { if (S.phase === 'aim') { if (id !== S.club) countChange('club'); S.club = id; refresh(); } }
+  function setPower(p, src) {
+    if (S.phase === 'aim') {
+      const v = Math.max(NF.POWER_MIN, Math.min(NF.POWER_MAX, Math.round(p)));
+      if (v !== S.power) countChange('power', src === 'slider' ? 'slider' : null);   // V21
+      S.power = v;
+    }
+    refresh();
+  }
+  function refresh() {
+    const aim = S.phase === 'aim';
+    document.querySelectorAll('#clubs button').forEach((b) => { b.setAttribute('aria-pressed', b.dataset.club === S.club); b.disabled = !aim; });
+    const pw = S.power || 100, sl = $('powerSlider');
+    sl.disabled = !aim; if (+sl.value !== pw) sl.value = pw;
+    sl.setAttribute('aria-valuetext', pw + ' percent power');
+    $('powerVal').textContent = pw + '%'; $('powerBox').style.setProperty('--pc', powerColor(pw));
+    $('pwDown').disabled = !aim || pw <= NF.POWER_MIN; $('pwUp').disabled = !aim || pw >= NF.POWER_MAX;
+    ['rotL', 'rotR', 'aimPin', 'swing'].forEach((id) => { $(id).disabled = !aim; });
+    const hole = S.hole, lie = hole.lies[S.ball.lie] || {};
+    // V19: "HOLE 4 OF 9"; the name stays on one line (it wraps as a whole on narrow HUDs).
+    $('hudHole').innerHTML = `HOLE ${S.holeIdx + 1} OF ${HOLES.length} · <span style="white-space:nowrap">${hole.name.toUpperCase()}</span>`;
+    $('hudMeta').innerHTML = `PAR ${hole.par} · ${hole.yards} YD · STROKE <b>${S.strokes + 1}</b>`;
+    $('hudPin').innerHTML = `<b>${Math.round(NF.dist(S.ball, hole.pin))}</b> YD TO PIN`;
+    $('hudLie').innerHTML = `<b>${(lie.label || S.ball.lie).toUpperCase()}</b> · ${lieEffect(hole, S.ball.lie, S.club ? bagClub(S.club).type : '')}`;
+    const td = NF.dist(S.ball, S.target), rel = angDiff(NF.headingTo(S.ball, hole.pin), NF.headingTo(S.ball, S.target));
+    $('aimRead').innerHTML = `Target <b>${Math.round(td)} yd</b> · ${Math.abs(rel) < 0.5 ? 'straight at the pin' : `${Math.abs(rel).toFixed(1)}° ${rel < 0 ? 'left' : 'right'} of the pin`}`;
+    // V22: fb-hidden shows the hole numbers only (no scores, no TOTAL), and no stroke counter once
+    // the hole is over (it would read the final score + 1).
+    if (FB_HIDDEN && (S.phase === 'done' || S.phase === 'round')) $('hudMeta').innerHTML = `PAR ${hole.par} · ${hole.yards} YD`;
+    $('scorecard').innerHTML = FB_HIDDEN
+      ? (SEG ? SEG.idx : []).map((i) => `<span>H${i + 1}</span>`).join('') + `<span>BAG <b>${S.seed || '–'}</b></span>`
+      : (SEG ? SEG.idx : []).map((i) => `<span>H${i + 1} <b>${S.scores[i] != null ? S.scores[i] : '–'}</b></span>`).join('') +
+        `<span>TOTAL <b>${S.scores.filter((x) => x != null).length ? S.scores.reduce((a, b) => a + (b || 0), 0) : '–'}</b></span>` +
+        `<span>BAG <b>${S.seed || '–'}</b></span>`;
+    $('logTitle').textContent = `SHOT LOG · HOLE ${S.holeIdx + 1}`;
+    $('aimPin').textContent = S.training ? 'Aim at target' : 'Aim at pin';
+    if (S.training) {
+      const T = S.training, stage = TRAINING[T.stage];
+      $('hudHole').textContent = `TRAINING ${T.stage + 1}/${TRAINING.length} · ${stage.name.toUpperCase()}`;
+      $('hudMeta').innerHTML = `SHOT <b>${Math.min(T.inStage + 1, CONFIG.trainingShots)}</b> OF ${CONFIG.trainingShots}`;
+      $('hudPin').innerHTML = `<b>${Math.round(NF.dist(S.ball, hole.pin))}</b> YD TO TARGET`;
+      $('aimRead').innerHTML = `Target <b>${Math.round(td)} yd</b> · ${Math.abs(rel) < 0.5 ? 'straight at the target' : `${Math.abs(rel).toFixed(1)}° ${rel < 0 ? 'left' : 'right'} of the target`}`;
+      $('logTitle').textContent = `SHOT LOG · TRAINING · ${stage.name.toUpperCase()}`;
+    }
+  }
+  function lieEffect(hole, name, clubType) {
+    const L = hole.lies[name]; if (!L) return '';
+    if (L.hazard) return 'penalty';
+    const d = clubType === 'wedge' && L.wedgeDist ? L.wedgeDist : (L.dist == null ? 1 : L.dist);
+    if (d >= 0.999 && (L.spread || 1) <= 1.001) return 'clean lie';
+    return `shots fly ${Math.round(d * 100)}%${(L.spread || 1) > 1.001 ? ', wilder' : ''}`;
+  }
+  let toastT = null;
+  function toast(title, body, kind) {
+    const el = $('toast'); el.className = 'toast ' + (kind || ''); el.innerHTML = `<strong>${title}</strong><span>${body}</span>`; el.hidden = false;
+    clearTimeout(toastT); toastT = setTimeout(() => { el.hidden = true; }, 3400);
+  }
+  function addLogRow(shot) {
+    const li = document.createElement('li');
+    li.style.setProperty('--pc', shot.col != null ? '#' + shot.col.toString(16).padStart(6, '0') : powerColor(shot.power));
+    const club = bagClub(shot.club).name;
+    const side = Math.abs(shot.lateral) < 1 ? 'on line' : `${Math.abs(shot.lateral).toFixed(0)} yd ${shot.lateral < 0 ? 'L' : 'R'}`;
+    li.innerHTML = shot.hazard
+      ? `<span class="n">${shot.n}</span><span><b>${club} ${shot.power}%</b> · ${Math.round(shot.total)} yd · ${HAZARD_TEXT[shot.hazard][0].replace('⚡ ', '').toLowerCase()} · ${shot.penalty ? '+' + shot.penalty : (shot.free ? 'not counted' : 'no penalty')}${shot.dropX != null ? ' · to fairway' : ' · replay'}</span>`
+      : shot.pct != null
+        ? `<span class="n">${shot.n}</span><span><b>${club} ${shot.power}%</b> · ${Math.round(shot.total)} yd · ${side} · ${Math.round(shot.pct * 100)}% of fairway</span>`
+        : `<span class="n">${shot.n}</span><span><b>${club} ${shot.power}%</b> · ${Math.round(shot.total)} yd · ${side} · ${shot.endName}</span>`;
+    if (shot.hazard) li.classList.add('bad');
+    $('log').prepend(li);
+  }
+
+  // ---------------- FLOW ----------------
+  // V17: the first hole of each section opens with that section's briefing.
+  function enterHole(i) {
+    const h = HOLES[i], briefing = !(i > 0 && HOLES[i - 1].sectionNo === h.sectionNo);
+    showHoleCard(i, briefing);   // V22: with a briefing first, the hole card shows at START SECTION
+    if (!briefing) return;
+    const idx = HOLES.map((x, k) => (x.sectionNo === h.sectionNo ? k : -1)).filter((k) => k >= 0);
+    const nSec = new Set(HOLES.map((x) => x.sectionNo)).size, R = h.section;
+    $('secNum').textContent = `SECTION ${h.sectionNo} OF ${nSec}`;
+    $('secName').textContent = R.name.toUpperCase();
+    $('secMeta').textContent = idx.length > 1 ? `HOLES ${idx[0] + 1}–${idx[idx.length - 1] + 1}` : `HOLE ${idx[0] + 1}`;
+    $('secText').innerHTML = R.text;
+    $('secTips').innerHTML = [R.example, 'Everything except the <b>fairway</b> and the <b>green</b> is out of bounds.'].map((t) => `<li>${t}</li>`).join('');
+    $('holeCard').hidden = true; $('sectionCard').hidden = false;
+  }
+  // V22: behindBriefing = the section card covers this hole card until START SECTION (holeCardShown then).
+  function showHoleCard(i, behindBriefing) {
+    S.holeTry = S.tries[i] = (S.tries[i] || 0) + 1;   // V22: a replay of this hole is a new try
+    S.holeIdx = i; S.hole = HOLES[i]; S.ball = { x: 0, y: 0, lie: 'tee' }; S.strokes = 0; S.penalties = 0; S.replays = 0; S.shots = [];
+    // V21: logging for this hole. The how-to-play card's time goes to the segment's first hole.
+    S.holeShots = []; S.pickedUp = false;
+    S.holeT = { cardAt: performance.now(), howMs: (S.howCardMs != null && !S.howCardUsed) ? S.howCardMs : 0, cardMs: null, teeAt: null, teeAct: null, predAt: null, predMs: null, pred: null };
+    S.howCardUsed = true;
+    S.club = S.bag ? S.bag[0].id : null; S.power = 100; S.anim = null; S.tracer = []; S.effect = null; S.spreadKey = '';
+    S.target = { x: S.hole.pin.x, y: S.hole.pin.y };
+    // V19: seeded luck, one stream per hole (hole number course-wide), so the same rng and
+    // the same swings always give the same shots, whatever happened on other holes.
+    S.rng = NF.rng(NF.subSeed(SET.rng, 'hole', i + 1));
+    $('log').innerHTML = '';
+    rebuildTerrain();
+    $('cardNum').textContent = `HOLE ${i + 1} OF ${HOLES.length} · SECTION ${S.hole.sectionNo}`;
+    buildLegend(S.hole);
+    $('cardName').textContent = S.hole.name.toUpperCase();
+    $('cardMeta').textContent = `PAR ${S.hole.par} · ${S.hole.yards} YARDS`;
+    $('cardNotes').innerHTML = HOLE_NOTES[S.hole.id].map((n) => `<li>${n === OB_NOTE ? obNote(S.hole) : n}</li>`).join('');
+    resetPrediction();   // V22: empty boxes, TEE OFF disabled
+    setPhase('card'); $('holeCard').hidden = false;
+    if (!behindBriefing) holeCardShown();
+  }
+  function rotateAim(deg) {
+    if (S.phase !== 'aim') return;
+    const b = S.ball, dx = S.target.x - b.x, dy = S.target.y - b.y, a = deg * DEG;
+    S.target = { x: b.x + dx * Math.cos(a) + dy * Math.sin(a), y: b.y - dx * Math.sin(a) + dy * Math.cos(a) };
+    countChange('aim');
+    aimChanged();
+  }
+  function aimChanged() { refresh(); }
+
+  function swing() {
+    if (S.phase !== 'aim') return;
+    const from = Object.assign({}, S.ball), aimDeg = NF.headingTo(from, S.target);
+    const res = NF.simulateShot(S.hole, from, { club: S.club, power: S.power, aimDeg }, S.rng);   // V19: seeded (was Math.random)
+    setPhase('fly');
+    // One flight arc for the full distance; the ball sticks where it lands.
+    const segs = [{ kind: 'fly', dur: clamp(res.total * 7, 450, 2000), from, to: { x: res.landX, y: res.landY }, apex: res.apex }];
+    S.tracer = [];
+    S.anim = { res, from, aimDeg, segs, i: 0, t0: performance.now(), pos: { x: from.x, y: from.y, z: 0 },
+      // V21: for the shot record
+      target: { x: S.target.x, y: S.target.y }, spreadOn: !!S.showSpread,
+      decisionMs: S.track.aimStart != null ? Math.round(performance.now() - S.track.aimStart) : null,
+      decisionHiddenMs: null,   // V22: set just below
+      changes: { aim: S.track.aim, club: S.track.club, power: S.track.power } };
+    // V22: the part of decision_ms with the tab hidden.
+    const hidNow = S.track.aimHidden != null ? hiddenNow() : null, A = S.anim;
+    if (hidNow != null && A.decisionMs != null) A.decisionHiddenMs = Math.min(A.decisionMs, Math.max(0, hidNow - S.track.aimHidden));
+  }
+  function stepAnim(now) {
+    const A = S.anim; if (!A || A.done) return;
+    let seg = A.segs[A.i], t = (now - A.t0) / seg.dur;
+    while (t >= 1) {
+      A.i++;
+      if (A.i >= A.segs.length) { A.pos = { x: seg.to.x, y: seg.to.y, z: 0 }; A.done = true; landed(); return; }
+      A.t0 += seg.dur; seg = A.segs[A.i]; t = (now - A.t0) / seg.dur;
+    }
+    let g, z;
+    if (seg.kind === 'fly') { g = 1 - Math.pow(1 - t, 1.4); z = seg.apex * Math.sin(Math.PI * Math.pow(t, 1.12)); }
+    else if (seg.kind === 'hop') { g = t; z = seg.apex * Math.sin(Math.PI * t); }
+    else { g = easeOutCubic(t); z = 0; }
+    A.pos = { x: lerp(seg.from.x, seg.to.x, g), y: lerp(seg.from.y, seg.to.y, g), z };
+    if (seg.kind !== 'roll') S.tracer.push(Object.assign({}, A.pos));
+  }
+  function landed() {
+    const A = S.anim, res = A.res, hole = S.hole, h = A.aimDeg * DEG;
+    const ex = res.endX - A.from.x, ey = res.endY - A.from.y;
+    S.strokes++;
+    const shot = { n: S.strokes, club: res.club, power: res.power, total: Math.hypot(ex, ey), lateral: ex * Math.cos(h) - ey * Math.sin(h),
+      fromX: A.from.x, fromY: A.from.y, endX: res.endX, endY: res.endY, hazard: res.hazard, endName: ((hole.lies[res.endTerrain] || {}).label || res.endTerrain).toLowerCase(),
+      zLat: res.zLat, zDist: res.zDist };   // V19: the two random draws, for logging (prompt 4)
+    if (S.training) return trainingLanded(shot, res);
+    let over = false;
+    // V21: what this swing did under the hole's rules, for the shot record.
+    const o = { penaltyAdded: 0, swingCounted: true, relief: 'none', drop: null, onGreen: false, putts: 0 };
+    if (res.hazard) {
+      // V17: penalty, whether the swing counts, and where you play next all come from the hole's section.
+      const R = obRule(hole);
+      if (!R.swingCounts) S.strokes--;
+      S.strokes += R.penaltyStrokes;
+      if (R.penaltyStrokes) S.penalties++; else S.replays++;
+      shot.penalty = R.penaltyStrokes; shot.free = !R.swingCounts;
+      o.penaltyAdded = R.penaltyStrokes; o.swingCounted = !!R.swingCounts;
+      S.effect = { kind: res.hazard, x: res.endX, y: res.endY, t0: performance.now() };
+      A.hidden = true;
+      shot.n = R.swingCounts ? S.strokes - R.penaltyStrokes : '↺';
+      // V14 default: the ball stays where the shot was hit from (replay).
+      // With relief 'fairway', it is placed on the nearest point of the fairway.
+      const relief = (hole.lies[res.endTerrain] || {}).relief;
+      const drop = relief === 'fairway' ? NF.nearestTerrain(hole, res.endX, res.endY, ['fairway'], { noNearerHole: CONFIG.dropNoNearerHole }) : null;
+      if (drop) {
+        S.ball = { x: drop.x, y: drop.y, lie: 'fairway' };
+        shot.dropX = drop.x; shot.dropY = drop.y; shot.dropYards = drop.d;
+        o.relief = 'fairway'; o.drop = drop;
+        toast(HAZARD_TEXT[res.hazard][0], `${R.penaltyStrokes ? `+${R.penaltyStrokes} penalty stroke${R.penaltyStrokes > 1 ? 's' : ''}` : 'No penalty'}. Ball placed on the nearest fairway, ${Math.max(1, Math.round(drop.d))} yd from where it landed.`, 'bad');
+      } else {
+        o.relief = 'replay';
+        toast(HAZARD_TEXT[res.hazard][0], obToast(hole), 'bad');
+      }
+    } else {
+      S.ball = { x: res.endX, y: res.endY, lie: res.endTerrain };
+      const toPin = NF.dist(S.ball, hole.pin);
+      if (res.endTerrain === 'green') {
+        const putts = NF.puttsFor(toPin, RULES), before = S.strokes;
+        S.strokes = Math.min(RULES.maxStrokes, S.strokes + putts); over = true;
+        o.onGreen = true; o.putts = S.strokes - before;   // putts that count (the 12-stroke cap can cut them)
+        toast('ON THE GREEN', `${Math.round(toPin)} yd from the cup · ${putts} putt${putts > 1 ? 's' : ''}`, 'good');
+      } else {
+        const side = Math.abs(shot.lateral) < 1.5 ? 'right on your line' : `${Math.abs(shot.lateral).toFixed(0)} yd ${shot.lateral < 0 ? 'left' : 'right'} of your line`;
+        toast(shot.endName.toUpperCase(), `${Math.round(shot.total)} yd · ${side}`);
+      }
+    }
+    if (S.strokes >= RULES.maxStrokes && !over) { over = true; S.pickedUp = true; toast('PICKED UP', `Maximum of ${RULES.maxStrokes} strokes reached.`, 'bad'); }
+    S.shots.push(shot); addLogRow(shot);
+    safeLog('shot', () => { S.holeShots.push(BRIDGE.log(shotRecord(A, res, shot, o))); });   // V21
+    const at = { idx: S.holeIdx, tr: S.holeTry };   // V22: a researcher jump meanwhile starts another try
+    setTimeout(() => {
+      if (S.holeIdx !== at.idx || S.holeTry !== at.tr) return;
+      S.anim = null; S.tracer = []; S.spreadKey = '';
+      if (over) return holeDone();
+      S.target = { x: hole.pin.x, y: hole.pin.y };
+      setPhase('aim');
+    }, res.hazard ? 1200 : 800);
+  }
+  function holeDone() {
+    const hole = S.hole, diff = S.strokes - hole.par;
+    S.scores[S.holeIdx] = S.strokes;
+    // V21: hole record, then save this hole (hole + its shots; the segment record rides along).
+    safeLog('hole', () => {
+      const rec = BRIDGE.log(holeRecord()), shots = S.holeShots.slice();
+      S.holeStats[S.holeIdx] = { ob: rec.ob_count, pen: rec.penalty_strokes, picked: rec.picked_up, shortcutTee: rec.route_first_shot === 'shortcut' };
+      BRIDGE.save(holeTag(), { holes: [rec], shots });   // V22: …_h4.json, a replay …_h4-t2.json
+    });
+    const names = { '-3': 'ALBATROSS', '-2': 'EAGLE', '-1': 'BIRDIE', 0: 'PAR', 1: 'BOGEY', 2: 'DOUBLE BOGEY', 3: 'TRIPLE BOGEY' };
+    $('doneNum').textContent = `HOLE ${S.holeIdx + 1} · ${hole.name.toUpperCase()}`;
+    $('doneScore').textContent = names[diff] || (diff > 0 ? `+${diff}` : `${diff}`);
+    $('doneMeta').textContent = `${S.strokes} strokes${S.penalties ? ` · ${S.penalties} penalt${S.penalties > 1 ? 'ies' : 'y'}` : ''}${S.replays ? ` · ${S.replays} out of bounds, no penalty` : ''} · par ${hole.par}`;
+    // V22: fb-hidden: "HOLE 4 COMPLETE" only (no score name, strokes, penalties or par).
+    if (FB_HIDDEN) { $('doneNum').textContent = ''; $('doneScore').textContent = `HOLE ${S.holeIdx + 1} COMPLETE`; $('doneMeta').textContent = ''; }
+    $('doneNum').hidden = FB_HIDDEN; $('doneMeta').hidden = FB_HIDDEN; $('doneScore').classList.toggle('plain', FB_HIDDEN);
+    $('nextBtn').textContent = !isLastOfSegment(S.holeIdx) ? 'NEXT HOLE' : (SEG.all ? 'FINISH ROUND' : 'FINISH SECTION');
+    setPhase('done'); $('doneCard').hidden = false;
+  }
+  // V19: the segment's holes in order; a researcher jump outside it isn't possible.
+  function isLastOfSegment(i) { const k = SEG.idx.indexOf(i); return k < 0 || k === SEG.idx.length - 1; }
+  function nextHole() {
+    $('doneCard').hidden = true;
+    if (!isLastOfSegment(S.holeIdx)) return enterHole(SEG.idx[SEG.idx.indexOf(S.holeIdx) + 1]);
+    if (!SEG.all) return sectionDone();
+    const total = S.scores.reduce((a, b) => a + (b || 0), 0), par = HOLES.reduce((a, h, i) => a + (S.scores[i] != null ? h.par : 0), 0);   // par of holes played
+    const secRow = [];
+    HOLES.forEach((h) => { const last = secRow[secRow.length - 1]; if (last && last.no === h.sectionNo) last.n++; else secRow.push({ no: h.sectionNo, n: 1 }); });
+    // V22: fb-hidden (local testing only reaches this card): hole numbers and pars, no "You" row, totals or summary line.
+    $('roundTable').innerHTML = FB_HIDDEN
+      ? `<tr><th></th>${secRow.map((s) => `<th colspan="${s.n}">SECTION ${s.no}</th>`).join('')}</tr><tr><th>Hole</th>${HOLES.map((h, i) => `<th>${i + 1}</th>`).join('')}</tr><tr><td>Par</td>${HOLES.map((h) => `<td>${h.par}</td>`).join('')}</tr>`
+      : `<tr><th></th>${secRow.map((s) => `<th colspan="${s.n}">SECTION ${s.no}</th>`).join('')}<th></th></tr><tr><th>Hole</th>${HOLES.map((h, i) => `<th>${i + 1}</th>`).join('')}<th>Total</th></tr><tr><td>Par</td>${HOLES.map((h) => `<td>${h.par}</td>`).join('')}<td>${par}</td></tr><tr><td>You</td>${HOLES.map((h, i) => `<td><b>${S.scores[i] != null ? S.scores[i] : '–'}</b></td>`).join('')}<td><b>${total}</b></td></tr>`;
+    $('roundMeta').textContent = FB_HIDDEN ? '' : `${total} strokes · ${total === par ? 'even par' : (total > par ? '+' : '') + (total - par) + ' vs par'}`;
+    $('roundMeta').hidden = FB_HIDDEN;
+    setPhase('round'); $('roundCard').hidden = false;
+    endSegment();
+  }
+  // ---------------- END OF SEGMENT (V19) ----------------
+  function sectionDone() {
+    const n = SEG.section, idx = SEG.idx;
+    const total = idx.reduce((a, i) => a + (S.scores[i] || 0), 0), par = idx.reduce((a, i) => a + HOLES[i].par, 0);
+    $('sdNum').textContent = `SECTION ${n} OF ${new Set(HOLES.map((x) => x.sectionNo)).size} · HOLES ${idx[0] + 1}–${idx[idx.length - 1] + 1}`;
+    $('sdMeta').textContent = FB_HIDDEN ? '' : `${total} STROKES · PAR ${par}`;   // V22: none in fb-hidden
+    $('sdMeta').hidden = FB_HIDDEN;
+    $('sdAgain').hidden = STUDY;
+    // V20: nothing is sent until CONTINUE is clicked (nf-done makes Qualtrics move on).
+    $('sdContinue').disabled = false; $('sdContinue').textContent = 'CONTINUE'; $('sdStatus').textContent = '';
+    setPhase('round'); $('sectionDone').hidden = false;
+  }
+  // Qualtrics summary for one section: strokes per hole (course-wide numbers), total, par, out-of-bounds
+  // swings, penalty strokes, holes whose tee shot aimed at the shortcut, and picked-up holes (V21).
+  function sectionSummary(n) {
+    const out = {}, idx = CONFIG.holes.map((hc, i) => (hc.section === n ? i : -1)).filter((i) => i >= 0);
+    let total = 0, par = 0, ob = 0, pen = 0, shortcut = 0, pickups = 0;
+    idx.forEach((i) => {
+      const v = S.scores[i], st = S.holeStats[i];
+      out[`crs_s${n}_h${i + 1}`] = v == null ? '' : v; total += v || 0; par += v == null ? 0 : HOLES[i].par;
+      if (st) { ob += st.ob; pen += st.pen; shortcut += st.shortcutTee ? 1 : 0; pickups += st.picked ? 1 : 0; }   // V21
+    });
+    out[`crs_s${n}_total`] = total; out[`crs_s${n}_par`] = par;
+    out[`crs_s${n}_ob`] = ob; out[`crs_s${n}_pen`] = pen; out[`crs_s${n}_shortcut`] = shortcut; out[`crs_s${n}_pickups`] = pickups;
+    return out;
+  }
+  function segmentSummary() {
+    if (!SEG.all) return sectionSummary(SEG.section);
+    return Object.assign({}, ...[...new Set(CONFIG.holes.map((hc) => hc.section))].map(sectionSummary));
+  }
+  function endSegment() {
+    if (S.segDone) return;
+    S.segDone = true;
+    BRIDGE.finish(() => segmentSummary()).then((r) => {
+      $('sdContinue').textContent = 'DONE';
+      $('sdStatus').textContent = FRAMED ? 'The next page is loading.' : 'Done (testing: no survey page around the game).';
+      window.NF_LAST_SUMMARY = r;
+    });
+  }
+  // Local testing only: play the segment again as a new attempt.
+  function playAgain() {
+    if (STUDY) return;
+    hideCards(); BRIDGE.newAttempt(); S.segDone = false;
+    if (urlBag && urlBag.ok) startFromUrlBag(); else showStartCard();
+  }
+  // Segment record for NFBridge (spec 3a). V21: adds ob_count and penalty_strokes. V23: feedback.
+  function segmentRecord(status) {
+    const idx = SEG ? SEG.idx : [], played = idx.filter((i) => S.scores[i] != null);
+    const stat = (k) => played.reduce((a, i) => a + ((S.holeStats[i] || {})[k] || 0), 0);
+    return Object.assign(BRIDGE.header('segment', 'segment'), BRIDGE.segmentInfo(), {
+      status: status || (FATAL ? 'error' : (S.segDone ? 'complete' : 'in_progress')),
+      finished_at: status === 'complete' ? new Date().toISOString() : null,
+      error_code: FATAL ? FATAL.code : null,
+      holes_played: played.length,
+      total_strokes: played.reduce((a, i) => a + S.scores[i], 0),
+      total_par: played.reduce((a, i) => a + HOLES[i].par, 0),
+      ob_count: stat('ob'), penalty_strokes: stat('pen'),
+      feedback: FB_HIDDEN ? 'hidden' : 'visible'   // V23: the condition as the game applied it
+    });
+  }
+  function onKey(e) {
+    if (S.phase !== 'aim' || (e.target && e.target.tagName === 'INPUT' && e.target.type !== 'range')) return;
+    const k = e.key, fine = e.shiftKey ? 0.25 : 1;
+    if (k === 'ArrowLeft') { rotateAim(-fine); e.preventDefault(); }
+    else if (k === 'ArrowRight') { rotateAim(fine); e.preventDefault(); }
+    else if (k >= '1' && k <= '3' && S.bag) setClub(S.bag[+k - 1].id);
+    else if (k === 'w' || k === 'W' || k === 'ArrowUp') { setPower(S.power + (e.shiftKey ? 1 : 5)); e.preventDefault(); }
+    else if (k === 's' || k === 'S' || k === 'ArrowDown') { setPower(S.power - (e.shiftKey ? 1 : 5)); e.preventDefault(); }
+    else if (k === ' ' || k === 'Enter') { swing(); e.preventDefault(); }
+  }
+
+  // ---------------- RESEARCHER TOOLS ----------------
+  function buildClubTable() {
+    const P = NF.POWER_OPTIONS;
+    let html = `<tr><th>Club</th>${P.map((p) => `<th style="color:${powerColor(p)}">${p}%</th>`).join('')}</tr>`;
+    const inBag = new Set((S.bag || []).map((c) => c.id));
+    for (const c of NF.ALL_CLUBS) {
+      html += `<tr class="${inBag.has(c.id) ? 'inbag' : ''}"><td><b>${c.name} · ${c.varietyName}</b><small>${c.seed} · ${c.maxDistance} yd max</small></td>` + P.map((p) => {
+        const sp = NF.getSpread(c, p), mean = c.maxDistance * p / 100, sd = mean * sp.distSdFrac;
+        const side = mean * Math.sin(sp.latSdDeg * DEG);
+        return `<td>${Math.round(mean)}<small>±${Math.round(sd)} · ↔${Math.round(side)}</small></td>`;
+      }).join('') + '</tr>';
+    }
+    $('clubTable').innerHTML = html;
+  }
+  function spreadSample() {
+    const key = [S.holeIdx, S.ball.x.toFixed(1), S.ball.y.toFixed(1), S.club, S.power, S.target.x.toFixed(1), S.target.y.toFixed(1)].join('|');
+    if (key === S.spreadKey) return;
+    S.spreadKey = key;
+    const hole = S.hole, rng = NF.mulberry32(12345), aimDeg = NF.headingTo(S.ball, S.target), N = 400, pts = [];
+    let pen = 0, green = 0, zone = 0, tot = [];
+    const z = hole.zones.shortcut[0];
+    for (let i = 0; i < N; i++) {
+      const r = NF.simulateShot(hole, S.ball, { club: S.club, power: S.power, aimDeg }, rng);
+      pts.push({ x: r.endX, y: r.endY, bad: !!r.hazard });
+      if (r.hazard) { pen++; continue; }
+      tot.push(Math.hypot(r.endX - S.ball.x, r.endY - S.ball.y));
+      if (r.endTerrain === 'green') green++;
+      if (z && Math.hypot(r.endX - z.x, r.endY - z.y) <= z.r) zone++;
+    }
+    const m = tot.reduce((a, b) => a + b, 0) / Math.max(1, tot.length), sd = Math.sqrt(tot.reduce((a, b) => a + (b - m) ** 2, 0) / Math.max(1, tot.length));
+    S.spread = pts;
+    $('spreadStats').innerHTML = `Of 400 simulated swings: <b>${(100 * pen / N).toFixed(0)}%</b> penalty · <b>${(100 * zone / N).toFixed(0)}%</b> end safely in the shortcut zone · <b>${(100 * green / N).toFixed(0)}%</b> on the green · playable shots travel <b>${Math.round(m)} ± ${Math.round(sd)} yd</b>`;
+  }
+  function computeReach() {
+    if (!S.bag) { $('reachTable').innerHTML = '<tr><td>Enter a club seed to calculate.</td></tr>'; return; }
+    $('reachBtn').disabled = true; $('reachTable').innerHTML = '<tr><td>Simulating…</td></tr>';
+    setTimeout(() => {
+      const N = 1500, rng = NF.mulberry32(99), bag = S.bag;
+      // Try powers around the one that matches the distance; keep the best.
+      const bestOdds = (hole, club, from, aimPt, test) => {
+        const full = NF.nominalDistance(club, 100, from.lie, hole.lies), p0 = Math.round(100 * NF.dist(from, aimPt) / full);
+        const powers = [...new Set([-6, -4, -2, 0, 2, 4, 6].map((d) => Math.max(1, Math.min(100, p0 + d))))];
+        let top = { v: -1, p: powers[0] };
+        for (const p of powers) {
+          let ok = 0;
+          for (let k = 0; k < N; k++) if (test(NF.simulateShot(hole, from, { club: club.id, power: p, aimDeg: NF.headingTo(from, aimPt) }, rng))) ok++;
+          if (ok / N > top.v) top = { v: ok / N, p };
+        }
+        return top;
+      };
+      let html = `<tr><th>Shortcut shot</th><th>Distance</th>${bag.map((c) => `<th>${c.varietyName} ${c.name}</th>`).join('')}</tr>`;
+      HOLES.forEach((hole, i) => {
+        if (!hole.zones.shortcut.length) { html += `<tr><td>H${i + 1}</td><td colspan="${bag.length + 1}">No shortcut on this hole</td></tr>`; return; }
+        const z = hole.zones.shortcut[0], aim = hole.routes.shortcut[0], tee = { x: 0, y: 0, lie: 'tee' };
+        const from = { x: aim.x, y: aim.y, lie: NF.terrainAt(hole, aim.x, aim.y) };
+        const cells1 = bag.map((c) => bestOdds(hole, c, tee, aim, (r) => !r.hazard && Math.hypot(r.endX - z.x, r.endY - z.y) <= z.r));
+        const cells2 = bag.map((c) => bestOdds(hole, c, from, hole.greenAim, (r) => !r.hazard && r.endTerrain === 'green'));
+        const fmt = (o) => `<td class="${o.v >= 0.1 ? 'hi' : ''}">${(100 * o.v).toFixed(0)}%<small>at ${o.p}%</small></td>`;
+        html += `<tr><td>H${i + 1} tee → shortcut zone</td><td>${Math.round(Math.hypot(aim.x, aim.y))} yd</td>${cells1.map(fmt).join('')}</tr>`;
+        html += `<tr><td>H${i + 1} shortcut zone → green</td><td>${Math.round(NF.dist(from, hole.greenAim))} yd</td>${cells2.map(fmt).join('')}</tr>`;
+      });
+      $('reachTable').innerHTML = html; $('reachBtn').disabled = false;
+    }, 30);
+  }
+
+  // ---------------- DRAWING ----------------
+  let bolts = { t: 0, list: [] };
+  function drawFx(g, now) {
+    const fx = S.hole.fx;
+    if (fx.water.length) {
+      if (now - bolts.t > 110) {
+        bolts = { t: now, list: [] };
+        for (let i = 0; i < 14; i++) {
+          const a = fx.water[Math.floor(Math.random() * fx.water.length)], b = a.nb[Math.floor(Math.random() * a.nb.length)];
+          const m = { x: (a.x + b.x) / 2 + (Math.random() - 0.5) * 6, y: (a.y + b.y) / 2 + (Math.random() - 0.5) * 6 };
+          bolts.list.push([a, m, b]);
+        }
+      }
+      for (const bl of bolts.list) {
+        const pts = bl.map((q) => ({ x: sx(q.x), y: sy(q.y) }));
+        g.lineStyle(4 * DPR, 0x00f0ff, 0.22); g.strokePoints(pts, false);
+        g.lineStyle(1.2 * DPR, 0xe6feff, 0.9); g.strokePoints(pts, false);
+      }
+    }
+    for (const q of fx.quick) {
+      const f = (now / 2400 + q.ph) % 1;
+      g.lineStyle(1.2 * DPR, 0xff5fd8, 0.6 * (1 - f)); g.strokeCircle(sx(q.x), sy(q.y), (2 + f * 9) * MX.s);
+    }
+  }
+  function drawRoutes(g) {
+    const h = S.hole, route = (pts, col) => {
+      g.lineStyle(2 * DPR, col, 0.9);
+      let prev = { x: 0, y: 0 };
+      [...pts, h.pin].forEach((p) => { g.lineBetween(sx(prev.x), sy(prev.y), sx(p.x), sy(p.y)); prev = p; });
+      pts.forEach((p) => g.strokeCircle(sx(p.x), sy(p.y), p.r * MX.s));
+    };
+    route(h.zones.safe, 0xff3860);
+    if (h.zones.shortcut.length) route(h.zones.shortcut, 0x4d8dff);   // V15: some holes have no shortcut
+    if (h.zones.alt && h.zones.alt.length) route(h.zones.alt, 0xff2bd6);
+  }
+  function drawScene(now) {
+    const G = scene.g;
+    Object.values(G).forEach((g) => g.clear());
+    drawFx(G.fx, now);
+    if (S.showRoutes) drawRoutes(G.routes);
+    const h = S.hole;
+    // previous shots on this hole
+    for (const sh of S.shots) {
+      const shCol = sh.hazard ? 0xff3860 : (sh.col != null ? sh.col : pcol(sh.power));
+      const cur = !S.training || sh.stage === S.training.stage;
+      G.shots.lineStyle(1.4 * DPR, shCol, cur ? 0.55 : 0.18);
+      G.shots.lineBetween(sx(sh.fromX), sy(sh.fromY), sx(sh.endX), sy(sh.endY));
+      G.shots.fillStyle(0x07020f, 0.85); G.shots.fillCircle(sx(sh.endX), sy(sh.endY), 3.8 * DPR);
+      G.shots.fillStyle(shCol, cur ? 1 : 0.55); G.shots.fillCircle(sx(sh.endX), sy(sh.endY), (cur ? 3 : 2.6) * DPR);
+      if (sh.dropX != null) {
+        // V13: dotted line from the out-of-bounds landing to where the ball was placed
+        const ax = sx(sh.endX), ay = sy(sh.endY), bx = sx(sh.dropX), by = sy(sh.dropY);
+        const n = Math.max(2, Math.round(Math.hypot(bx - ax, by - ay) / (5 * DPR)));
+        G.shots.lineStyle(1.4 * DPR, 0xff2fd0, 0.9);
+        for (let k = 0; k < n; k += 2) G.shots.lineBetween(lerp(ax, bx, k / n), lerp(ay, by, k / n), lerp(ax, bx, (k + 1) / n), lerp(ay, by, (k + 1) / n));
+        G.shots.strokeCircle(bx, by, 4.5 * DPR);
+      }
+    }
+    // pin
+    const px = sx(h.pin.x), py = sy(h.pin.y);
+    G.ball.fillStyle(0x3dffb0, 0.25); G.ball.fillCircle(px, py, 7 * DPR);
+    G.ball.lineStyle(2 * DPR, 0xffffff, 1); G.ball.lineBetween(px, py, px, py - 18 * DPR);
+    G.ball.fillStyle(0xff2bd6, 1); G.ball.fillTriangle(px, py - 18 * DPR, px + 12 * DPR, py - 14 * DPR, px, py - 10 * DPR);
+    // aim + spread
+    if (S.phase === 'aim') {
+      if (S.showSpread || (S.training && CONFIG.trainingPreview)) {
+        spreadSample();
+        for (const p of S.spread || []) { G.spread.fillStyle(p.bad ? 0xff3860 : 0x9ffcff, p.bad ? 0.75 : 0.6); G.spread.fillCircle(sx(p.x), sy(p.y), 1.6 * DPR); }
+      }
+      const bx = sx(S.ball.x), by = sy(S.ball.y), tx = sx(S.target.x), ty = sy(S.target.y);
+      const hd = NF.headingTo(S.ball, S.target) * DEG, far = { x: S.ball.x + Math.sin(hd) * 320, y: S.ball.y + Math.cos(hd) * 320 };
+      G.aim.lineStyle(1 * DPR, 0x00f0ff, 0.25); G.aim.lineBetween(bx, by, sx(far.x), sy(far.y));
+      const n = Math.max(6, Math.round(Math.hypot(tx - bx, ty - by) / (7 * DPR)));
+      G.aim.lineStyle(2 * DPR, 0x00f0ff, 0.95);
+      for (let i = 0; i < n; i += 2) G.aim.lineBetween(lerp(bx, tx, i / n), lerp(by, ty, i / n), lerp(bx, tx, (i + 1) / n), lerp(by, ty, (i + 1) / n));
+      G.aim.strokeCircle(tx, ty, 7 * DPR); G.aim.lineStyle(1.5 * DPR, 0xffffff, 1); G.aim.strokeCircle(tx, ty, 2.5 * DPR);
+      scene.label.setVisible(true).setPosition(tx, ty - 10 * DPR).setText(`${Math.round(NF.dist(S.ball, S.target))} YD`);
+    } else scene.label.setVisible(false);
+    // tracer + ball
+    if (S.tracer.length > 1) {
+      const pts = S.tracer.map((q) => ({ x: sx(q.x), y: sy(q.y) - q.z * MX.s * 0.55 }));
+      const col = S.anim ? pcol(S.anim.res.power) : 0xffffff;
+      G.ball.lineStyle(6 * DPR, col, 0.3); G.ball.strokePoints(pts, false);
+      G.ball.lineStyle(1.8 * DPR, 0xffffff, 0.95); G.ball.strokePoints(pts, false);
+    }
+    if (S.effect) {
+      const age = (now - S.effect.t0) / 900;
+      if (age > 1) S.effect = null;
+      else {
+        const ex = sx(S.effect.x), ey = sy(S.effect.y), col = 0xff2fd0;
+        for (let k = 0; k < 3; k++) { G.ball.lineStyle(2 * DPR, col, 1 - age); G.ball.strokeCircle(ex, ey, (4 + age * 22 * (1 + k * 0.5)) * DPR); }
+        if (S.effect.kind === 'electric') for (let k = 0; k < 8; k++) { const a = Math.random() * 6.283, r = (6 + Math.random() * 14) * DPR; G.ball.lineStyle(1.5 * DPR, 0xe6feff, 1 - age); G.ball.lineBetween(ex, ey, ex + Math.cos(a) * r, ey + Math.sin(a) * r); }
+      }
+    }
+    const pos = S.anim ? S.anim.pos : { x: S.ball.x, y: S.ball.y, z: 0 };
+    if (!(S.anim && S.anim.hidden)) {
+      const bx = sx(pos.x), gy = sy(pos.y), by = gy - pos.z * MX.s * 0.55, r = (3.4 + pos.z * 0.09) * DPR;
+      G.ball.fillStyle(0x000000, 0.5); G.ball.fillEllipse(bx, gy, 7 * DPR, 3.4 * DPR);
+      G.ball.fillStyle(0x9ffcff, 0.3); G.ball.fillCircle(bx, by, r * 2.1);
+      G.ball.fillStyle(0xffffff, 1); G.ball.fillCircle(bx, by, r);
+    }
+  }
+
+  // ---------------- PHASER ----------------
+  class Play extends Phaser.Scene {
+    constructor() { super('play'); }
+    create() {
+      scene = this;
+      this.terrain = this.add.image(0, 0, '__DEFAULT').setOrigin(0, 0).setVisible(false);
+      this.g = { fx: this.add.graphics(), routes: this.add.graphics(), shots: this.add.graphics(), spread: this.add.graphics(), aim: this.add.graphics(), ball: this.add.graphics() };
+      this.label = this.add.text(0, 0, '', { fontFamily: 'Orbitron, Arial, sans-serif', fontSize: `${11 * DPR}px`, color: '#021018', backgroundColor: '#00f0ff', padding: { x: 5 * DPR, y: 3 * DPR } }).setOrigin(0.5, 1).setDepth(10);
+      // V21: a click, or a whole drag, counts as one aim change (if the aim moved).
+      const aimAt = (p) => { if (S.phase !== 'aim' || !MX) return; const w = toWorld(p.x, p.y); if (NF.dist(S.ball, w) > 3) { if (w.x !== S.target.x || w.y !== S.target.y) countChange('aim', 'map'); S.target = w; aimChanged(); } };
+      this.input.on('pointerdown', (p) => { S.dragging = true; gestureStart('map'); aimAt(p); });
+      this.input.on('pointermove', (p) => { if (S.dragging && p.isDown) aimAt(p); });
+      this.input.on('pointerup', () => { S.dragging = false; gestureEnd('map'); });
+      rebuildTerrain();
+      startGame();
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.label.setFontFamily('Orbitron, Arial, sans-serif'));
+    }
+    update() {
+      const now = performance.now();
+      if (S.anim && !S.anim.done) stepAnim(now);
+      if (MX) drawScene(now);
+    }
+  }
+  // V19: after Phaser is ready. Bag from the URL → first hole of the segment;
+  // local testing without a bag → the seed card. nf-ready once the first card shows.
+  function startGame() {
+    if (FATAL) return;
+    if (urlBag && urlBag.ok) startFromUrlBag(); else showStartCard();
+    BRIDGE.ready();
+  }
+  // Work out the segment and bag before anything is drawn. A problem shows the error card
+  // and tells the Qualtrics page (nf-error); the game doesn't start.
+  function checkSetup() {
+    if (STUDY && !SEGMENT_GIVEN) return { code: 'SEGMENT', text: 'No segment was given in the link (expected course-s1, course-s2 or course-s3).' };
+    SEG = resolveSegment(SET.segment);
+    if (!SEG) return { code: 'SEGMENT', text: `Unknown segment "${SET.segment}" (expected course-s1, course-s2 or course-s3${STUDY ? '' : ', or course-all'}).` };
+    if (SET.bag) {
+      urlBag = NF.parseSeed(SET.bag);
+      if (!urlBag.ok) return { code: 'BAG', text: `The club seed "${SET.bag}" isn't valid: ${urlBag.error}` };
+    } else if (STUDY) return { code: 'BAG', text: 'No club seed (bag) was given in the link.' };
+    return null;
+  }
+  function boot() {
+    BRIDGE.init({ game: 'course', gameVersion: GAME_VERSION, defaultSegment: 'course-all', segmentRecord });
+    FATAL = checkSetup();
+    if (!SEG) SEG = { id: SET.segment, all: false, section: null, idx: [] };   // no holes: the error card covers the map
+    buildUI();
+    if (FATAL) { showError(FATAL.code, FATAL.text); BRIDGE.error(FATAL.code, FATAL.text); }
+    const el = $('game'), r = el.getBoundingClientRect();
+    const game = new Phaser.Game({
+      type: Phaser.AUTO, parent: el, backgroundColor: '#07020f', banner: false,
+      scale: { mode: Phaser.Scale.NONE, width: Math.round(Math.max(200, r.width) * DPR), height: Math.round(Math.max(200, r.height) * DPR), zoom: 1 / DPR },
+      render: { antialias: true }, scene: [Play]
+    });
+    let rt = null;
+    new ResizeObserver(() => {
+      clearTimeout(rt);
+      rt = setTimeout(() => {
+        const rr = el.getBoundingClientRect(); if (rr.width < 50 || rr.height < 50) return;
+        game.scale.resize(Math.round(rr.width * DPR), Math.round(rr.height * DPR)); game.scale.setZoom(1 / DPR);
+        rebuildTerrain();
+      }, 80);
+    }).observe(el);
+    window.NeonFairway = { S, HOLES, get MX() { return MX; }, get bag() { return S.bag; }, get seed() { return S.seed; },
+      get segment() { return SEG; }, get fatal() { return FATAL; }, version: GAME_VERSION };
+    if (CONFIG.researcherTools) { buildClubTable(); if (!S.bag) $('reachTable').innerHTML = '<tr><td>Enter a club seed to calculate.</td></tr>'; }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
+
+</script>
+
+</body></html>

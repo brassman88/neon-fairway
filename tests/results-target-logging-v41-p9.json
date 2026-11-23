@@ -1,0 +1,1349 @@
+{
+  "started": "2026-11-20T21:38:30.915Z",
+  "version": "v41",
+  "engines": {
+    "chromium": {
+      "run": true,
+      "version": "157.0.8103.78"
+    },
+    "firefox": {
+      "run": false,
+      "reason": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/firefox-1543/firefox/firefox"
+    },
+    "webkit": {
+      "run": false,
+      "reason": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/webkit-2359/pw_run.sh"
+    }
+  },
+  "tests": [
+    {
+      "engine": "chromium",
+      "name": "every spec field is present on every record (152 records, both segments)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "every null field is an expected one",
+      "ok": true,
+      "detail": "29 kinds of expected nulls (listed in results.nulls)"
+    },
+    {
+      "engine": "chromium",
+      "name": "header: pid, game target, game_version v41, cond, rng_seed, test:false, load_id on every record",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "tp-practice records carry segment tp-practice, tp-rounds records tp-rounds",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "one shot record per practice shot (44)",
+      "ok": true,
+      "detail": "44 records, game 44"
+    },
+    {
+      "engine": "chromium",
+      "name": "practice shot records match the game (club, variety, letter, course, power, aim, total, lateral, z_lat/z_dist to 0.001, result, points)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "aim / power / club change counters match the script on every practice shot (incl. drag = 1, re-pick = 0, keys, batch)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "shot 1 counters: aim 3, power 3, club 0",
+      "ok": true,
+      "detail": {
+        "aim": 3,
+        "power": 3,
+        "club": 0
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "shot 2 counters: aim 3 (map drag 1 + map click 1 + Aim straight 1), power 1 (one slider drag), club 2",
+      "ok": true,
+      "detail": {
+        "aim": 3,
+        "power": 1,
+        "club": 2
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "shot 2: decision_hidden_ms ≈ 1.5 s of hidden tab, ≤ decision_ms",
+      "ok": true,
+      "detail": {
+        "decision_ms": 1989,
+        "decision_hidden_ms": 1503
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "single shots: decision_ms a positive whole number; hidden 0 except shot 2",
+      "ok": true,
+      "detail": [
+        [
+          261,
+          0
+        ],
+        [
+          1989,
+          1503
+        ],
+        [
+          430,
+          0
+        ],
+        [
+          212,
+          0
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "instant batch: 8 shots, same batch_id, batch_shot_no 1–8, decision_ms / decision_hidden_ms null",
+      "ok": true,
+      "detail": [
+        [
+          1,
+          1,
+          25,
+          null
+        ],
+        [
+          1,
+          2,
+          25,
+          null
+        ],
+        [
+          1,
+          3,
+          50,
+          null
+        ],
+        [
+          1,
+          4,
+          50,
+          null
+        ],
+        [
+          1,
+          5,
+          75,
+          null
+        ],
+        [
+          1,
+          6,
+          75,
+          null
+        ],
+        [
+          1,
+          7,
+          100,
+          null
+        ],
+        [
+          1,
+          8,
+          100,
+          null
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "rounding: total / lateral / aim to 0.1, z_lat / z_dist to 0.001",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "club_shot_no counts each club's practice shots",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "v40: two estimate records per card closed (distance_100 + hits_of_10, same card_no), cards in order (12)",
+      "ok": true,
+      "detail": {
+        "got": [
+          "edit/save",
+          "auto/later",
+          "edit/cancel",
+          "auto/save",
+          "final/back",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save"
+        ],
+        "want": [
+          "edit/save",
+          "auto/later",
+          "edit/cancel",
+          "auto/save",
+          "final/back",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save",
+          "final/save"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "estimate records: answer set only on save, truth set, response_ms > 0, shots_at_time = club shots so far",
+      "ok": true,
+      "detail": [
+        {
+          "record_type": "estimate",
+          "record_id": "R_tplog1-tp-practice-a1-e1",
+          "pid": "R_tplog1",
+          "segment": "tp-practice",
+          "attempt": 1,
+          "load_id": "r5qv2n1z",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": null,
+          "rng_seed": 4242,
+          "test": false,
+          "client_time": "2026-11-20T21:38:45.411Z",
+          "estimate_no": 1,
+          "card_no": 1,
+          "club": "Hybrid A",
+          "club_type": "hybrid",
+          "variety": "vertical",
+          "letter": "A",
+          "question": "distance_100",
+          "question_text": "At 100% power, how far does Hybrid A go on average? (yards)",
+          "target_yd": null,
+          "radius_yd": null,
+          "answer": 123,
+          "truth": 170,
+          "truth_power": 100,
+          "previous": null,
+          "start_value": null,
+          "shots_at_time": 2,
+          "when": "edit",
+          "action": "save",
+          "response_ms": 84,
+          "response_hidden_ms": 0
+        },
+        {
+          "record_type": "estimate",
+          "record_id": "R_tplog1-tp-practice-a1-e2",
+          "pid": "R_tplog1",
+          "segment": "tp-practice",
+          "attempt": 1,
+          "load_id": "r5qv2n1z",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": null,
+          "rng_seed": 4242,
+          "test": false,
+          "client_time": "2026-11-20T21:38:45.411Z",
+          "estimate_no": 2,
+          "card_no": 1,
+          "club": "Hybrid A",
+          "club_type": "hybrid",
+          "variety": "vertical",
+          "letter": "A",
+          "question": "hits_of_10",
+          "question_text": "You aim at a target 116 yd away with Hybrid A, using the power that sends the ball 116 yd on average. Out of 10 balls, how many land within 5 yd of its centre?",
+          "target_yd": 116,
+          "radius_yd": 5,
+          "answer": 4,
+          "truth": 3.26,
+          "truth_power": 68,
+          "previous": null,
+          "start_value": null,
+          "shots_at_time": 2,
+          "when": "edit",
+          "action": "save",
+          "response_ms": 84,
+          "response_hidden_ms": 0
+        },
+        {
+          "record_type": "estimate",
+          "record_id": "R_tplog1-tp-practice-a1-e3",
+          "pid": "R_tplog1",
+          "segment": "tp-practice",
+          "attempt": 1,
+          "load_id": "r5qv2n1z",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": null,
+          "rng_seed": 4242,
+          "test": false,
+          "client_time": "2026-11-20T21:38:48.167Z",
+          "estimate_no": 3,
+          "card_no": 2,
+          "club": "Hybrid B",
+          "club_type": "hybrid",
+          "variety": "power",
+          "letter": "B",
+          "question": "distance_100",
+          "question_text": "At 100% power, how far does Hybrid B go on average? (yards)",
+          "target_yd": null,
+          "radius_yd": null,
+          "answer": null,
+          "truth": 150,
+          "truth_power": 100,
+          "previous": null,
+          "start_value": null,
+          "shots_at_time": 12,
+          "when": "auto",
+          "action": "later",
+          "response_ms": 61,
+          "response_hidden_ms": 0
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "club_summary: 9 records; shots, batch_shots, final_est_distance / _hits, estimate_count, chosen match the game",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "club_summary: time adds up to practice time (> 0), every club with shots has time",
+      "ok": true,
+      "detail": {
+        "timeSum": 28805,
+        "hidden": [
+          0,
+          0,
+          0,
+          0,
+          1503,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "bag_choice: chosen clubs / varieties / letters, estimates on the cards, nudge, clubs_under_5, card clicks",
+      "ok": true,
+      "detail": {
+        "bc_letters": "B,A,C",
+        "nudges": 2,
+        "clicks": 4,
+        "under5": 7,
+        "seed": "DVHVWV"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "round shots: 60 records, round / ball_no / club / power / total / lateral / draws / points / counters match",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "round shot labels are the chosen clubs (\"Driver B\", \"Hybrid A\", \"Wedge C\")",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "round records: 5, scores / hits / bulls / best_shots / per-target points match the game",
+      "ok": true,
+      "detail": [
+        46,
+        100,
+        30,
+        20,
+        39
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "round records: play_ms > 0 and review_ms set on all 5 (round 5 from CONTINUE)",
+      "ok": true,
+      "detail": [
+        [
+          9683,
+          2924
+        ],
+        [
+          13589,
+          1728
+        ],
+        [
+          9125,
+          1747
+        ],
+        [
+          9389,
+          1727
+        ],
+        [
+          9932,
+          2103
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "round 1: review_hidden_ms ≈ 1.2 s (tab hidden on the round card); play hidden 0",
+      "ok": true,
+      "detail": {
+        "review_ms": 2924,
+        "review_hidden_ms": 1202
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "round 2: idle_ms > 0 (no input for 4000 ms, IDLE_MS 2500); idle ≤ play",
+      "ok": true,
+      "detail": {
+        "play_ms": 13589,
+        "idle_ms": 1544
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "tp-practice saves: one per 20 practice shots, one per estimate record, bag, final",
+      "ok": true,
+      "detail": [
+        "e1",
+        "p20",
+        "e2",
+        "e3",
+        "e4",
+        "p40",
+        "e5",
+        "e6",
+        "e7",
+        "e8",
+        "e9",
+        "e10",
+        "e11",
+        "e12",
+        "bag",
+        "final"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "tp-rounds saves: r1-pred, r1, r1-review … r5-pred, r5, final",
+      "ok": true,
+      "detail": [
+        "r1-pred",
+        "r1",
+        "r1-review",
+        "r2-pred",
+        "r2",
+        "r2-review",
+        "r3-pred",
+        "r3",
+        "r3-review",
+        "r4-pred",
+        "r4",
+        "r4-review",
+        "r5-pred",
+        "r5",
+        "final"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "v40: prediction records ×5 match the script and are copied onto the round records",
+      "ok": true,
+      "detail": [
+        [
+          1,
+          170,
+          61,
+          421
+        ],
+        [
+          2,
+          190,
+          62,
+          422
+        ],
+        [
+          3,
+          210,
+          63,
+          423
+        ],
+        [
+          4,
+          230,
+          64,
+          424
+        ],
+        [
+          5,
+          250,
+          65,
+          425
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "every save carries the segment record",
+      "ok": true
+    },
+    {
+      "engine": "chromium",
+      "name": "practice saves carry the shots not yet saved (no shot is sent twice before the final save)",
+      "ok": true,
+      "detail": [
+        4,
+        1
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "segment record (tp-practice, final): complete, practice_shots, batch_count 1, batch_shots 8, course_switches, estimates_saved, nudge_count; round fields null",
+      "ok": true,
+      "detail": {
+        "status": "complete",
+        "practice_shots": 44,
+        "batch_count": 1,
+        "course_switches": 4,
+        "want_switches": 4,
+        "estimates_saved": 9,
+        "hidden_ms": 1503
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "segment record (tp-rounds, final): complete, rounds_played 5, total_score = tp_total, letters, practice fields null",
+      "ok": true,
+      "detail": {
+        "rounds_played": 5,
+        "total_score": 235,
+        "letters": "B,A,C",
+        "hidden_ms": 1202
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "wall clock ≈ active + idle + hidden (tp-rounds segment, ±1.5 s)",
+      "ok": true,
+      "detail": {
+        "wall": 62484,
+        "sum": 62485
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "nf-done summary keys are exactly the field reference (tp-practice 6, tp-rounds 7); attempt 1",
+      "ok": true,
+      "detail": {
+        "tp_practice": [
+          "tp_bag",
+          "tp_letters",
+          "tp_practice_shots",
+          "tp_est_d",
+          "tp_est_h",
+          "tp_est_w"
+        ],
+        "tp_rounds": [
+          "tp_r1",
+          "tp_r2",
+          "tp_r3",
+          "tp_r4",
+          "tp_r5",
+          "tp_total",
+          "tp_best_aims"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "tp-practice nf-done → embedded data: exactly the field reference keys, saved = 1",
+      "ok": true,
+      "detail": {
+        "tp_bag": "DVHVWV",
+        "tp_letters": "B,A,C",
+        "tp_practice_shots": "44",
+        "tp_est_d": "75",
+        "tp_est_h": "123",
+        "tp_est_w": "180",
+        "tp_practice_saved": "1",
+        "tp_practice_attempt": "1",
+        "tp_practice_failed": "0",
+        "tp_practice_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "tp-rounds nf-done → embedded data: tp_r1..tp_r5 = round records, tp_total, tp_best_aims, saved = 1",
+      "ok": true,
+      "detail": {
+        "tp_r1": "46",
+        "tp_r2": "100",
+        "tp_r3": "30",
+        "tp_r4": "20",
+        "tp_r5": "39",
+        "tp_total": "235",
+        "tp_best_aims": "37",
+        "tp_rounds_saved": "1",
+        "tp_rounds_attempt": "1",
+        "tp_rounds_failed": "0",
+        "tp_rounds_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "no console errors (both segments)",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "local testing (no pid): records marked test:true, pid local-test",
+      "ok": true,
+      "detail": [
+        {
+          "type": "shot",
+          "test": true,
+          "pid": "local-test"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "debug: \"Download data\" button visible and gives CSV + JSON",
+      "ok": true,
+      "detail": [
+        "nf_local-test_tp-practice_a1.csv",
+        "nf_local-test_tp-practice_a1.json"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "name": "study mode without debug: no Download data button, no bar, no researcher panel",
+      "ok": true,
+      "detail": {
+        "btn": false,
+        "bar": false,
+        "panel": false
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "study mode with debug=1 (tp-rounds): Download data shown, tester switch still hidden (tp-all only)",
+      "ok": true,
+      "detail": {
+        "btn": true,
+        "tester": false
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "no page errors (local / lockdown pages)",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "examples": {
+    "chromium": {
+      "shot_practice": {
+        "record_type": "shot",
+        "record_id": "R_tplog1-tp-practice-a1-p2",
+        "pid": "R_tplog1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "r5qv2n1z",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": null,
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:38:34.585Z",
+        "phase": "practice",
+        "shot_no": 2,
+        "round": null,
+        "ball_no": null,
+        "club_shot_no": 1,
+        "club": "Hybrid B",
+        "club_type": "hybrid",
+        "variety": "power",
+        "letter": "B",
+        "course": "sunset",
+        "power": 48,
+        "aim_deg": 0,
+        "aim_dist": 145.3,
+        "aimed_at": "near",
+        "aimed_role": "wedge",
+        "aimed_best": true,
+        "aimed_off": 16.6,
+        "nominal": 72,
+        "total": 69.2,
+        "lateral": 0.8,
+        "offset_deg": 0.6,
+        "land_x": 0.8,
+        "land_y": 69.2,
+        "z_lat": 0.248,
+        "z_dist": -0.959,
+        "result": "outer",
+        "target_hit": "near",
+        "miss_by": null,
+        "points": 8,
+        "batch": false,
+        "batch_id": null,
+        "batch_shot_no": null,
+        "decision_ms": 1989,
+        "decision_hidden_ms": 1503,
+        "aim_changes": 3,
+        "power_changes": 1,
+        "club_changes": 2,
+        "spray_on": true
+      },
+      "shot_batch": {
+        "record_type": "shot",
+        "record_id": "R_tplog1-tp-practice-a1-p21",
+        "pid": "R_tplog1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "r5qv2n1z",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": null,
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:38:48.099Z",
+        "phase": "practice",
+        "shot_no": 21,
+        "round": null,
+        "ball_no": null,
+        "club_shot_no": 5,
+        "club": "Hybrid B",
+        "club_type": "hybrid",
+        "variety": "power",
+        "letter": "B",
+        "course": "comet",
+        "power": 25,
+        "aim_deg": 0,
+        "aim_dist": 145.3,
+        "aimed_at": "near",
+        "aimed_role": "wedge",
+        "aimed_best": false,
+        "aimed_off": 20.7,
+        "nominal": 37.5,
+        "total": 37.1,
+        "lateral": 0.4,
+        "offset_deg": 0.6,
+        "land_x": 0.4,
+        "land_y": 37.1,
+        "z_lat": 0.216,
+        "z_dist": -0.221,
+        "result": "miss",
+        "target_hit": null,
+        "miss_by": 2.8,
+        "points": 0,
+        "batch": true,
+        "batch_id": 1,
+        "batch_shot_no": 1,
+        "decision_ms": null,
+        "decision_hidden_ms": null,
+        "aim_changes": 0,
+        "power_changes": 1,
+        "club_changes": 1,
+        "spray_on": true
+      },
+      "shot_round": {
+        "record_type": "shot",
+        "record_id": "R_tplog1-tp-rounds-a1-r2-b2",
+        "pid": "R_tplog1",
+        "segment": "tp-rounds",
+        "attempt": 1,
+        "load_id": "657znq7x",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": "DVHVWV",
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:39:16.583Z",
+        "phase": "round",
+        "shot_no": 14,
+        "round": 2,
+        "ball_no": 2,
+        "club_shot_no": null,
+        "club": "Hybrid A",
+        "club_type": "hybrid",
+        "variety": "vertical",
+        "letter": "A",
+        "course": "pines",
+        "power": 85,
+        "aim_deg": 0,
+        "aim_dist": 125,
+        "aimed_at": "near",
+        "aimed_role": "safe",
+        "aimed_best": true,
+        "aimed_off": 22.5,
+        "nominal": 144.5,
+        "total": 161.4,
+        "lateral": -0.2,
+        "offset_deg": -0.1,
+        "land_x": -0.2,
+        "land_y": 161.4,
+        "z_lat": -0.043,
+        "z_dist": 1.093,
+        "result": "miss",
+        "target_hit": null,
+        "miss_by": 15.4,
+        "points": 0,
+        "batch": false,
+        "batch_id": null,
+        "batch_shot_no": null,
+        "decision_ms": 132,
+        "decision_hidden_ms": 0,
+        "aim_changes": 1,
+        "power_changes": 1,
+        "club_changes": 1,
+        "spray_on": true
+      },
+      "estimate_later": [
+        {
+          "record_type": "estimate",
+          "record_id": "R_tplog1-tp-practice-a1-e3",
+          "pid": "R_tplog1",
+          "segment": "tp-practice",
+          "attempt": 1,
+          "load_id": "r5qv2n1z",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": null,
+          "rng_seed": 4242,
+          "test": false,
+          "client_time": "2026-11-20T21:38:48.167Z",
+          "estimate_no": 3,
+          "card_no": 2,
+          "club": "Hybrid B",
+          "club_type": "hybrid",
+          "variety": "power",
+          "letter": "B",
+          "question": "distance_100",
+          "question_text": "At 100% power, how far does Hybrid B go on average? (yards)",
+          "target_yd": null,
+          "radius_yd": null,
+          "answer": null,
+          "truth": 150,
+          "truth_power": 100,
+          "previous": null,
+          "start_value": null,
+          "shots_at_time": 12,
+          "when": "auto",
+          "action": "later",
+          "response_ms": 61,
+          "response_hidden_ms": 0
+        },
+        {
+          "record_type": "estimate",
+          "record_id": "R_tplog1-tp-practice-a1-e4",
+          "pid": "R_tplog1",
+          "segment": "tp-practice",
+          "attempt": 1,
+          "load_id": "r5qv2n1z",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": null,
+          "rng_seed": 4242,
+          "test": false,
+          "client_time": "2026-11-20T21:38:48.168Z",
+          "estimate_no": 4,
+          "card_no": 2,
+          "club": "Hybrid B",
+          "club_type": "hybrid",
+          "variety": "power",
+          "letter": "B",
+          "question": "hits_of_10",
+          "question_text": "You aim at a target 116 yd away with Hybrid B, using the power that sends the ball 116 yd on average. Out of 10 balls, how many land within 5 yd of its centre?",
+          "target_yd": 116,
+          "radius_yd": 5,
+          "answer": null,
+          "truth": 4.43,
+          "truth_power": 77,
+          "previous": null,
+          "start_value": null,
+          "shots_at_time": 12,
+          "when": "auto",
+          "action": "later",
+          "response_ms": 61,
+          "response_hidden_ms": 0
+        }
+      ],
+      "estimate_save": [
+        {
+          "record_type": "estimate",
+          "record_id": "R_tplog1-tp-practice-a1-e1",
+          "pid": "R_tplog1",
+          "segment": "tp-practice",
+          "attempt": 1,
+          "load_id": "r5qv2n1z",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": null,
+          "rng_seed": 4242,
+          "test": false,
+          "client_time": "2026-11-20T21:38:45.411Z",
+          "estimate_no": 1,
+          "card_no": 1,
+          "club": "Hybrid A",
+          "club_type": "hybrid",
+          "variety": "vertical",
+          "letter": "A",
+          "question": "distance_100",
+          "question_text": "At 100% power, how far does Hybrid A go on average? (yards)",
+          "target_yd": null,
+          "radius_yd": null,
+          "answer": 123,
+          "truth": 170,
+          "truth_power": 100,
+          "previous": null,
+          "start_value": null,
+          "shots_at_time": 2,
+          "when": "edit",
+          "action": "save",
+          "response_ms": 84,
+          "response_hidden_ms": 0
+        },
+        {
+          "record_type": "estimate",
+          "record_id": "R_tplog1-tp-practice-a1-e2",
+          "pid": "R_tplog1",
+          "segment": "tp-practice",
+          "attempt": 1,
+          "load_id": "r5qv2n1z",
+          "game": "target",
+          "game_version": "v41",
+          "cond": "fb-visible",
+          "bag_seed": null,
+          "rng_seed": 4242,
+          "test": false,
+          "client_time": "2026-11-20T21:38:45.411Z",
+          "estimate_no": 2,
+          "card_no": 1,
+          "club": "Hybrid A",
+          "club_type": "hybrid",
+          "variety": "vertical",
+          "letter": "A",
+          "question": "hits_of_10",
+          "question_text": "You aim at a target 116 yd away with Hybrid A, using the power that sends the ball 116 yd on average. Out of 10 balls, how many land within 5 yd of its centre?",
+          "target_yd": 116,
+          "radius_yd": 5,
+          "answer": 4,
+          "truth": 3.26,
+          "truth_power": 68,
+          "previous": null,
+          "start_value": null,
+          "shots_at_time": 2,
+          "when": "edit",
+          "action": "save",
+          "response_ms": 84,
+          "response_hidden_ms": 0
+        }
+      ],
+      "prediction": {
+        "record_type": "prediction",
+        "record_id": "R_tplog1-tp-rounds-a1-r2-pred",
+        "pid": "R_tplog1",
+        "segment": "tp-rounds",
+        "attempt": 1,
+        "load_id": "657znq7x",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": "DVHVWV",
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:39:14.443Z",
+        "round": 2,
+        "course": "pines",
+        "course_name": "Pixel Pines",
+        "pred_points": 190,
+        "pred_low": 62,
+        "pred_high": 422,
+        "max_points": 1380,
+        "response_ms": 80,
+        "response_hidden_ms": 0
+      },
+      "club_summary": {
+        "record_type": "club_summary",
+        "record_id": "R_tplog1-tp-practice-a1-club-DR-B",
+        "pid": "R_tplog1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "r5qv2n1z",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": "DVHVWV",
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:39:01.331Z",
+        "club": "Driver B",
+        "club_type": "driver",
+        "variety": "vertical",
+        "letter": "B",
+        "shots": 4,
+        "batch_shots": 0,
+        "time_ms": 3586,
+        "hidden_ms": 0,
+        "idle_ms": 0,
+        "final_est_distance": 75,
+        "final_est_hits": 3,
+        "truth_distance": 230,
+        "truth_hits": 3.87,
+        "estimate_count": 1,
+        "first_est_distance": 75,
+        "first_est_hits": 3,
+        "first_estimate_shots": 4,
+        "asked_at_5": false,
+        "chosen": true
+      },
+      "bag_choice": {
+        "record_type": "bag_choice",
+        "record_id": "R_tplog1-tp-practice-a1-bag",
+        "pid": "R_tplog1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "r5qv2n1z",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": "DVHVWV",
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:39:01.331Z",
+        "letters_chosen": "B,A,C",
+        "practice_shots": 44,
+        "choose_ms": 563,
+        "choose_hidden_ms": 0,
+        "chooser_opens": 1,
+        "card_clicks": 4,
+        "nudge_shown": true,
+        "nudge_count": 2,
+        "clubs_under_5": 7,
+        "driver_club": "Driver B",
+        "driver_variety": "vertical",
+        "driver_letter": "B",
+        "driver_est_distance": 75,
+        "driver_est_hits": 3,
+        "driver_truth_distance": 230,
+        "driver_truth_hits": 3.87,
+        "hybrid_club": "Hybrid A",
+        "hybrid_variety": "vertical",
+        "hybrid_letter": "A",
+        "hybrid_est_distance": 123,
+        "hybrid_est_hits": 4,
+        "hybrid_truth_distance": 170,
+        "hybrid_truth_hits": 3.26,
+        "wedge_club": "Wedge C",
+        "wedge_variety": "vertical",
+        "wedge_letter": "C",
+        "wedge_est_distance": 180,
+        "wedge_est_hits": 2,
+        "wedge_truth_distance": 80,
+        "wedge_truth_hits": 2.94,
+        "est_distance_driver_a": 60,
+        "est_hits_driver_a": 0,
+        "est_distance_driver_b": 75,
+        "est_hits_driver_b": 3,
+        "est_distance_driver_c": 90,
+        "est_hits_driver_c": 6,
+        "est_distance_hybrid_a": 123,
+        "est_hits_hybrid_a": 4,
+        "est_distance_hybrid_b": 120,
+        "est_hits_hybrid_b": 1,
+        "est_distance_hybrid_c": 135,
+        "est_hits_hybrid_c": 4,
+        "est_distance_wedge_a": 150,
+        "est_hits_wedge_a": 7,
+        "est_distance_wedge_b": 165,
+        "est_hits_wedge_b": 10,
+        "est_distance_wedge_c": 180,
+        "est_hits_wedge_c": 2
+      },
+      "round": {
+        "record_type": "round",
+        "record_id": "R_tplog1-tp-rounds-a1-r2",
+        "pid": "R_tplog1",
+        "segment": "tp-rounds",
+        "attempt": 1,
+        "load_id": "657znq7x",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": "DVHVWV",
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:39:28.033Z",
+        "round": 2,
+        "course": "pines",
+        "course_name": "Pixel Pines",
+        "score": 100,
+        "hits": 4,
+        "scored": 4,
+        "bulls": 1,
+        "best_shots": 12,
+        "best_target": "near",
+        "near_points": 100,
+        "mid_points": 0,
+        "far_points": 0,
+        "aimed_near": 12,
+        "aimed_mid": 0,
+        "aimed_far": 0,
+        "play_ms": 13589,
+        "hidden_ms": 0,
+        "idle_ms": 1544,
+        "review_ms": 1728,
+        "review_hidden_ms": 0,
+        "review_idle_ms": 0,
+        "pred_points": 190,
+        "pred_low": 62,
+        "pred_high": 422
+      },
+      "segment_tp_practice": {
+        "record_type": "segment",
+        "record_id": "R_tplog1-tp-practice-a1-segment",
+        "pid": "R_tplog1",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "load_id": "r5qv2n1z",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": "DVHVWV",
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:39:01.394Z",
+        "letters": null,
+        "pos": null,
+        "started_at": "2026-11-20T21:38:31.231Z",
+        "active_ms": 28659,
+        "idle_ms": 0,
+        "screen_w": 1400,
+        "screen_h": 1000,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.8103.78 Safari/537.36",
+        "save_failures": 0,
+        "status": "complete",
+        "finished_at": "2026-11-20T21:39:01.394Z",
+        "hidden_ms": 1503,
+        "error_code": null,
+        "practice_shots": 44,
+        "batch_count": 1,
+        "batch_shots": 8,
+        "course_switches": 4,
+        "estimates_saved": 9,
+        "nudge_count": 2,
+        "rounds_played": null,
+        "total_score": null,
+        "test_bag": false,
+        "feedback": "visible",
+        "predictions": null
+      },
+      "segment_tp_rounds": {
+        "record_type": "segment",
+        "record_id": "R_tplog1-tp-rounds-a1-segment",
+        "pid": "R_tplog1",
+        "segment": "tp-rounds",
+        "attempt": 1,
+        "load_id": "657znq7x",
+        "game": "target",
+        "game_version": "v41",
+        "cond": "fb-visible",
+        "bag_seed": "DVHVWV",
+        "rng_seed": 4242,
+        "test": false,
+        "client_time": "2026-11-20T21:40:04.005Z",
+        "letters": "B,A,C",
+        "pos": null,
+        "started_at": "2026-11-20T21:39:01.521Z",
+        "active_ms": 59739,
+        "idle_ms": 1544,
+        "screen_w": 1400,
+        "screen_h": 1000,
+        "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.8103.78 Safari/537.36",
+        "save_failures": 0,
+        "status": "complete",
+        "finished_at": "2026-11-20T21:40:04.005Z",
+        "hidden_ms": 1202,
+        "error_code": null,
+        "practice_shots": null,
+        "batch_count": null,
+        "batch_shots": null,
+        "course_switches": null,
+        "estimates_saved": null,
+        "nudge_count": null,
+        "rounds_played": 5,
+        "total_score": 235,
+        "test_bag": false,
+        "feedback": "visible",
+        "predictions": 5
+      }
+    }
+  },
+  "summaries": {
+    "chromium": {
+      "nf_done_tp_practice": {
+        "type": "nf-done",
+        "segment": "tp-practice",
+        "attempt": 1,
+        "saved": true,
+        "summary": {
+          "tp_bag": "DVHVWV",
+          "tp_letters": "B,A,C",
+          "tp_practice_shots": 44,
+          "tp_est_d": 75,
+          "tp_est_h": 123,
+          "tp_est_w": 180
+        }
+      },
+      "nf_done_tp_rounds": {
+        "type": "nf-done",
+        "segment": "tp-rounds",
+        "attempt": 1,
+        "saved": true,
+        "summary": {
+          "tp_r1": 46,
+          "tp_r2": 100,
+          "tp_r3": 30,
+          "tp_r4": 20,
+          "tp_r5": 39,
+          "tp_total": 235,
+          "tp_best_aims": 37
+        }
+      },
+      "embedded_after_both": {
+        "ResponseID": "R_tplog1",
+        "cond": "fb-visible",
+        "rng_seed": "4242",
+        "nf_url": "http://localhost:45167/",
+        "screen_ok": "1",
+        "tp_bag": "DVHVWV",
+        "tp_letters": "B,A,C",
+        "tp_practice_shots": "44",
+        "tp_est_d": "75",
+        "tp_est_h": "123",
+        "tp_est_w": "180",
+        "tp_practice_saved": "1",
+        "tp_practice_attempt": "1",
+        "tp_practice_failed": "0",
+        "tp_practice_error": "",
+        "tp_r1": "46",
+        "tp_r2": "100",
+        "tp_r3": "30",
+        "tp_r4": "20",
+        "tp_r5": "39",
+        "tp_total": "235",
+        "tp_best_aims": "37",
+        "tp_rounds_saved": "1",
+        "tp_rounds_attempt": "1",
+        "tp_rounds_failed": "0",
+        "tp_rounds_error": ""
+      }
+    }
+  },
+  "nulls": {
+    "chromium": {
+      "segment.letters": "2× — no letters in the link (tp-practice)",
+      "segment.pos": "4× — no pos in the link",
+      "segment.finished_at": "2× — segment not finished yet (in-progress saves)",
+      "segment.error_code": "4× — no error",
+      "segment.rounds_played": "2× — tp-practice (no rounds)",
+      "segment.total_score": "2× — tp-practice",
+      "segment.predictions": "2× — tp-practice (no rounds)",
+      "shot.bag_seed": "44× — before the bag is confirmed (tp-practice practice shots / estimates)",
+      "shot.round": "44× — practice shot",
+      "shot.ball_no": "44× — practice shot",
+      "shot.target_hit": "82× — the ball missed every target",
+      "shot.batch_id": "96× — single shot",
+      "shot.batch_shot_no": "96× — single shot",
+      "shot.miss_by": "22× — the ball hit a target",
+      "estimate.bag_seed": "24× — before the bag is confirmed (tp-practice practice shots / estimates)",
+      "estimate.target_yd": "12× — distance_100 question (no target)",
+      "estimate.radius_yd": "12× — distance_100 question (no target)",
+      "estimate.previous": "24× — no earlier answer for this club",
+      "estimate.start_value": "24× — the boxes started empty (no earlier answer)",
+      "shot.decision_ms": "8× — instant-batch shot",
+      "shot.decision_hidden_ms": "8× — instant-batch shot",
+      "estimate.answer": "6× — card put off (action 'later' / 'cancel' / 'back')",
+      "segment.practice_shots": "2× — tp-rounds (no practice)",
+      "segment.batch_count": "2× — tp-rounds",
+      "segment.batch_shots": "2× — tp-rounds",
+      "segment.course_switches": "2× — tp-rounds",
+      "segment.estimates_saved": "2× — tp-rounds",
+      "segment.nudge_count": "2× — tp-rounds",
+      "shot.club_shot_no": "60× — round shot"
+    }
+  },
+  "saves": {
+    "tp_practice": [
+      "e1",
+      "p20",
+      "e2",
+      "e3",
+      "e4",
+      "p40",
+      "e5",
+      "e6",
+      "e7",
+      "e8",
+      "e9",
+      "e10",
+      "e11",
+      "e12",
+      "bag",
+      "final"
+    ],
+    "tp_rounds": [
+      "r1-pred",
+      "r1",
+      "r1-review",
+      "r2-pred",
+      "r2",
+      "r2-review",
+      "r3-pred",
+      "r3",
+      "r3-review",
+      "r4-pred",
+      "r4",
+      "r4-review",
+      "r5-pred",
+      "r5",
+      "final"
+    ]
+  },
+  "finished": "2026-11-20T21:40:07.018Z",
+  "failed": 0,
+  "not_run": 2
+}

@@ -1,0 +1,238 @@
+{
+  "started": "2026-11-20T04:53:09.653Z",
+  "tests": [
+    {
+      "name": "Target Practice: 9 clubs × power 1–100 (maxDistance, latSdDeg, distSdFrac, multipliers, club seed) old v36 = new v37",
+      "ok": true,
+      "detail": "900 rows identical; seed DCHPWV"
+    },
+    {
+      "name": "Course: 9 clubs × power 1–100 (maxDistance, latSdDeg, distSdFrac, nominal) old V17 = new V18",
+      "ok": true,
+      "detail": "900 rows identical"
+    },
+    {
+      "name": "Cross-check: original Target Practice v36 club numbers = original Course V17 club numbers",
+      "ok": true,
+      "detail": "identical"
+    },
+    {
+      "name": "Power colours: Target Practice powerColor(1–100) old v36 = new v37",
+      "ok": true,
+      "detail": "100 colours identical"
+    },
+    {
+      "name": "Power colours: course uses the same scale (NF.powerColor = Target Practice v36), slider gradient follows",
+      "ok": true,
+      "detail": "100 colours identical; course slider linear-gradient(90deg,#00c8ff 0.0%,#00c8ff 39.4%,#ffd23f 74.7%,#ff8c42 84.8%,#ff2e9a 100.0%)"
+    },
+    {
+      "name": "Course wording: header/title no longer \"STEP 2 · Clubs & shots\"; start card says Target Practice, not Learn Mode",
+      "ok": true,
+      "detail": {
+        "title": "Neon Fairway Course V18",
+        "header": "NEON FAIRWAY / "
+      }
+    },
+    {
+      "name": "Golden replay — Target Practice, 60 shots (30 practice incl. 2 batches + sweep, 30 scored): every draw, landing text, score",
+      "ok": true,
+      "detail": "60 shots, 120 full-precision draws identical, 246 Math.random calls each, round scores [35,41] + 6 balls into round 3 (Comet Ridge · Round 3 of 5 · Ball 7 of 12 · Round score 14)"
+    },
+    {
+      "name": "Golden replay — Course, holes 1 / 4 / 7 (one per section), bag DVHPWC: every landing spot, OB relief, stroke count, score",
+      "ok": true,
+      "detail": "9 swings identical; H1 Neon Gorge (S1): 5 strokes, 1 OB (0 penalised, 1 no-penalty replays, 0 fairway drops) · H4 Magma Bend (S2): 5 strokes, 1 OB (1 penalised, 0 no-penalty replays, 1 fairway drops) · H7 Voltage Lake (S3): 7 strokes, 1 OB (1 penalised, 0 no-penalty replays, 0 fairway drops); 68 Math.random calls each"
+    },
+    {
+      "name": "Course replay covered every section's out-of-bounds rule (S1 replay, S2 drop, S3 stroke-and-distance)",
+      "ok": true,
+      "detail": {
+        "obs": [
+          1,
+          1,
+          1
+        ],
+        "drops": [
+          0,
+          1,
+          0
+        ],
+        "replaysS1": 1,
+        "penaltiesS3": 1
+      }
+    },
+    {
+      "name": "Loads with no console errors: /",
+      "ok": true,
+      "detail": "HTTP 200 · \"Neon Fairway · Test launcher\""
+    },
+    {
+      "name": "Loads with no console errors: /target.html",
+      "ok": true,
+      "detail": "HTTP 200 · \"Neon Fairway v37\""
+    },
+    {
+      "name": "Loads with no console errors: /course.html",
+      "ok": true,
+      "detail": "HTTP 200 · \"Neon Fairway Course V18\""
+    },
+    {
+      "name": "Loads with no console errors: /target.html?pid=R_test1&segment=tp-practice&bag=DCHPWV&debug=1",
+      "ok": true,
+      "detail": "HTTP 200 · \"Neon Fairway v37\""
+    },
+    {
+      "name": "Loads with no console errors: /course.html?pid=R_test1&segment=course-s2&bag=DCHPWV&debug=1",
+      "ok": true,
+      "detail": "HTTP 200 · \"Neon Fairway Course V18\""
+    },
+    {
+      "name": "index.html: all 12 launcher links open a working game with no console errors",
+      "ok": true,
+      "detail": "target.html?pid=R_test1&segment=tp-practice&bag=DCHPWV&debug=1  target.html?segment=tp-practice  target.html?pid=R_test1&segment=tp-rounds&bag=DCHPWV&debug=1  target.html?segment=tp-rounds  course.html?pid=R_test1&segment=course-s1&bag=DCHPWV&debug=1  course.html?segment=course-s1  course.html?pid=R_test1&segment=course-s2&bag=DCHPWV&debug=1  course.html?segment=course-s2  course.html?pid=R_test1&segment=course-s3&bag=DCHPWV&debug=1  course.html?segment=course-s3  target.html  course.html"
+    },
+    {
+      "name": "Without the font stub: the only errors are Google Fonts requests (blocked in this sandbox)",
+      "ok": true,
+      "detail": "2 font-request errors, nothing else"
+    }
+  ],
+  "tpSample": {
+    "first": {
+      "tag": "practice 1",
+      "result": "Driver A · 100% · aimed 5.0° left · 219 yd, 3.5 yd left of your aim · Missed the far target by 8.1 yd",
+      "progress": "Practice Round · Sunset Strip · 1 shot · 0 of 9 clubs have 5+ shots",
+      "status": {
+        "phase": "practice",
+        "roundIndex": 0,
+        "shotsTaken": 1,
+        "practiceShots": 1,
+        "club": "Driver A",
+        "clubVariety": "power",
+        "layout": "sunset",
+        "roundScores": [],
+        "seed": null
+      }
+    },
+    "last": {
+      "tag": "scored 30",
+      "result": "Control Wedge · 58% · aimed straight · 40 yd, 0.8 yd left of your aim · Missed the close target by 1.5 yd",
+      "progress": "Comet Ridge · Round 3 of 5 · Ball 7 of 12 · Round score 14",
+      "status": {
+        "phase": "shooting",
+        "roundIndex": 2,
+        "shotsTaken": 6,
+        "practiceShots": 0,
+        "club": "Control Wedge",
+        "clubVariety": "control",
+        "layout": "comet",
+        "roundScores": [
+          35,
+          41
+        ],
+        "seed": "DCHCWC"
+      }
+    },
+    "firstDraws": [
+      {
+        "f": "lat",
+        "max": 200,
+        "p": 100,
+        "r": -0.9116931767048373
+      },
+      {
+        "f": "dist",
+        "max": 200,
+        "p": 100,
+        "r": 218.80718953938825
+      },
+      {
+        "f": "lat",
+        "max": 150,
+        "p": 73,
+        "r": -2.8329688508140487
+      },
+      {
+        "f": "dist",
+        "max": 150,
+        "p": 73,
+        "r": 102.98841258239005
+      }
+    ]
+  },
+  "courseSample": [
+    {
+      "hole": 1,
+      "score": 5,
+      "firstShot": {
+        "n": 1,
+        "club": "driver-vertical",
+        "power": 100,
+        "total": 256.89542058448046,
+        "lateral": -9.856131222012124,
+        "fromX": 0,
+        "fromY": 0,
+        "endX": 101.3164505706661,
+        "endY": 236.0725184366848,
+        "hazard": "ob",
+        "endName": "out of bounds",
+        "penalty": 0,
+        "free": false
+      },
+      "swings": 4,
+      "rngPerSwing": [
+        4
+      ]
+    },
+    {
+      "hole": 4,
+      "score": 5,
+      "firstShot": {
+        "n": 1,
+        "club": "driver-vertical",
+        "power": 93,
+        "total": 266.3698253107151,
+        "lateral": 7.650805274935195,
+        "fromX": 0,
+        "fromY": 0,
+        "endX": 77.84494069735649,
+        "endY": 254.74114124712153,
+        "hazard": "ob",
+        "endName": "out of bounds",
+        "penalty": 1,
+        "free": false,
+        "dropX": 25.80000000000001,
+        "dropY": 214.1,
+        "dropYards": 66.03315995815917
+      },
+      "swings": 2,
+      "rngPerSwing": [
+        4
+      ]
+    },
+    {
+      "hole": 7,
+      "score": 7,
+      "firstShot": {
+        "n": 1,
+        "club": "driver-vertical",
+        "power": 100,
+        "total": 257.86857799373854,
+        "lateral": 3.522518915674496,
+        "fromX": 0,
+        "fromY": 0,
+        "endX": -43.40662636214719,
+        "endY": 254.18904048831405,
+        "hazard": null,
+        "endName": "fairway"
+      },
+      "swings": 3,
+      "rngPerSwing": [
+        4
+      ]
+    }
+  ],
+  "finished": "2026-11-20T04:56:37.355Z",
+  "failed": 0
+}

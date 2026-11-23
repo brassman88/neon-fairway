@@ -1,0 +1,433 @@
+{
+  "started": "2026-11-20T12:00:43.292Z",
+  "tests": [
+    {
+      "name": "tp-practice: saves exactly the field-reference fields + saved/attempt/failed/error",
+      "ok": true,
+      "detail": "tp_bag,tp_letters,tp_practice_shots,tp_est_d,tp_est_h,tp_est_w,tp_practice_saved,tp_practice_attempt,tp_practice_failed,tp_practice_error"
+    },
+    {
+      "name": "tp-practice: summary values arrive unchanged",
+      "ok": true
+    },
+    {
+      "name": "tp-practice: attempt saved = attempt in nf-done (1); saved 0 (no endpoint); failed 0; error empty",
+      "ok": true,
+      "detail": "received nf-done [tp-practice] from http://localhost:33155 · attempt 1 · saved false · 6 summary fields"
+    },
+    {
+      "name": "tp-practice: stub got pid, segment, cond, rng, pos from the page",
+      "ok": true,
+      "detail": "{\"pid\":\"R_mockA\",\"segment\":\"tp-practice\",\"cond\":\"fb-hidden\",\"rng\":12345,\"pos\":2}"
+    },
+    {
+      "name": "tp-practice: header has load_id (8 chars) and game",
+      "ok": true,
+      "detail": "load_id 9eksxjev, game stub"
+    },
+    {
+      "name": "tp-rounds: saves exactly the field-reference fields + saved/attempt/failed/error",
+      "ok": true,
+      "detail": "tp_r1,tp_r2,tp_r3,tp_r4,tp_r5,tp_total,tp_best_aims,tp_rounds_saved,tp_rounds_attempt,tp_rounds_failed,tp_rounds_error"
+    },
+    {
+      "name": "tp-rounds: summary values arrive unchanged",
+      "ok": true
+    },
+    {
+      "name": "tp-rounds: attempt saved = attempt in nf-done (1); saved 0 (no endpoint); failed 0; error empty",
+      "ok": true,
+      "detail": "received nf-done [tp-rounds] from http://localhost:33155 · attempt 1 · saved false · 7 summary fields"
+    },
+    {
+      "name": "tp-rounds: stub got pid, segment, cond, rng, pos from the page",
+      "ok": true,
+      "detail": "{\"pid\":\"R_mockA\",\"segment\":\"tp-rounds\",\"cond\":\"fb-hidden\",\"rng\":12345,\"pos\":2}"
+    },
+    {
+      "name": "tp-rounds: bag and letters handed on from tp-practice (DCHCWV, A,C,C)",
+      "ok": true
+    },
+    {
+      "name": "tp-rounds: header has load_id (8 chars) and game",
+      "ok": true,
+      "detail": "load_id hm69vsrl, game stub"
+    },
+    {
+      "name": "tp-rounds: tp_total = r1+…+r5",
+      "ok": true
+    },
+    {
+      "name": "course-s1: saves exactly the field-reference fields + saved/attempt/failed/error",
+      "ok": true,
+      "detail": "crs_s1_h1,crs_s1_h2,crs_s1_h3,crs_s1_total,crs_s1_par,crs_s1_ob,crs_s1_pen,crs_s1_shortcut,crs_s1_pickups,crs_s1_saved,crs_s1_attempt,crs_s1_failed,crs_s1_error"
+    },
+    {
+      "name": "course-s1: summary values arrive unchanged",
+      "ok": true
+    },
+    {
+      "name": "course-s1: attempt saved = attempt in nf-done (1); saved 0 (no endpoint); failed 0; error empty",
+      "ok": true,
+      "detail": "received nf-done [course-s1] from http://localhost:33155 · attempt 1 · saved false · 9 summary fields"
+    },
+    {
+      "name": "course-s1: stub got pid, segment, cond, rng, pos from the page",
+      "ok": true,
+      "detail": "{\"pid\":\"R_mockA\",\"segment\":\"course-s1\",\"cond\":\"fb-hidden\",\"rng\":12345,\"pos\":2}"
+    },
+    {
+      "name": "course-s1: bag and letters handed on from tp-practice (DCHCWV, A,C,C)",
+      "ok": true
+    },
+    {
+      "name": "course-s1: header has load_id (8 chars) and game",
+      "ok": true,
+      "detail": "load_id gb6p1dmu, game stub"
+    },
+    {
+      "name": "course-s1: total = sum of holes, par = 12",
+      "ok": true
+    },
+    {
+      "name": "course-s2: saves exactly the field-reference fields + saved/attempt/failed/error",
+      "ok": true,
+      "detail": "crs_s2_h4,crs_s2_h5,crs_s2_h6,crs_s2_total,crs_s2_par,crs_s2_ob,crs_s2_pen,crs_s2_shortcut,crs_s2_pickups,crs_s2_saved,crs_s2_attempt,crs_s2_failed,crs_s2_error"
+    },
+    {
+      "name": "course-s2: summary values arrive unchanged",
+      "ok": true
+    },
+    {
+      "name": "course-s2: attempt saved = attempt in nf-done (1); saved 0 (no endpoint); failed 0; error empty",
+      "ok": true,
+      "detail": "received nf-done [course-s2] from http://localhost:33155 · attempt 1 · saved false · 9 summary fields"
+    },
+    {
+      "name": "course-s2: stub got pid, segment, cond, rng, pos from the page",
+      "ok": true,
+      "detail": "{\"pid\":\"R_mockA\",\"segment\":\"course-s2\",\"cond\":\"fb-hidden\",\"rng\":12345,\"pos\":2}"
+    },
+    {
+      "name": "course-s2: bag and letters handed on from tp-practice (DCHCWV, A,C,C)",
+      "ok": true
+    },
+    {
+      "name": "course-s2: header has load_id (8 chars) and game",
+      "ok": true,
+      "detail": "load_id y8ddmalt, game stub"
+    },
+    {
+      "name": "course-s2: total = sum of holes, par = 14",
+      "ok": true
+    },
+    {
+      "name": "course-s3: saves exactly the field-reference fields + saved/attempt/failed/error",
+      "ok": true,
+      "detail": "crs_s3_h7,crs_s3_h8,crs_s3_h9,crs_s3_total,crs_s3_par,crs_s3_ob,crs_s3_pen,crs_s3_shortcut,crs_s3_pickups,crs_s3_saved,crs_s3_attempt,crs_s3_failed,crs_s3_error"
+    },
+    {
+      "name": "course-s3: summary values arrive unchanged",
+      "ok": true
+    },
+    {
+      "name": "course-s3: attempt saved = attempt in nf-done (1); saved 0 (no endpoint); failed 0; error empty",
+      "ok": true,
+      "detail": "received nf-done [course-s3] from http://localhost:33155 · attempt 1 · saved false · 9 summary fields"
+    },
+    {
+      "name": "course-s3: stub got pid, segment, cond, rng, pos from the page",
+      "ok": true,
+      "detail": "{\"pid\":\"R_mockA\",\"segment\":\"course-s3\",\"cond\":\"fb-hidden\",\"rng\":12345,\"pos\":2}"
+    },
+    {
+      "name": "course-s3: bag and letters handed on from tp-practice (DCHCWV, A,C,C)",
+      "ok": true
+    },
+    {
+      "name": "course-s3: header has load_id (8 chars) and game",
+      "ok": true,
+      "detail": "load_id 60wxurom, game stub"
+    },
+    {
+      "name": "course-s3: total = sum of holes, par = 15",
+      "ok": true
+    },
+    {
+      "name": "Run: no console errors on the mock or stub pages",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "Wrong origin (Qualtrics page itself): ignored, nothing saved",
+      "ok": true
+    },
+    {
+      "name": "Wrong origin (https://evil.example iframe): ignored",
+      "ok": true
+    },
+    {
+      "name": "Right origin, wrong window (second game iframe): ignored",
+      "ok": true
+    },
+    {
+      "name": "Wrong segment from the game iframe: ignored",
+      "ok": true
+    },
+    {
+      "name": "After all four: no embedded data written, Next not clicked",
+      "ok": true
+    },
+    {
+      "name": "Wrong-prefix fields (crs_s2_total, tp_r1, pid, crs_s1x) ignored; the page's own fields saved",
+      "ok": true,
+      "detail": "crs_s1_h1,crs_s1_h2,crs_s1_h3,crs_s1_total,crs_s1_par,crs_s1_ob,crs_s1_pen,crs_s1_shortcut,crs_s1_pickups,crs_s1_saved,crs_s1_attempt,crs_s1_failed,crs_s1_error"
+    },
+    {
+      "name": "fb-visible passed through",
+      "ok": true
+    },
+    {
+      "name": "Page reload: URL attempt 2, game attempt 2, saved crs_s2_attempt 2",
+      "ok": true,
+      "detail": "url 2, game 2, saved 2"
+    },
+    {
+      "name": "Page reload: attempt 1 re-sent as \"reloaded\" (R_mockC_course-s2_a1_reloaded.json queued)",
+      "ok": true
+    },
+    {
+      "name": "New tab: page counter 1 in the URL, game attempt 3, saved crs_s2_attempt 3 (from nf-done, not the page counter)",
+      "ok": true,
+      "detail": "url 1, game 3, saved 3"
+    },
+    {
+      "name": "nf-error: problem message shown; continue saves failed 1, error STUB_TEST, attempt empty, saved 0, no summary fields",
+      "ok": true,
+      "detail": "{\"tp_practice_saved\":\"0\",\"tp_practice_attempt\":\"\",\"tp_practice_failed\":\"1\",\"tp_practice_error\":\"STUB_TEST\"}"
+    },
+    {
+      "name": "Game never loads: \"didn't load\" shown after 20 s (not before); continue saves failed 1, attempt empty",
+      "ok": true,
+      "detail": "{\"crs_s3_saved\":\"0\",\"crs_s3_attempt\":\"\",\"crs_s3_failed\":\"1\",\"crs_s3_error\":\"\"}"
+    },
+    {
+      "name": "https: bridge posts to the qorigin it was given (https://survey-test.qualtrics.com)",
+      "ok": true,
+      "detail": "https://survey-test.qualtrics.com (from qorigin)"
+    },
+    {
+      "name": "https: a message addressed to another Qualtrics origin is never delivered",
+      "ok": true
+    },
+    {
+      "name": "https: segment finishes and saves its fields",
+      "ok": true,
+      "detail": "{\"crs_s1_h1\":\"5\",\"crs_s1_h2\":\"6\",\"crs_s1_h3\":\"9\",\"crs_s1_total\":\"20\",\"crs_s1_par\":\"12\",\"crs_s1_ob\":\"0\",\"crs_s1_pen\":\"0\",\"crs_s1_shortcut\":\"1\",\"crs_s1_pickups\":\"1\",\"crs_s1_saved\":\"0\",\"crs_s1_attempt\":\"1\",\"crs_s1_failed\":\"0\",\"crs_s1_error\":\"\"}"
+    },
+    {
+      "name": "https: no \"messages go to any parent\" warning",
+      "ok": true
+    },
+    {
+      "name": "qorigin used only if it is https://[a-z0-9.-]+.qualtrics.com, else \"*\"",
+      "ok": true,
+      "detail": "https://abc.qualtrics.com → https://abc.qualtrics.com | https://uni.az1.qualtrics.com → https://uni.az1.qualtrics.com | http://abc.qualtrics.com → * | https://abc.qualtrics.com.evil.com → * | https://evilqualtrics.com → * | https://abc.qualtrics.com/ → * | https://abc.qualtrics.com:8443 → * | javascript:alert(1) → * | (none) → *"
+    },
+    {
+      "name": "Invalid qorigin + QUALTRICS_ORIGIN set → the constant (with an \"ignored\" warning)",
+      "ok": true
+    },
+    {
+      "name": "Valid qorigin wins over QUALTRICS_ORIGIN",
+      "ok": true
+    },
+    {
+      "name": "letters normalised (\"b, a ,c\" → \"B,A,C\"); pos \"2\" → 2; both in segmentInfo()",
+      "ok": true
+    },
+    {
+      "name": "Header field order: record_type, record_id, pid, segment, attempt, load_id, game, …",
+      "ok": true,
+      "detail": "record_type,record_id,pid,segment,attempt,load_id,game,game_version,cond,bag_seed,rng_seed,test,client_time"
+    },
+    {
+      "name": "load_id: 8 characters [a-z0-9], new on every page load",
+      "ok": true,
+      "detail": "vkltlvkj, fuz98lqu"
+    },
+    {
+      "name": "pos that isn't a whole number stays text (\"AB\")",
+      "ok": true
+    },
+    {
+      "name": "finish() twice → one nf-done, same attempt, first summary",
+      "ok": true
+    },
+    {
+      "name": "error(code, text) → { type:\"nf-error\", segment, code, text }",
+      "ok": true
+    },
+    {
+      "name": "No pid → local testing: pid local-test, debug on, test true",
+      "ok": true
+    },
+    {
+      "name": "target.html loads with no console errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "course.html loads with no console errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "index.html loads with no console errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "saved": {
+    "tp-practice": {
+      "tp_bag": "DCHCWV",
+      "tp_letters": "A,C,C",
+      "tp_practice_shots": "88",
+      "tp_est_d": "196",
+      "tp_est_h": "136",
+      "tp_est_w": "92",
+      "tp_practice_saved": "0",
+      "tp_practice_attempt": "1",
+      "tp_practice_failed": "0",
+      "tp_practice_error": ""
+    },
+    "tp-rounds": {
+      "tp_r1": "370",
+      "tp_r2": "273",
+      "tp_r3": "238",
+      "tp_r4": "278",
+      "tp_r5": "306",
+      "tp_total": "1465",
+      "tp_best_aims": "33",
+      "tp_rounds_saved": "0",
+      "tp_rounds_attempt": "1",
+      "tp_rounds_failed": "0",
+      "tp_rounds_error": ""
+    },
+    "course-s1": {
+      "crs_s1_h1": "5",
+      "crs_s1_h2": "4",
+      "crs_s1_h3": "4",
+      "crs_s1_total": "13",
+      "crs_s1_par": "12",
+      "crs_s1_ob": "5",
+      "crs_s1_pen": "0",
+      "crs_s1_shortcut": "0",
+      "crs_s1_pickups": "0",
+      "crs_s1_saved": "0",
+      "crs_s1_attempt": "1",
+      "crs_s1_failed": "0",
+      "crs_s1_error": ""
+    },
+    "course-s2": {
+      "crs_s2_h4": "6",
+      "crs_s2_h5": "6",
+      "crs_s2_h6": "6",
+      "crs_s2_total": "18",
+      "crs_s2_par": "14",
+      "crs_s2_ob": "1",
+      "crs_s2_pen": "1",
+      "crs_s2_shortcut": "1",
+      "crs_s2_pickups": "0",
+      "crs_s2_saved": "0",
+      "crs_s2_attempt": "1",
+      "crs_s2_failed": "0",
+      "crs_s2_error": ""
+    },
+    "course-s3": {
+      "crs_s3_h7": "8",
+      "crs_s3_h8": "7",
+      "crs_s3_h9": "10",
+      "crs_s3_total": "25",
+      "crs_s3_par": "15",
+      "crs_s3_ob": "2",
+      "crs_s3_pen": "2",
+      "crs_s3_shortcut": "0",
+      "crs_s3_pickups": "1",
+      "crs_s3_saved": "0",
+      "crs_s3_attempt": "1",
+      "crs_s3_failed": "0",
+      "crs_s3_error": ""
+    }
+  },
+  "finalEmbeddedData": {
+    "ResponseID": "R_mockA",
+    "cond": "fb-hidden",
+    "rng_seed": "12345",
+    "pos": "2",
+    "nf_url": "http://localhost:33155/",
+    "screen_ok": "1",
+    "tp_bag": "DCHCWV",
+    "tp_letters": "A,C,C",
+    "tp_practice_shots": "88",
+    "tp_est_d": "196",
+    "tp_est_h": "136",
+    "tp_est_w": "92",
+    "tp_practice_saved": "0",
+    "tp_practice_attempt": "1",
+    "tp_practice_failed": "0",
+    "tp_practice_error": "",
+    "tp_r1": "370",
+    "tp_r2": "273",
+    "tp_r3": "238",
+    "tp_r4": "278",
+    "tp_r5": "306",
+    "tp_total": "1465",
+    "tp_best_aims": "33",
+    "tp_rounds_saved": "0",
+    "tp_rounds_attempt": "1",
+    "tp_rounds_failed": "0",
+    "tp_rounds_error": "",
+    "crs_s1_h1": "5",
+    "crs_s1_h2": "4",
+    "crs_s1_h3": "4",
+    "crs_s1_total": "13",
+    "crs_s1_par": "12",
+    "crs_s1_ob": "5",
+    "crs_s1_pen": "0",
+    "crs_s1_shortcut": "0",
+    "crs_s1_pickups": "0",
+    "crs_s1_saved": "0",
+    "crs_s1_attempt": "1",
+    "crs_s1_failed": "0",
+    "crs_s1_error": "",
+    "crs_s2_h4": "6",
+    "crs_s2_h5": "6",
+    "crs_s2_h6": "6",
+    "crs_s2_total": "18",
+    "crs_s2_par": "14",
+    "crs_s2_ob": "1",
+    "crs_s2_pen": "1",
+    "crs_s2_shortcut": "1",
+    "crs_s2_pickups": "0",
+    "crs_s2_saved": "0",
+    "crs_s2_attempt": "1",
+    "crs_s2_failed": "0",
+    "crs_s2_error": "",
+    "crs_s3_h7": "8",
+    "crs_s3_h8": "7",
+    "crs_s3_h9": "10",
+    "crs_s3_total": "25",
+    "crs_s3_par": "15",
+    "crs_s3_ob": "2",
+    "crs_s3_pen": "2",
+    "crs_s3_shortcut": "0",
+    "crs_s3_pickups": "1",
+    "crs_s3_saved": "0",
+    "crs_s3_attempt": "1",
+    "crs_s3_failed": "0",
+    "crs_s3_error": ""
+  },
+  "finished": "2026-11-20T12:00:56.690Z",
+  "failed": 0
+}

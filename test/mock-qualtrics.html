@@ -1,0 +1,434 @@
+<!doctype html>
+<!--
+  test/mock-qualtrics.html · imitates a Qualtrics game page (testing only)
+  Runs the page script from claude/qualtrics-setup-guide.md section 4 word for word
+  (the two blocks below marked QUALTRICS PAGE HTML / SCRIPT), with a fake
+  Qualtrics.SurveyEngine and Qualtrics-style piped text (${e://Field/…}).
+  Embedded data is kept in this tab's sessionStorage, so segments run in order
+  pass tp_bag and tp_letters on, like a real response. Reloading the page counts
+  as a page reload in Qualtrics.
+  Game origin: https://… or, for testing, http://localhost / 127.0.0.1.
+  URL: ?page=<segment>&pid=&cond=&rng=&pos=&nf_url=&file=stub|game|<file name>
+  Changelog
+  - mock 2 (2026-11-20, prompt 9): guide v4 page script (on nf-ready, scroll the game to the top of
+    the window when it doesn't fit below the survey header). The mock's top bar no longer stays fixed
+    at the top when scrolling (Qualtrics has no such bar, and it would cover the top of the game).
+  - mock 1 (2026-11-20, prompt 2): first version (guide v2 page script).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mock Qualtrics · Neon Fairway</title>
+<style>
+  :root{ --ink:#1d2433; --muted:#5d6b82; --line:#d6dce6; --blue:#1f6feb; --green:#137333; --red:#b3261e; --amber:#8a5a00; --bg:#f4f6f9; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,'Segoe UI',sans-serif}
+  .mock-bar{position:relative;z-index:5;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:#16213a;color:#fff;padding:8px 14px}
+  .mock-bar b{letter-spacing:1px}
+  .mock-bar .pill{background:#2b3a5e;border-radius:12px;padding:2px 10px;font-size:12px}
+  .mock-bar button,.mock-bar a.btn{font:inherit;font-size:12px;background:#2f5bd3;color:#fff;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;text-decoration:none}
+  .mock-bar button:disabled{opacity:.4;cursor:default}
+  .mock-bar .ghost{background:transparent;border:1px solid #6b7da8}
+  /* Imitation of a Qualtrics Flat/Modern layout */
+  .Skin{padding:16px 0}
+  .SkinInner{max-width:780px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px}
+  .QuestionText{min-height:40px}
+  #Buttons{display:flex;justify-content:space-between;margin-top:14px}
+  #Buttons button{font-size:20px;padding:6px 22px;border:0;border-radius:4px;background:#2a7de1;color:#fff}
+  .mock-done{border:2px dashed var(--green);border-radius:8px;padding:14px;color:var(--green);font-weight:600;background:#eef8f0}
+  .mock-err{border:2px solid var(--red);border-radius:8px;padding:14px;color:var(--red);background:#fdeceb}
+  .panels{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:14px;padding:0 14px 30px;max-width:1500px;margin:0 auto}
+  @media (max-width:1000px){.panels{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+  .panel h2{font-size:12px;letter-spacing:1.5px;color:var(--muted);margin:0 0 8px}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  td,th{padding:3px 6px;border-bottom:1px solid #edf0f4;text-align:left;vertical-align:top;word-break:break-all}
+  td:first-child{font-family:ui-monospace,Menlo,Consolas,monospace;white-space:nowrap;word-break:normal;width:1%}
+  tr.set td{background:#fff6d6;font-weight:600}
+  .empty{color:#a3adbd}
+  #log{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;max-height:520px;overflow:auto;margin:0;padding:0;list-style:none}
+  #log li{padding:3px 0;border-bottom:1px solid #f0f2f5;word-break:break-all}
+  #log .t{color:#8792a6;margin-right:6px}
+  #log .ok{color:var(--green)} #log .bad{color:var(--red)} #log .next{color:var(--blue);font-weight:700} #log .info{color:var(--amber)}
+  form{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:flex-end}
+  label{display:flex;flex-direction:column;font-size:11px;color:var(--muted);gap:2px}
+  input,select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--line);border-radius:4px;min-width:120px}
+  input#f-url{min-width:300px}
+  #f-go{font:inherit;font-size:13px;background:var(--blue);color:#fff;border:0;border-radius:4px;padding:6px 14px;cursor:pointer}
+  .note{color:var(--muted);font-size:12px;margin:6px 0 0}
+</style>
+</head>
+<body>
+<div class="mock-bar">
+  <b>MOCK QUALTRICS</b>
+  <span class="pill" id="bar-page">setup</span>
+  <span class="pill" id="bar-pid"></span>
+  <span class="pill" id="bar-cond"></span>
+  <button type="button" id="b-reload" title="Like pressing reload on a Qualtrics page">Reload page</button>
+  <button type="button" id="b-next" disabled>Next page →</button>
+  <button type="button" id="b-reset" class="ghost" title="Start a new response (clears embedded data and attempt counters)">New response</button>
+</div>
+
+<div class="Skin"><div class="SkinInner">
+  <div class="QuestionText" id="question"><p>Choose a page below and press <b>Open page</b>.</p></div>
+  <div id="Buttons"><button type="button" id="PreviousButton">←</button><button type="button" id="NextButton">→</button></div>
+</div></div>
+
+<div class="panels">
+  <div class="panel">
+    <h2>EMBEDDED DATA (WHAT QUALTRICS WOULD SAVE) · highlighted = set on this page</h2>
+    <table id="ed"></table>
+  </div>
+  <div class="panel">
+    <h2>OPEN A PAGE</h2>
+    <form id="setup" onsubmit="return false">
+      <label>page <select id="f-page"></select></label>
+      <label>pid (ResponseID) <input id="f-pid" autocomplete="off"></label>
+      <label>cond <select id="f-cond"><option>fb-visible</option><option>fb-hidden</option></select></label>
+      <label>rng_seed <input id="f-rng" autocomplete="off"></label>
+      <label>pos <input id="f-pos" autocomplete="off" placeholder="optional"></label>
+      <label>game <select id="f-file"><option value="stub">stub.html</option><option value="game">real game (target/course.html)</option></select></label>
+      <label>nf_url (game base, ends with /) <input id="f-url" autocomplete="off"></label>
+      <button type="button" id="f-go">Open page</button>
+    </form>
+    <p class="note">A new pid starts a new response. The default nf_url is this repo on the other local host name
+      (localhost ↔ 127.0.0.1) so the game runs cross-origin, as it will on the real survey.</p>
+    <h2 style="margin-top:14px">IFRAME URL SETTINGS</h2>
+    <table id="iframe-params"><tr><td class="empty">(no game on this page)</td></tr></table>
+    <h2 style="margin-top:14px">LOG</h2>
+    <ul id="log"></ul>
+  </div>
+</div>
+
+<!-- ==== QUALTRICS PAGE HTML (claude/qualtrics-setup-guide.md 4a, word for word) ==== -->
+<script type="text/plain" id="qualtrics-page-html">
+<div id="nf-box">
+  <p id="nf-loading">Loading the game. This can take a few seconds.</p>
+  <p id="nf-trouble" style="display:none">
+    The game didn't load. Please check your internet connection and reload this page.
+    If it still doesn't work, <button type="button" id="nf-skip">continue without it</button>.
+  </p>
+  <p id="nf-problem" style="display:none">
+    The game ran into a problem on our side. Please <button type="button" id="nf-skip2">continue with the survey</button>.
+  </p>
+</div>
+</script>
+<!-- ==== QUALTRICS PAGE SCRIPT (claude/qualtrics-setup-guide.md 4b, word for word) ==== -->
+<script type="text/plain" id="qualtrics-page-script">
+Qualtrics.SurveyEngine.addOnload(function () {
+  var q = this;
+  q.hideNextButton();
+  q.hidePreviousButton();
+
+  // ---- settings for this page ----
+  var SEGMENT   = 'course-s1';     // tp-practice, tp-rounds, course-s1, course-s2, course-s3
+  var GAME_FILE = 'course.html';   // target.html for the two Target Practice pages
+  var PREFIX    = 'crs_s1_';       // tp_ for both Target Practice pages
+  // --------------------------------
+
+  var GAME_BASE = '${e://Field/nf_url}';
+  var GAME_ORIGIN = new URL(GAME_BASE).origin;
+  // Status fields: tp_practice_…, tp_rounds_…, crs_s1_… etc.
+  var STEM = SEGMENT.indexOf('tp-') === 0 ? 'tp_' + SEGMENT.slice(3) + '_' : PREFIX;
+
+  // Page-load counter: goes up if this page is reloaded in the same tab. It only goes
+  // into the game's URL. The game decides the real attempt number (it also counts
+  // reloads it can see) and sends it back in nf-done; that is the one saved.
+  var key = 'nf_attempt_' + SEGMENT, pageLoads = 1;
+  try { pageLoads = (+sessionStorage.getItem(key) || 0) + 1; sessionStorage.setItem(key, pageLoads); } catch (e) {}
+
+  var params = {
+    pid: '${e://Field/ResponseID}',
+    segment: SEGMENT,
+    cond: '${e://Field/cond}',
+    rng: '${e://Field/rng_seed}',
+    bag: '${e://Field/tp_bag}',
+    letters: '${e://Field/tp_letters}',
+    pos: '${e://Field/pos}',
+    attempt: pageLoads,
+    qorigin: window.location.origin
+  };
+  var qs = Object.keys(params).map(function (k) { return k + '=' + encodeURIComponent(params[k]); }).join('&');
+
+  var frame = document.createElement('iframe');
+  frame.src = GAME_BASE + GAME_FILE + '?' + qs;
+  frame.title = 'Neon Fairway';
+  frame.style.cssText = 'width:100%;height:88vh;min-height:620px;border:0;display:block;';
+  document.getElementById('nf-box').appendChild(frame);
+
+  // Widen the page on game pages only (check the class name with the browser inspector in Preview).
+  var inner = document.querySelector('.SkinInner');
+  if (inner) { inner.style.maxWidth = 'none'; inner.style.width = '98%'; }
+
+  var ready = false, finished = false, errorCode = '';
+  // attempt: the game's number from nf-done, or '' if the game never finished.
+  function finish(summary, saved, attempt, failed) {
+    if (finished) return;
+    finished = true;
+    Object.keys(summary || {}).forEach(function (k) {
+      if (k.indexOf(PREFIX) === 0) Qualtrics.SurveyEngine.setEmbeddedData(k, String(summary[k]).slice(0, 500));
+    });
+    Qualtrics.SurveyEngine.setEmbeddedData(STEM + 'saved', saved ? 1 : 0);
+    Qualtrics.SurveyEngine.setEmbeddedData(STEM + 'attempt', attempt);
+    Qualtrics.SurveyEngine.setEmbeddedData(STEM + 'failed', failed ? 1 : 0);
+    Qualtrics.SurveyEngine.setEmbeddedData(STEM + 'error', errorCode);
+    window.removeEventListener('message', onMessage);
+    q.clickNextButton();
+  }
+  function gameAttempt(v) { var n = parseInt(v, 10); return n >= 1 && n <= 9999 ? n : ''; }
+  function onMessage(ev) {
+    if (ev.origin !== GAME_ORIGIN || ev.source !== frame.contentWindow) return;
+    if (!ev.data || ev.data.segment !== SEGMENT) return;
+    if (ev.data.type === 'nf-ready') {
+      ready = true;
+      document.getElementById('nf-loading').style.display = 'none';
+      // If the game doesn't fit below the survey header, scroll it to the top of the window
+      // (the arrow keys can't scroll the survey page while the game has the keyboard).
+      var r = frame.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) frame.scrollIntoView({ block: 'start' });
+      frame.focus();
+    } else if (ev.data.type === 'nf-done') {
+      finish(ev.data.summary, ev.data.saved === true, gameAttempt(ev.data.attempt), false);
+    } else if (ev.data.type === 'nf-error') {
+      // The game hit a problem it can't recover from (e.g. bad bag). Offer a way out.
+      errorCode = String(ev.data.code || 'ERROR').slice(0, 40);
+      document.getElementById('nf-loading').style.display = 'none';
+      document.getElementById('nf-problem').style.display = 'block';
+      document.getElementById('nf-skip2').onclick = function () { finish({}, false, '', true); };
+    }
+  }
+  window.addEventListener('message', onMessage);
+  window.__nfOnMessage = onMessage;
+
+  // If the game hasn't said it's ready after 20 seconds, offer a way out (recorded as failed).
+  setTimeout(function () {
+    if (ready || finished) return;
+    document.getElementById('nf-trouble').style.display = 'block';
+    document.getElementById('nf-skip').onclick = function () { finish({}, false, '', true); };
+  }, 20000);
+});
+
+Qualtrics.SurveyEngine.addOnUnload(function () {
+  if (window.__nfOnMessage) window.removeEventListener('message', window.__nfOnMessage);
+});
+</script>
+
+<script>
+(function () {
+  'use strict';
+  var SEGMENTS = [
+    { seg: 'tp-practice', file: 'target.html', prefix: 'tp_' },
+    { seg: 'tp-rounds',   file: 'target.html', prefix: 'tp_' },
+    { seg: 'course-s1',   file: 'course.html', prefix: 'crs_s1_' },
+    { seg: 'course-s2',   file: 'course.html', prefix: 'crs_s2_' },
+    { seg: 'course-s3',   file: 'course.html', prefix: 'crs_s3_' }
+  ];
+  // Embedded data declared in the Survey Flow (guide section 2a).
+  var DECLARED = ['nf_url', 'rng_seed', 'cond', 'pos', 'screen_ok',
+    'tp_bag', 'tp_letters', 'tp_practice_shots', 'tp_est_d', 'tp_est_h', 'tp_est_w',
+    'tp_practice_saved', 'tp_practice_attempt', 'tp_practice_failed', 'tp_practice_error',
+    'tp_r1', 'tp_r2', 'tp_r3', 'tp_r4', 'tp_r5', 'tp_total', 'tp_best_aims',
+    'tp_rounds_saved', 'tp_rounds_attempt', 'tp_rounds_failed', 'tp_rounds_error'];
+  [[1, [1, 2, 3]], [2, [4, 5, 6]], [3, [7, 8, 9]]].forEach(function (s) {
+    var p = 'crs_s' + s[0] + '_';
+    s[1].forEach(function (h) { DECLARED.push(p + 'h' + h); });
+    ['total', 'par', 'ob', 'pen', 'shortcut', 'pickups', 'saved', 'attempt', 'failed', 'error'].forEach(function (f) { DECLARED.push(p + f); });
+  });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var store = {
+    get: function (k, d) { try { var v = sessionStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* ignore */ } }
+  };
+  var P = new URLSearchParams(location.search);
+  var M = window.MOCKQ = { ed: store.get('mockq:ed', {}), calls: [], log: [], received: [], nextClicks: 0, page: P.get('page') || null,
+    history: store.get('mockq:history', []), gameOrigin: null, iframeSrc: null, error: null };
+  var ED = M.ed;
+  function saveED() { store.set('mockq:ed', ED); }
+
+  // ---- Log ----------------------------------------------------------------------
+  function log(kind, text) {
+    var t = new Date().toISOString().slice(11, 23);
+    M.log.push({ t: t, kind: kind, text: text });
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="t">' + t + '</span><span class="' + kind + '">' + esc(text) + '</span>';
+    $('log').appendChild(li);
+    $('log').scrollTop = $('log').scrollHeight;
+  }
+
+  // ---- Response setup -------------------------------------------------------------
+  function defaultGameBase() {
+    var u = new URL('../', location.href);
+    if (u.hostname === 'localhost') u.hostname = '127.0.0.1';
+    else if (u.hostname === '127.0.0.1') u.hostname = 'localhost';
+    return u.href;
+  }
+  function newResponse(pid) {
+    Object.keys(ED).forEach(function (k) { delete ED[k]; });
+    M.history = []; store.set('mockq:history', []);
+    try { Object.keys(sessionStorage).forEach(function (k) { if (k.indexOf('nf_attempt_') === 0) sessionStorage.removeItem(k); }); } catch (e) { /* ignore */ }
+    ED.ResponseID = pid || ('R_mock' + Math.random().toString(36).slice(2, 10));
+  }
+  if (P.get('pid') && P.get('pid') !== ED.ResponseID) newResponse(P.get('pid'));
+  if (!ED.ResponseID) newResponse();
+  if (P.get('cond')) ED.cond = P.get('cond'); else if (!ED.cond) ED.cond = Math.random() < 0.5 ? 'fb-visible' : 'fb-hidden';
+  if (P.get('rng')) ED.rng_seed = P.get('rng'); else if (!ED.rng_seed) ED.rng_seed = String(1 + Math.floor(Math.random() * 2147483646));
+  if (P.has('pos')) ED.pos = P.get('pos');
+  if (P.get('nf_url')) ED.nf_url = P.get('nf_url'); else if (!ED.nf_url) ED.nf_url = defaultGameBase();
+  if (ED.screen_ok == null) ED.screen_ok = '1';
+  saveED();
+  var FILE = P.get('file') || 'stub';
+
+  // ---- Embedded data table -----------------------------------------------------------
+  function renderED() {
+    var setHere = {};
+    M.calls.forEach(function (c) { setHere[c.key] = true; });
+    var keys = ['ResponseID'].concat(DECLARED);
+    Object.keys(ED).forEach(function (k) { if (keys.indexOf(k) < 0) keys.push(k); });
+    $('ed').innerHTML = keys.map(function (k) {
+      var v = ED[k];
+      return '<tr class="' + (setHere[k] ? 'set' : '') + '"><td>' + esc(k) + '</td><td>' +
+        (v == null || v === '' ? '<span class="empty">(empty)</span>' : esc(v)) + '</td></tr>';
+    }).join('');
+  }
+
+  // ---- Setup form ----------------------------------------------------------------------
+  $('f-page').innerHTML = SEGMENTS.map(function (s) { return '<option>' + s.seg + '</option>'; }).join('');
+  $('f-page').value = M.page || 'tp-practice';
+  $('f-pid').value = ED.ResponseID; $('f-cond').value = ED.cond; $('f-rng').value = ED.rng_seed;
+  $('f-pos').value = ED.pos || ''; $('f-url').value = ED.nf_url;
+  $('f-file').value = FILE === 'game' ? 'game' : 'stub';
+  function pageUrl(page) {
+    var q = new URLSearchParams();
+    q.set('page', page); q.set('file', FILE);
+    return location.pathname + '?' + q.toString();
+  }
+  $('f-go').onclick = function () {
+    var q = new URLSearchParams();
+    q.set('page', $('f-page').value); q.set('pid', $('f-pid').value.trim());
+    q.set('cond', $('f-cond').value); q.set('rng', $('f-rng').value.trim()); q.set('pos', $('f-pos').value.trim());
+    q.set('nf_url', $('f-url').value.trim()); q.set('file', $('f-file').value);
+    location.href = location.pathname + '?' + q.toString();
+  };
+  $('b-reload').onclick = function () { location.reload(); };
+  $('b-reset').onclick = function () { newResponse(); saveED(); location.href = location.pathname; };
+  $('bar-pid').textContent = 'ResponseID ' + ED.ResponseID;
+  $('bar-cond').textContent = 'cond ' + ED.cond;
+
+  // ---- Fake Qualtrics API ------------------------------------------------------------------
+  var onloads = [], onunloads = [];
+  var question = {
+    hideNextButton: function () { $('NextButton').style.visibility = 'hidden'; },
+    showNextButton: function () { $('NextButton').style.visibility = ''; },
+    hidePreviousButton: function () { $('PreviousButton').style.visibility = 'hidden'; },
+    showPreviousButton: function () { $('PreviousButton').style.visibility = ''; },
+    getQuestionContainer: function () { return $('question'); },
+    clickNextButton: function () {
+      M.nextClicks++;
+      log('next', 'Would click Next now (Qualtrics moves to the next page).');
+      onunloads.forEach(function (fn) { try { fn.call(question); } catch (e) { log('bad', 'addOnUnload error: ' + e); } });
+      var set = {};
+      M.calls.forEach(function (c) { set[c.key] = c.value; });
+      M.history.push({ page: M.page, at: new Date().toISOString(), set: set });
+      store.set('mockq:history', M.history);
+      // Leaving the page removes the game, as Qualtrics would.
+      var box = $('nf-box');
+      if (box) box.innerHTML = '<div class="mock-done">Next was clicked. The survey would now show the next page.</div>';
+      var i = SEGMENTS.map(function (s) { return s.seg; }).indexOf(M.page);
+      var nxt = SEGMENTS[i + 1];
+      $('b-next').disabled = !nxt;
+      $('b-next').textContent = nxt ? 'Next page: ' + nxt.seg + ' →' : 'End of survey';
+      if (nxt) $('b-next').onclick = function () { location.href = pageUrl(nxt.seg); };
+      renderED();
+    }
+  };
+  window.Qualtrics = { SurveyEngine: {
+    addOnload: function (fn) { onloads.push(fn); },
+    addOnReady: function (fn) { onloads.push(fn); },
+    addOnUnload: function (fn) { onunloads.push(fn); },
+    setEmbeddedData: function (key, value) {
+      var v = value == null ? '' : String(value);
+      ED[key] = v; saveED();
+      M.calls.push({ key: key, value: v });
+      log('ok', 'setEmbeddedData ' + key + ' = ' + JSON.stringify(v));
+      renderED();
+    },
+    getEmbeddedData: function (key) { return ED[key]; }
+  } };
+
+  // ---- Watch messages (display only; the page script decides what is saved) -------------------
+  window.addEventListener('message', function (ev) {
+    var d = ev.data || {}, seg = SEGMENTS.filter(function (s) { return s.seg === M.page; })[0];
+    var frame = document.querySelector('#nf-box iframe');
+    var what = (d && d.type ? d.type : typeof d) + (d && d.segment ? ' [' + d.segment + ']' : '');
+    var why = [];
+    try { M.received.push({ origin: ev.origin, data: JSON.parse(JSON.stringify(d)) }); } catch (e) { /* not JSON-able */ }
+    if (ev.origin !== M.gameOrigin) why.push('wrong origin ' + ev.origin + ' (game is ' + M.gameOrigin + ')');
+    if (!frame || ev.source !== frame.contentWindow) why.push('not from the game iframe');
+    if (seg && d.segment !== seg.seg) why.push('segment ' + JSON.stringify(d.segment) + ' is not ' + seg.seg);
+    if (M.nextClicks) why.push('page already finished');
+    if (why.length) { log('bad', 'IGNORED ' + what + ': ' + why.join('; ')); return; }
+    var extra = '';
+    if (d.type === 'nf-done') {
+      var keys = Object.keys(d.summary || {});
+      var bad = keys.filter(function (k) { return k.indexOf(seg.prefix) !== 0; });
+      extra = ' · attempt ' + d.attempt + ' · saved ' + d.saved + ' · ' + (keys.length - bad.length) + ' summary fields' +
+        (bad.length ? ' · IGNORED fields without prefix ' + seg.prefix + ': ' + bad.join(', ') : '');
+    } else if (d.type === 'nf-error') extra = ' · code ' + d.code + ' · ' + d.text;
+    log(d.type === 'nf-error' ? 'bad' : 'ok', 'received ' + what + ' from ' + ev.origin + extra);
+  });
+
+  // ---- Run a game page ---------------------------------------------------------------------
+  function fail(msg) { M.error = msg; log('bad', msg); $('question').innerHTML = '<div class="mock-err">' + esc(msg) + '</div>'; }
+  function runPage() {
+    var seg = SEGMENTS.filter(function (s) { return s.seg === M.page; })[0];
+    if (!seg) return fail('Unknown page "' + M.page + '".');
+    var base;
+    try { base = new URL(ED.nf_url); } catch (e) { return fail('nf_url is not a URL: ' + ED.nf_url); }
+    var localOk = base.protocol === 'http:' && /^(localhost|127\.0\.0\.1|\[::1\])$/.test(base.hostname);
+    if (base.protocol !== 'https:' && !localOk) return fail('nf_url must be https://…, or http://localhost / 127.0.0.1 for testing.');
+    if (!/\/$/.test(ED.nf_url)) return fail('nf_url must end with "/".');
+    var gameFile = FILE === 'stub' ? 'stub.html' : FILE === 'game' ? seg.file : FILE;
+    if (!/^[A-Za-z0-9_.\/-]+$/.test(gameFile)) return fail('Bad file name: ' + gameFile);
+    M.gameOrigin = base.origin;
+
+    // The researcher's three edits on this page.
+    var src = $('qualtrics-page-script').textContent, n = 0;
+    function setLine(re, line) { src = src.replace(re, function () { n++; return line; }); }
+    setLine(/var SEGMENT\s*=\s*'[^']*';/, "var SEGMENT   = '" + seg.seg + "';");
+    setLine(/var GAME_FILE\s*=\s*'[^']*';/, "var GAME_FILE = '" + gameFile + "';");
+    setLine(/var PREFIX\s*=\s*'[^']*';/, "var PREFIX    = '" + seg.prefix + "';");
+    if (n !== 3) return fail('The page script no longer has the three settings lines (found ' + n + ').');
+    // Piped text, filled in before the script runs (as Qualtrics does).
+    src = src.replace(/\$\{e:\/\/Field\/([A-Za-z0-9_]+)\}/g, function (m, name) { return ED[name] == null ? '' : ED[name]; });
+
+    $('question').innerHTML = $('qualtrics-page-html').textContent;
+    var s = document.createElement('script');
+    s.textContent = src;
+    document.body.appendChild(s);
+    onloads.forEach(function (fn) { fn.call(question); });
+    var cnt = null;
+    try { cnt = sessionStorage.getItem('nf_attempt_' + seg.seg); } catch (e) { /* ignore */ }
+    log('info', 'Page ' + seg.seg + ' loaded · page-load counter ' + (cnt || '?') + ' · game ' + gameFile);
+    var frame = document.querySelector('#nf-box iframe');
+    if (frame) {
+      M.iframeSrc = frame.src;
+      var u = new URL(frame.src), rows = '<tr><td>file</td><td>' + esc(u.origin + u.pathname) + '</td></tr>';
+      u.searchParams.forEach(function (v, k) { rows += '<tr><td>' + esc(k) + '</td><td>' + (v === '' ? '<span class="empty">(empty)</span>' : esc(v)) + '</td></tr>'; });
+      $('iframe-params').innerHTML = rows;
+      log('info', 'iframe: ' + frame.src);
+    }
+  }
+
+  renderED();
+  if (M.page) {
+    $('bar-page').textContent = 'page ' + M.page + ' · ' + (FILE === 'stub' ? 'stub.html' : FILE === 'game' ? 'real game' : FILE);
+    runPage();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,5096 @@
+{
+  "started": "2026-11-20T21:43:41.079Z",
+  "engines": {
+    "chromium": {
+      "version": "153.0.8010.12",
+      "runs": {
+        "visible": {
+          "segs": {
+            "tp-practice": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "x5wnqr0e",
+                  "url": "http://localhost:39665/target.html?pid=R_e2e_vis_chromium&segment=tp-practice&cond=fb-visible&rng=424242&bag=&letters=&pos=1&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": null,
+                  "bag": null,
+                  "cond": "fb-visible",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-introOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: intro",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: shooting",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-nudgeOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: fewer-than-5 reminder",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-estimateOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: estimate card (final)",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-bagOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: choose your clubs",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-chosenOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: clubs chosen",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "start": {
+                    "aim": 0,
+                    "power": 100,
+                    "club": 0,
+                    "shots": 0,
+                    "focus": true
+                  },
+                  "keys": [
+                    "ArrowLeft→{\"aim\":-0.9999999999999999,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":1.1102230246251565e-16,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+                    "ArrowUp→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+                    "2→{\"aim\":0.9999999999999999,\"power\":95,\"club\":1}",
+                    "1→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}"
+                  ],
+                  "shotTaken": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  },
+                  "inRound": false
+                }
+              },
+              "chosen": {
+                "seed": "DPHCWV",
+                "labels": [
+                  "Driver B",
+                  "Hybrid A",
+                  "Wedge C"
+                ],
+                "varieties": [
+                  "power",
+                  "control",
+                  "vertical"
+                ],
+                "list": "Driver B75 yd at 100% · 3 of 10 within 8 yd at 140 ydHybrid A105 yd at 100% · 9 of 10 within 5 yd at 116 ydWedge C180 yd at 100% · 2 of 10 within 2 yd at 60 yd",
+                "shots": 13,
+                "est": [
+                  75,
+                  105,
+                  180
+                ]
+              },
+              "continueMs": 115
+            },
+            "tp-rounds": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "lu6kq9hs",
+                  "url": "http://localhost:39665/target.html?pid=R_e2e_vis_chromium&segment=tp-rounds&cond=fb-visible&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=1&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-visible",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                },
+                {
+                  "attempt": 2,
+                  "load_id": "mo5qs5z9",
+                  "url": "http://localhost:39665/target.html?pid=R_e2e_vis_chromium&segment=tp-rounds&cond=fb-visible&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=1&attempt=2&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 2,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-visible",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-introOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: intro",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-predictOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: prediction card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: shooting",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-roundOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: round complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-endOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: all rounds complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "start": {
+                    "aim": 0,
+                    "power": 100,
+                    "club": 0,
+                    "shots": 0,
+                    "focus": true
+                  },
+                  "keys": [
+                    "ArrowLeft→{\"aim\":-0.9999999999999999,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":1.1102230246251565e-16,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+                    "ArrowUp→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+                    "2→{\"aim\":0.9999999999999999,\"power\":95,\"club\":1}",
+                    "1→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}"
+                  ],
+                  "shotTaken": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  },
+                  "inRound": true
+                }
+              },
+              "labels": {
+                "buttons": [
+                  "Driver B",
+                  "Hybrid A",
+                  "Wedge C"
+                ],
+                "intro": "5 scored rounds. 12 balls each.A new course each round. Each course has three targets worth different points.Your clubs. You play with the three clubs you chose: Driver B, Hybrid A and Wedge C. You can't switch to other clubs.",
+                "varieties": [
+                  "power",
+                  "control",
+                  "vertical"
+                ],
+                "match": true
+              },
+              "reloadAt": "round 1 complete",
+              "labelsAfterReload": {
+                "buttons": [
+                  "Driver B",
+                  "Hybrid A",
+                  "Wedge C"
+                ],
+                "intro": "5 scored rounds. 12 balls each.A new course each round. Each course has three targets worth different points.Your clubs. You play with the three clubs you chose: Driver B, Hybrid A and Wedge C. You can't switch to other clubs.",
+                "varieties": [
+                  "power",
+                  "control",
+                  "vertical"
+                ],
+                "match": true
+              },
+              "endText": "All 5 Rounds Complete\nROUND 1\nSunset Strip\n24\n3/12 scored · 0 bullseyes\nFar 0 · Middle 0 · Close 24\nROUND 2\nPixel Pines\n63\n3/12 scored · 1 bullseye\nFar 0 · Middle 0 · Close 63\nROUND 3\nComet Ridge\n44\n5/12 scored · 0 bullseyes\nFar 0 · Middle 30 · Close 14\nROUND 4\nLaser Lane\n20\n1/12 scored · 0 bullseyes\nFar 0 · Middle 0 · Close 20\nROUND 5\nNova Summit\n77\n3/12 scored · 1 bullseye\nFar 0 · Middle 0 · Close 77\n\nThe survey will continue.\n\nContinue",
+              "scores": [
+                24,
+                63,
+                44,
+                20,
+                77
+              ],
+              "continueMs": 98
+            },
+            "course-s1": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "tmcvima3",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_vis_chromium&segment=course-s1&cond=fb-visible&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=1&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-visible",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "howCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: how to play",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section briefing",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "holeCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole card with prediction",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: aiming",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "doneCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionDone"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "keys": [
+                    "ArrowLeft→{\"tx\":-42.04977883350134,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-38.84573283858999,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-35.62985405714893,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"driver-power\"}",
+                    "ArrowUp→{\"tx\":-35.62985405714893,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"driver-power\"}",
+                    "2→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"hybrid-control\"}",
+                    "1→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"driver-power\"}"
+                  ],
+                  "swung": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  }
+                }
+              },
+              "clubs": {
+                "bag": [
+                  "driver-power",
+                  "hybrid-control",
+                  "wedge-vertical"
+                ],
+                "buttons": [
+                  "1 Driver Power",
+                  "2 Hybrid Control",
+                  "3 Wedge Vertical"
+                ],
+                "names": [
+                  "Driver (Power)",
+                  "Hybrid (Control)",
+                  "Wedge (Vertical)"
+                ],
+                "how": "NEON FAIRWAY · THE COURSE\n\nHOW TO PLAY\nYou play with the three clubs you chose in Target Practice: Driver (Power), Hybrid (Control) and Wedge (Vertical).\nPick a club and a power %, then click or drag on the course to aim.\nThe ball stops where it lands. No bounce, no roll.\nOnly the black fairway and the green are in play. Everything else is out of bounds (the bubbling purple ground).\nThe course has three sections of three holes. What happens when you land out of bounds changes in each section, and you get a short briefing before each one.\nBalls that land on the green are putted for you.\n\nKEYS\n\n1 2 3\nchoose a club\nSpace\nswing\n↑ ↓\npower ±5% (Shift ±1%)\n← →\naim ±1° (Shift ¼°)\nGOT IT"
+              },
+              "holes": [
+                {
+                  "hole": 1,
+                  "strokes": 4
+                },
+                {
+                  "hole": 2,
+                  "strokes": 5
+                },
+                {
+                  "hole": 3,
+                  "strokes": 4
+                }
+              ],
+              "endText": "SECTION 1 OF 3 · HOLES 1–3\n\nSECTION COMPLETE\n\n13 STROKES · PAR 12\n\nThe survey will continue.\n\nCONTINUE",
+              "continueMs": 490
+            },
+            "course-s2": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "zvi1jbbx",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_vis_chromium&segment=course-s2&cond=fb-visible&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=1&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-visible",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                },
+                {
+                  "attempt": 2,
+                  "load_id": "3d1371lo",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_vis_chromium&segment=course-s2&cond=fb-visible&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=1&attempt=2&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 2,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-visible",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "howCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: same controls reminder",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section briefing",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "holeCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole card with prediction",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: aiming",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "doneCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionDone"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "keys": [
+                    "ArrowLeft→{\"tx\":-124.58929900850713,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-122.4461038961039,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-120.2656105142919,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"driver-power\"}",
+                    "ArrowUp→{\"tx\":-120.2656105142919,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"driver-power\"}",
+                    "2→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"hybrid-control\"}",
+                    "1→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"driver-power\"}"
+                  ],
+                  "swung": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  }
+                }
+              },
+              "clubs": {
+                "bag": [
+                  "driver-power",
+                  "hybrid-control",
+                  "wedge-vertical"
+                ],
+                "buttons": [
+                  "1 Driver Power",
+                  "2 Hybrid Control",
+                  "3 Wedge Vertical"
+                ],
+                "names": [
+                  "Driver (Power)",
+                  "Hybrid (Control)",
+                  "Wedge (Vertical)"
+                ],
+                "how": "NEON FAIRWAY · THE COURSE\n\nSAME CONTROLS AS BEFORE\n\nKEYS\n\n1 2 3\nchoose a club\nSpace\nswing\n↑ ↓\npower ±5% (Shift ±1%)\n← →\naim ±1° (Shift ¼°)\nGOT IT"
+              },
+              "reloadAt": "hole 4 complete",
+              "holes": [
+                {
+                  "hole": 4,
+                  "strokes": 4
+                },
+                {
+                  "hole": 5,
+                  "strokes": 6
+                },
+                {
+                  "hole": 6,
+                  "strokes": 6
+                }
+              ],
+              "endText": "SECTION 2 OF 3 · HOLES 4–6\n\nSECTION COMPLETE\n\n16 STROKES · PAR 14\n\nThe survey will continue.\n\nCONTINUE",
+              "continueMs": 428
+            },
+            "course-s3": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "jigh56d7",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_vis_chromium&segment=course-s3&cond=fb-visible&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=1&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-visible",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "howCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: same controls reminder",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section briefing",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "holeCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole card with prediction",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: aiming",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "doneCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1040,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1040,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionDone"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "keys": [
+                    "ArrowLeft→{\"tx\":14.876323422698217,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":17.99313259458643,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":21.104460883982945,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"driver-power\"}",
+                    "ArrowUp→{\"tx\":21.104460883982945,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"driver-power\"}",
+                    "2→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"hybrid-control\"}",
+                    "1→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"driver-power\"}"
+                  ],
+                  "swung": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  }
+                }
+              },
+              "clubs": {
+                "bag": [
+                  "driver-power",
+                  "hybrid-control",
+                  "wedge-vertical"
+                ],
+                "buttons": [
+                  "1 Driver Power",
+                  "2 Hybrid Control",
+                  "3 Wedge Vertical"
+                ],
+                "names": [
+                  "Driver (Power)",
+                  "Hybrid (Control)",
+                  "Wedge (Vertical)"
+                ],
+                "how": "NEON FAIRWAY · THE COURSE\n\nSAME CONTROLS AS BEFORE\n\nKEYS\n\n1 2 3\nchoose a club\nSpace\nswing\n↑ ↓\npower ±5% (Shift ±1%)\n← →\naim ±1° (Shift ¼°)\nGOT IT"
+              },
+              "holes": [
+                {
+                  "hole": 7,
+                  "strokes": 6
+                },
+                {
+                  "hole": 8,
+                  "strokes": 8
+                },
+                {
+                  "hole": 9,
+                  "strokes": 12
+                }
+              ],
+              "endText": "SECTION 3 OF 3 · HOLES 7–9\n\nSECTION COMPLETE\n\n26 STROKES · PAR 15\n\nThe survey will continue.\n\nCONTINUE",
+              "continueMs": 391
+            }
+          },
+          "fit": {
+            "tp-practice": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "tp-rounds": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s1": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s2": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s3": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            }
+          },
+          "embeddedData": {
+            "ResponseID": "R_e2e_vis_chromium",
+            "cond": "fb-visible",
+            "rng_seed": "424242",
+            "pos": "1",
+            "nf_url": "http://localhost:39665/",
+            "screen_ok": "1",
+            "tp_bag": "DPHCWV",
+            "tp_letters": "B,A,C",
+            "tp_practice_shots": "13",
+            "tp_est_d": "75",
+            "tp_est_h": "105",
+            "tp_est_w": "180",
+            "tp_practice_saved": "1",
+            "tp_practice_attempt": "1",
+            "tp_practice_failed": "0",
+            "tp_practice_error": "",
+            "tp_r1": "24",
+            "tp_r2": "63",
+            "tp_r3": "44",
+            "tp_r4": "20",
+            "tp_r5": "77",
+            "tp_total": "228",
+            "tp_best_aims": "37",
+            "tp_rounds_saved": "1",
+            "tp_rounds_attempt": "2",
+            "tp_rounds_failed": "0",
+            "tp_rounds_error": "",
+            "crs_s1_h1": "4",
+            "crs_s1_h2": "5",
+            "crs_s1_h3": "4",
+            "crs_s1_total": "13",
+            "crs_s1_par": "12",
+            "crs_s1_ob": "0",
+            "crs_s1_pen": "0",
+            "crs_s1_shortcut": "0",
+            "crs_s1_pickups": "0",
+            "crs_s1_saved": "1",
+            "crs_s1_attempt": "1",
+            "crs_s1_failed": "0",
+            "crs_s1_error": "",
+            "crs_s2_h4": "4",
+            "crs_s2_h5": "6",
+            "crs_s2_h6": "6",
+            "crs_s2_total": "16",
+            "crs_s2_par": "14",
+            "crs_s2_ob": "1",
+            "crs_s2_pen": "1",
+            "crs_s2_shortcut": "0",
+            "crs_s2_pickups": "0",
+            "crs_s2_saved": "1",
+            "crs_s2_attempt": "2",
+            "crs_s2_failed": "0",
+            "crs_s2_error": "",
+            "crs_s3_h7": "6",
+            "crs_s3_h8": "8",
+            "crs_s3_h9": "12",
+            "crs_s3_total": "26",
+            "crs_s3_par": "15",
+            "crs_s3_ob": "7",
+            "crs_s3_pen": "7",
+            "crs_s3_shortcut": "0",
+            "crs_s3_pickups": "1",
+            "crs_s3_saved": "1",
+            "crs_s3_attempt": "1",
+            "crs_s3_failed": "0",
+            "crs_s3_error": ""
+          },
+          "fitSummary": {
+            "tp-practice": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "tp-rounds": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s1": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s2": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s3": {
+              "window": [
+                1100,
+                600
+              ],
+              "iframe": [
+                1040,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            }
+          }
+        },
+        "hidden": {
+          "segs": {
+            "tp-practice": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "i83491cp",
+                  "url": "http://localhost:39665/target.html?pid=R_e2e_hid_chromium&segment=tp-practice&cond=fb-hidden&rng=424242&bag=&letters=&pos=2&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": null,
+                  "bag": null,
+                  "cond": "fb-hidden",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                },
+                {
+                  "attempt": 2,
+                  "load_id": "bopmsi85",
+                  "url": "http://localhost:39665/target.html?pid=R_e2e_hid_chromium&segment=tp-practice&cond=fb-hidden&rng=424242&bag=&letters=&pos=2&attempt=2&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 2,
+                  "letters": null,
+                  "bag": null,
+                  "cond": "fb-hidden",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-introOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: intro",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: shooting",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-nudgeOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: fewer-than-5 reminder",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-estimateOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: estimate card (final)",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-bagOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: choose your clubs",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-chosenOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "practice: clubs chosen",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "start": {
+                    "aim": -0.038505193498769706,
+                    "power": 100,
+                    "club": 0,
+                    "shots": 0,
+                    "focus": true
+                  },
+                  "keys": [
+                    "ArrowLeft→{\"aim\":-1.0385051934987697,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":-0.03850519349876968,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+                    "ArrowUp→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+                    "2→{\"aim\":0.9614948065012302,\"power\":95,\"club\":1}",
+                    "1→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}"
+                  ],
+                  "shotTaken": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  },
+                  "inRound": false
+                }
+              },
+              "reloadAt": {
+                "shots": 22
+              },
+              "chosen": {
+                "seed": "DPHCWV",
+                "labels": [
+                  "Driver B",
+                  "Hybrid A",
+                  "Wedge C"
+                ],
+                "varieties": [
+                  "power",
+                  "control",
+                  "vertical"
+                ],
+                "list": "Driver B75 yd at 100% · 3 of 10 within 8 yd at 140 ydHybrid A105 yd at 100% · 9 of 10 within 5 yd at 116 ydWedge C180 yd at 100% · 2 of 10 within 2 yd at 60 yd",
+                "shots": 13,
+                "est": [
+                  75,
+                  105,
+                  180
+                ]
+              },
+              "continueMs": 120
+            },
+            "tp-rounds": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "b2te6aux",
+                  "url": "http://localhost:39665/target.html?pid=R_e2e_hid_chromium&segment=tp-rounds&cond=fb-hidden&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=2&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-hidden",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-introOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: intro",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-predictOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: prediction card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: shooting",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-roundOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: round complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "tp-endOverlay"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "rounds: all rounds complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "start": {
+                    "aim": -0.038505193498769706,
+                    "power": 100,
+                    "club": 0,
+                    "shots": 0,
+                    "focus": true
+                  },
+                  "keys": [
+                    "ArrowLeft→{\"aim\":-1.0385051934987697,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":-0.03850519349876968,\"power\":100,\"club\":0}",
+                    "ArrowRight→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+                    "ArrowUp→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+                    "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+                    "2→{\"aim\":0.9614948065012302,\"power\":95,\"club\":1}",
+                    "1→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}"
+                  ],
+                  "shotTaken": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  },
+                  "inRound": true
+                }
+              },
+              "labels": {
+                "buttons": [
+                  "Driver B",
+                  "Hybrid A",
+                  "Wedge C"
+                ],
+                "intro": "5 scored rounds. 12 balls each.A new course each round. Each course has three targets worth different points.Your clubs. You play with the three clubs you chose: Driver B, Hybrid A and Wedge C. You can't switch to other clubs.",
+                "varieties": [
+                  "power",
+                  "control",
+                  "vertical"
+                ],
+                "match": true
+              },
+              "endText": "All 5 Rounds Complete\nROUND 1\nSunset Strip\n✓\nROUND 2\nPixel Pines\n✓\nROUND 3\nComet Ridge\n✓\nROUND 4\nLaser Lane\n✓\nROUND 5\nNova Summit\n✓\n\nThe survey will continue.\n\nContinue",
+              "scores": [
+                24,
+                63,
+                44,
+                20,
+                77
+              ],
+              "continueMs": 88
+            },
+            "course-s1": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "nzen0h5w",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_hid_chromium&segment=course-s1&cond=fb-hidden&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=2&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-hidden",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "howCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: how to play",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section briefing",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "holeCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole card with prediction",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: aiming",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "doneCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionDone"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "keys": [
+                    "ArrowLeft→{\"tx\":-42.47160697056733,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-39.267625231910955,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-36.05168219421491,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"driver-power\"}",
+                    "ArrowUp→{\"tx\":-36.05168219421491,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"driver-power\"}",
+                    "2→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"hybrid-control\"}",
+                    "1→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"driver-power\"}"
+                  ],
+                  "swung": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  }
+                }
+              },
+              "clubs": {
+                "bag": [
+                  "driver-power",
+                  "hybrid-control",
+                  "wedge-vertical"
+                ],
+                "buttons": [
+                  "1 Driver Power",
+                  "2 Hybrid Control",
+                  "3 Wedge Vertical"
+                ],
+                "names": [
+                  "Driver (Power)",
+                  "Hybrid (Control)",
+                  "Wedge (Vertical)"
+                ],
+                "how": "NEON FAIRWAY · THE COURSE\n\nHOW TO PLAY\nYou play with the three clubs you chose in Target Practice: Driver (Power), Hybrid (Control) and Wedge (Vertical).\nPick a club and a power %, then click or drag on the course to aim.\nThe ball stops where it lands. No bounce, no roll.\nOnly the black fairway and the green are in play. Everything else is out of bounds (the bubbling purple ground).\nThe course has three sections of three holes. What happens when you land out of bounds changes in each section, and you get a short briefing before each one.\nBalls that land on the green are putted for you.\n\nKEYS\n\n1 2 3\nchoose a club\nSpace\nswing\n↑ ↓\npower ±5% (Shift ±1%)\n← →\naim ±1° (Shift ¼°)\nGOT IT"
+              },
+              "holes": [
+                {
+                  "hole": 1,
+                  "strokes": 4
+                },
+                {
+                  "hole": 2,
+                  "strokes": 5
+                },
+                {
+                  "hole": 3,
+                  "strokes": 4
+                }
+              ],
+              "endText": "SECTION 1 OF 3 · HOLES 1–3\n\nSECTION COMPLETE\n\nThe survey will continue.\n\nCONTINUE",
+              "continueMs": 368
+            },
+            "course-s2": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "7btk0jhz",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_hid_chromium&segment=course-s2&cond=fb-hidden&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=2&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-hidden",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "howCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: same controls reminder",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section briefing",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "holeCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole card with prediction",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: aiming",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "doneCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionDone"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "keys": [
+                    "ArrowLeft→{\"tx\":-124.85614147779887,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-122.71298701298701,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":-120.53245298358362,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"driver-power\"}",
+                    "ArrowUp→{\"tx\":-120.53245298358362,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"driver-power\"}",
+                    "2→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"hybrid-control\"}",
+                    "1→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"driver-power\"}"
+                  ],
+                  "swung": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  }
+                }
+              },
+              "clubs": {
+                "bag": [
+                  "driver-power",
+                  "hybrid-control",
+                  "wedge-vertical"
+                ],
+                "buttons": [
+                  "1 Driver Power",
+                  "2 Hybrid Control",
+                  "3 Wedge Vertical"
+                ],
+                "names": [
+                  "Driver (Power)",
+                  "Hybrid (Control)",
+                  "Wedge (Vertical)"
+                ],
+                "how": "NEON FAIRWAY · THE COURSE\n\nSAME CONTROLS AS BEFORE\n\nKEYS\n\n1 2 3\nchoose a club\nSpace\nswing\n↑ ↓\npower ±5% (Shift ±1%)\n← →\naim ±1° (Shift ¼°)\nGOT IT"
+              },
+              "holes": [
+                {
+                  "hole": 4,
+                  "strokes": 4
+                },
+                {
+                  "hole": 5,
+                  "strokes": 6
+                },
+                {
+                  "hole": 6,
+                  "strokes": 6
+                }
+              ],
+              "endText": "SECTION 2 OF 3 · HOLES 4–6\n\nSECTION COMPLETE\n\nThe survey will continue.\n\nCONTINUE",
+              "continueMs": 418
+            },
+            "course-s3": {
+              "loads": [
+                {
+                  "attempt": 1,
+                  "load_id": "dvfchgha",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_hid_chromium&segment=course-s3&cond=fb-hidden&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=2&attempt=1&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 1,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-hidden",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                },
+                {
+                  "attempt": 2,
+                  "load_id": "cw62ivcc",
+                  "url": "http://localhost:39665/course.html?pid=R_e2e_hid_chromium&segment=course-s3&cond=fb-hidden&rng=424242&bag=DPHCWV&letters=B%2CA%2CC&pos=2&attempt=2&qorigin=http%3A%2F%2F127.0.0.1%3A39665",
+                  "urlAttempt": 2,
+                  "letters": "B,A,C",
+                  "bag": "DPHCWV",
+                  "cond": "fb-hidden",
+                  "debug": false,
+                  "test": false,
+                  "post_origin": "*"
+                }
+              ],
+              "layouts": [
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "howCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: same controls reminder",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section briefing",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "holeCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole card with prediction",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: aiming",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "doneCard"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: hole complete card",
+                  "ok": true
+                },
+                {
+                  "frame": [
+                    1023,
+                    620
+                  ],
+                  "docScrolls": false,
+                  "doc": [
+                    1023,
+                    620
+                  ],
+                  "overlays": [
+                    "sectionDone"
+                  ],
+                  "badCards": [],
+                  "offscreen": [],
+                  "label": "course: section complete",
+                  "ok": true
+                }
+              ],
+              "keys": {
+                "ok": true,
+                "noScroll": true,
+                "detail": {
+                  "focusBefore": false,
+                  "focusAfterClick": true,
+                  "keys": [
+                    "ArrowLeft→{\"tx\":14.379084815391053,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":17.49581824389486,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowRight→{\"tx\":20.607222276675778,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"driver-power\"}",
+                    "ArrowUp→{\"tx\":20.607222276675778,\"power\":100,\"club\":\"driver-power\"}",
+                    "ArrowDown→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"driver-power\"}",
+                    "2→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"hybrid-control\"}",
+                    "1→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"driver-power\"}"
+                  ],
+                  "swung": true,
+                  "scroll": {
+                    "y": 76,
+                    "max": 1937,
+                    "afterKeys": 76,
+                    "afterShot": 76
+                  }
+                }
+              },
+              "clubs": {
+                "bag": [
+                  "driver-power",
+                  "hybrid-control",
+                  "wedge-vertical"
+                ],
+                "buttons": [
+                  "1 Driver Power",
+                  "2 Hybrid Control",
+                  "3 Wedge Vertical"
+                ],
+                "names": [
+                  "Driver (Power)",
+                  "Hybrid (Control)",
+                  "Wedge (Vertical)"
+                ],
+                "how": "NEON FAIRWAY · THE COURSE\n\nSAME CONTROLS AS BEFORE\n\nKEYS\n\n1 2 3\nchoose a club\nSpace\nswing\n↑ ↓\npower ±5% (Shift ±1%)\n← →\naim ±1° (Shift ¼°)\nGOT IT"
+              },
+              "reloadAt": "hole 7 complete",
+              "holes": [
+                {
+                  "hole": 7,
+                  "strokes": 6
+                },
+                {
+                  "hole": 8,
+                  "strokes": 8
+                },
+                {
+                  "hole": 9,
+                  "strokes": 12
+                }
+              ],
+              "endText": "SECTION 3 OF 3 · HOLES 7–9\n\nSECTION COMPLETE\n\nThe survey will continue.\n\nCONTINUE",
+              "continueMs": 381
+            }
+          },
+          "fit": {
+            "tp-practice": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "tp-rounds": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s1": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s2": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s3": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            }
+          },
+          "embeddedData": {
+            "ResponseID": "R_e2e_hid_chromium",
+            "cond": "fb-hidden",
+            "rng_seed": "424242",
+            "pos": "2",
+            "nf_url": "http://localhost:39665/",
+            "screen_ok": "1",
+            "tp_bag": "DPHCWV",
+            "tp_letters": "B,A,C",
+            "tp_practice_shots": "13",
+            "tp_est_d": "75",
+            "tp_est_h": "105",
+            "tp_est_w": "180",
+            "tp_practice_saved": "1",
+            "tp_practice_attempt": "2",
+            "tp_practice_failed": "0",
+            "tp_practice_error": "",
+            "tp_r1": "24",
+            "tp_r2": "63",
+            "tp_r3": "44",
+            "tp_r4": "20",
+            "tp_r5": "77",
+            "tp_total": "228",
+            "tp_best_aims": "37",
+            "tp_rounds_saved": "1",
+            "tp_rounds_attempt": "1",
+            "tp_rounds_failed": "0",
+            "tp_rounds_error": "",
+            "crs_s1_h1": "4",
+            "crs_s1_h2": "5",
+            "crs_s1_h3": "4",
+            "crs_s1_total": "13",
+            "crs_s1_par": "12",
+            "crs_s1_ob": "0",
+            "crs_s1_pen": "0",
+            "crs_s1_shortcut": "0",
+            "crs_s1_pickups": "0",
+            "crs_s1_saved": "1",
+            "crs_s1_attempt": "1",
+            "crs_s1_failed": "0",
+            "crs_s1_error": "",
+            "crs_s2_h4": "4",
+            "crs_s2_h5": "6",
+            "crs_s2_h6": "6",
+            "crs_s2_total": "16",
+            "crs_s2_par": "14",
+            "crs_s2_ob": "1",
+            "crs_s2_pen": "1",
+            "crs_s2_shortcut": "0",
+            "crs_s2_pickups": "0",
+            "crs_s2_saved": "1",
+            "crs_s2_attempt": "1",
+            "crs_s2_failed": "0",
+            "crs_s2_error": "",
+            "crs_s3_h7": "6",
+            "crs_s3_h8": "8",
+            "crs_s3_h9": "12",
+            "crs_s3_total": "26",
+            "crs_s3_par": "15",
+            "crs_s3_ob": "7",
+            "crs_s3_pen": "7",
+            "crs_s3_shortcut": "0",
+            "crs_s3_pickups": "1",
+            "crs_s3_saved": "1",
+            "crs_s3_attempt": "2",
+            "crs_s3_failed": "0",
+            "crs_s3_error": ""
+          },
+          "fitSummary": {
+            "tp-practice": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "tp-rounds": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s1": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s2": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            },
+            "course-s3": {
+              "window": [
+                1083,
+                600
+              ],
+              "iframe": [
+                1023,
+                620
+              ],
+              "scrollY": 80,
+              "top": 0,
+              "hiddenBelow": 20,
+              "hiddenAbove": 0,
+              "best": 20,
+              "ok": true
+            }
+          }
+        },
+        "down": {
+          "tp-practice": {
+            "continueMs": 2170,
+            "saved": "0",
+            "queue": [
+              "R_e2e_down_chromium_tp-practice_a1_e1.json",
+              "R_e2e_down_chromium_tp-practice_a1_final.json"
+            ],
+            "finalRecords": 41,
+            "beacons": 3
+          },
+          "course-s1": {
+            "continueMs": 2578,
+            "saved": "0",
+            "queue": [
+              "R_e2e_down_chromium_course-s1_a1_h1.json",
+              "R_e2e_down_chromium_course-s1_a1_final.json"
+            ],
+            "finalRecords": 11,
+            "beacons": 12
+          }
+        }
+      }
+    },
+    "firefox": {
+      "notRun": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/firefox-1543/firefox/firefox"
+    },
+    "webkit": {
+      "notRun": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/webkit-2359/pw_run.sh"
+    }
+  },
+  "tests": [
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "tp_bag",
+          "tp_letters",
+          "tp_practice_shots",
+          "tp_est_d",
+          "tp_est_h",
+          "tp_est_w"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "tp_bag": "DPHCWV",
+        "tp_letters": "B,A,C",
+        "tp_practice_shots": "13",
+        "tp_est_d": "75",
+        "tp_est_h": "105",
+        "tp_est_w": "180",
+        "tp_practice_saved": "1",
+        "tp_practice_attempt": "1",
+        "tp_practice_failed": "0",
+        "tp_practice_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: status fields: saved 1, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: every record has the shared header (42 records: 1 segment, 13 shot, 18 estimate, 9 club_summary, 1 bag_choice)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: one load_id per page load (a1=x5wnqr0e), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: segment record: status complete, feedback \"visible\" = cond fb-visible",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "visible",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "tp_bag": [
+          "DPHCWV",
+          "DPHCWV"
+        ],
+        "tp_letters": [
+          "B,A,C",
+          "B,A,C"
+        ],
+        "shots": [
+          "13",
+          13
+        ],
+        "est": [
+          "75,105,180",
+          "75,105,180"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space shoots)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "start": {
+          "aim": 0,
+          "power": 100,
+          "club": 0,
+          "shots": 0,
+          "focus": true
+        },
+        "keys": [
+          "ArrowLeft→{\"aim\":-0.9999999999999999,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":1.1102230246251565e-16,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+          "ArrowUp→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+          "2→{\"aim\":0.9999999999999999,\"power\":95,\"club\":1}",
+          "1→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}"
+        ],
+        "shotTaken": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        },
+        "inRound": false
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice: at 1100×600 (iframe 1040×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "practice: intro",
+        "practice: shooting",
+        "practice: fewer-than-5 reminder",
+        "practice: estimate card (final)",
+        "practice: choose your clubs",
+        "practice: clubs chosen"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "tp_r1",
+          "tp_r2",
+          "tp_r3",
+          "tp_r4",
+          "tp_r5",
+          "tp_total",
+          "tp_best_aims"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "tp_r1": "24",
+        "tp_r2": "63",
+        "tp_r3": "44",
+        "tp_r4": "20",
+        "tp_r5": "77",
+        "tp_total": "228",
+        "tp_best_aims": "37",
+        "tp_rounds_saved": "1",
+        "tp_rounds_attempt": "2",
+        "tp_rounds_failed": "0",
+        "tp_rounds_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: status fields: saved 1, attempt 2 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "2",
+        "game": 2,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        },
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: every record has the shared header (86 records: 2 segment, 6 prediction, 72 shot, 6 round)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: one load_id per page load (a1=lu6kq9hs, a2=mo5qs5z9), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: segment record: status complete, feedback \"visible\" = cond fb-visible",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "visible",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: reload (round 1 complete): game attempt 2 (URL attempt 2); Qualtrics saved attempt 2; attempt 1 arrives as a \"reloaded\" segment record with load 1's load_id",
+      "status": "PASS",
+      "detail": {
+        "a1": {
+          "status": "reloaded",
+          "load_id": "lu6kq9hs"
+        },
+        "a1files": [
+          "R_e2e_vis_chromium_tp-rounds_a1_r1-pred.json",
+          "R_e2e_vis_chromium_tp-rounds_a1_r1.json",
+          "R_e2e_vis_chromium_tp-rounds_a1_reloaded.json"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: reload: attempt 1 and attempt 2 records never share an id or load_id",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "scores": [
+          "24,63,44,20,77",
+          "24,63,44,20,77"
+        ],
+        "total": [
+          "228",
+          228
+        ],
+        "best": [
+          "37",
+          37
+        ],
+        "segTotal": [
+          "228",
+          228
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space shoots)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "start": {
+          "aim": 0,
+          "power": 100,
+          "club": 0,
+          "shots": 0,
+          "focus": true
+        },
+        "keys": [
+          "ArrowLeft→{\"aim\":-0.9999999999999999,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":1.1102230246251565e-16,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+          "ArrowUp→{\"aim\":0.9999999999999999,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}",
+          "2→{\"aim\":0.9999999999999999,\"power\":95,\"club\":1}",
+          "1→{\"aim\":0.9999999999999999,\"power\":95,\"club\":0}"
+        ],
+        "shotTaken": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        },
+        "inRound": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: at 1100×600 (iframe 1040×620) no screen scrolls inside the iframe; cards, buttons and controls in view (5 screens)",
+      "status": "PASS",
+      "detail": [
+        "rounds: intro",
+        "rounds: prediction card",
+        "rounds: shooting",
+        "rounds: round complete card",
+        "rounds: all rounds complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "crs_s1_h1",
+          "crs_s1_h2",
+          "crs_s1_h3",
+          "crs_s1_total",
+          "crs_s1_par",
+          "crs_s1_ob",
+          "crs_s1_pen",
+          "crs_s1_shortcut",
+          "crs_s1_pickups"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "crs_s1_h1": "4",
+        "crs_s1_h2": "5",
+        "crs_s1_h3": "4",
+        "crs_s1_total": "13",
+        "crs_s1_par": "12",
+        "crs_s1_ob": "0",
+        "crs_s1_pen": "0",
+        "crs_s1_shortcut": "0",
+        "crs_s1_pickups": "0",
+        "crs_s1_saved": "1",
+        "crs_s1_attempt": "1",
+        "crs_s1_failed": "0",
+        "crs_s1_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: status fields: saved 1, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: every record has the shared header (10 records: 1 segment, 3 hole, 6 shot)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: one load_id per page load (a1=tmcvima3), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: segment record: status complete, feedback \"visible\" = cond fb-visible",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "visible",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "holes": [
+          "4,5,4",
+          "4,5,4"
+        ],
+        "total": [
+          "13",
+          13
+        ],
+        "par": [
+          "12",
+          12
+        ],
+        "ob": [
+          "0",
+          0
+        ],
+        "pen": [
+          "0",
+          0
+        ],
+        "pickups": [
+          "0",
+          0
+        ],
+        "shortcut": [
+          "0",
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "keys": [
+          "ArrowLeft→{\"tx\":-42.04977883350134,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-38.84573283858999,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-35.62985405714893,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"driver-power\"}",
+          "ArrowUp→{\"tx\":-35.62985405714893,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"driver-power\"}",
+          "2→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"hybrid-control\"}",
+          "1→{\"tx\":-35.62985405714893,\"power\":95,\"club\":\"driver-power\"}"
+        ],
+        "swung": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s1: at 1100×600 (iframe 1040×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "course: how to play",
+        "course: section briefing",
+        "course: hole card with prediction",
+        "course: aiming",
+        "course: hole complete card",
+        "course: section complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "crs_s2_h4",
+          "crs_s2_h5",
+          "crs_s2_h6",
+          "crs_s2_total",
+          "crs_s2_par",
+          "crs_s2_ob",
+          "crs_s2_pen",
+          "crs_s2_shortcut",
+          "crs_s2_pickups"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "crs_s2_h4": "4",
+        "crs_s2_h5": "6",
+        "crs_s2_h6": "6",
+        "crs_s2_total": "16",
+        "crs_s2_par": "14",
+        "crs_s2_ob": "1",
+        "crs_s2_pen": "1",
+        "crs_s2_shortcut": "0",
+        "crs_s2_pickups": "0",
+        "crs_s2_saved": "1",
+        "crs_s2_attempt": "2",
+        "crs_s2_failed": "0",
+        "crs_s2_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: status fields: saved 1, attempt 2 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "2",
+        "game": 2,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        },
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: every record has the shared header (17 records: 2 segment, 4 hole, 11 shot)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: one load_id per page load (a1=zvi1jbbx, a2=3d1371lo), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: segment record: status complete, feedback \"visible\" = cond fb-visible",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "visible",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: reload (hole 4 complete): game attempt 2 (URL attempt 2); Qualtrics saved attempt 2; attempt 1 arrives as a \"reloaded\" segment record with load 1's load_id",
+      "status": "PASS",
+      "detail": {
+        "a1": {
+          "status": "reloaded",
+          "load_id": "zvi1jbbx"
+        },
+        "a1files": [
+          "R_e2e_vis_chromium_course-s2_a1_h4.json",
+          "R_e2e_vis_chromium_course-s2_a1_reloaded.json"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: reload: attempt 1 and attempt 2 records never share an id or load_id",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "holes": [
+          "4,6,6",
+          "4,6,6"
+        ],
+        "total": [
+          "16",
+          16
+        ],
+        "par": [
+          "14",
+          14
+        ],
+        "ob": [
+          "1",
+          1
+        ],
+        "pen": [
+          "1",
+          1
+        ],
+        "pickups": [
+          "0",
+          0
+        ],
+        "shortcut": [
+          "0",
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "keys": [
+          "ArrowLeft→{\"tx\":-124.58929900850713,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-122.4461038961039,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-120.2656105142919,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"driver-power\"}",
+          "ArrowUp→{\"tx\":-120.2656105142919,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"driver-power\"}",
+          "2→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"hybrid-control\"}",
+          "1→{\"tx\":-120.2656105142919,\"power\":95,\"club\":\"driver-power\"}"
+        ],
+        "swung": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s2: at 1100×600 (iframe 1040×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "course: same controls reminder",
+        "course: section briefing",
+        "course: hole card with prediction",
+        "course: aiming",
+        "course: hole complete card",
+        "course: section complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "crs_s3_h7",
+          "crs_s3_h8",
+          "crs_s3_h9",
+          "crs_s3_total",
+          "crs_s3_par",
+          "crs_s3_ob",
+          "crs_s3_pen",
+          "crs_s3_shortcut",
+          "crs_s3_pickups"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "crs_s3_h7": "6",
+        "crs_s3_h8": "8",
+        "crs_s3_h9": "12",
+        "crs_s3_total": "26",
+        "crs_s3_par": "15",
+        "crs_s3_ob": "7",
+        "crs_s3_pen": "7",
+        "crs_s3_shortcut": "0",
+        "crs_s3_pickups": "1",
+        "crs_s3_saved": "1",
+        "crs_s3_attempt": "1",
+        "crs_s3_failed": "0",
+        "crs_s3_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: status fields: saved 1, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: every record has the shared header (20 records: 1 segment, 3 hole, 16 shot)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: one load_id per page load (a1=jigh56d7), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: segment record: status complete, feedback \"visible\" = cond fb-visible",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "visible",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "holes": [
+          "6,8,12",
+          "6,8,12"
+        ],
+        "total": [
+          "26",
+          26
+        ],
+        "par": [
+          "15",
+          15
+        ],
+        "ob": [
+          "7",
+          7
+        ],
+        "pen": [
+          "7",
+          7
+        ],
+        "pickups": [
+          "1",
+          1
+        ],
+        "shortcut": [
+          "0",
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "keys": [
+          "ArrowLeft→{\"tx\":14.876323422698217,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":17.99313259458643,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":21.104460883982945,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"driver-power\"}",
+          "ArrowUp→{\"tx\":21.104460883982945,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"driver-power\"}",
+          "2→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"hybrid-control\"}",
+          "1→{\"tx\":21.104460883982945,\"power\":95,\"club\":\"driver-power\"}"
+        ],
+        "swung": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course-s3: at 1100×600 (iframe 1040×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "course: same controls reminder",
+        "course: section briefing",
+        "course: hole card with prediction",
+        "course: aiming",
+        "course: hole complete card",
+        "course: section complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-practice chose Driver B, Hybrid A, Wedge C → tp_bag DPHCWV, tp_letters B,A,C",
+      "status": "PASS",
+      "detail": {
+        "tp_bag": "DPHCWV",
+        "tp_letters": "B,A,C",
+        "chosen": {
+          "seed": "DPHCWV",
+          "labels": [
+            "Driver B",
+            "Hybrid A",
+            "Wedge C"
+          ],
+          "varieties": [
+            "power",
+            "control",
+            "vertical"
+          ],
+          "list": "Driver B75 yd at 100% · 3 of 10 within 8 yd at 140 ydHybrid A105 yd at 100% · 9 of 10 within 5 yd at 116 ydWedge C180 yd at 100% · 2 of 10 within 2 yd at 60 yd",
+          "shots": 13,
+          "est": [
+            75,
+            105,
+            180
+          ]
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "tp-rounds: club buttons and intro card use the same labels as practice; same varieties; letters match the rng",
+      "status": "PASS",
+      "detail": [
+        {
+          "buttons": [
+            "Driver B",
+            "Hybrid A",
+            "Wedge C"
+          ],
+          "varieties": [
+            "power",
+            "control",
+            "vertical"
+          ],
+          "match": true
+        },
+        {
+          "buttons": [
+            "Driver B",
+            "Hybrid A",
+            "Wedge C"
+          ],
+          "varieties": [
+            "power",
+            "control",
+            "vertical"
+          ],
+          "match": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course: the bag built from tp_bag is the same three clubs (type + variety) in every section; letters reach every page",
+      "status": "PASS",
+      "detail": {
+        "want": [
+          "driver-power",
+          "hybrid-control",
+          "wedge-vertical"
+        ],
+        "got": [
+          [
+            "driver-power",
+            "hybrid-control",
+            "wedge-vertical"
+          ],
+          [
+            "driver-power",
+            "hybrid-control",
+            "wedge-vertical"
+          ],
+          [
+            "driver-power",
+            "hybrid-control",
+            "wedge-vertical"
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course: club labels the same in all three sections",
+      "status": "PASS",
+      "detail": [
+        [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ],
+        [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ],
+        [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "course: club buttons use the Target Practice labels (Driver B, Hybrid A, Wedge C)",
+      "status": "DECIDE",
+      "detail": {
+        "course": [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ],
+        "howToPlay": "You play with the three clubs you chose in Target Practice: Driver (Power), Hybrid (Control) and Wedge (Vertical).",
+        "targetPractice": [
+          "Driver B",
+          "Hybrid A",
+          "Wedge C"
+        ],
+        "note": "The course names clubs by variety (\"Driver (Control)\") and does not use letters; Target Practice never shows varieties. Needs a decision (see report)."
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "whole path: embedded data holds exactly the 60 game fields of the guide (+ ResponseID, nf_url, rng_seed, cond, pos, screen_ok); none empty except …_error",
+      "status": "PASS",
+      "detail": {
+        "missing": [],
+        "extra": [],
+        "empty": [],
+        "other": [
+          "ResponseID",
+          "cond",
+          "rng_seed",
+          "pos",
+          "nf_url",
+          "screen_ok"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "survey window 1100×600: right after each game loads, as much of it is in the window as fits (hidden: 20, 20, 20, 20, 20 px; best possible 20 px)",
+      "status": "PASS",
+      "detail": {
+        "tp-practice": {
+          "window": [
+            1100,
+            600
+          ],
+          "iframe": [
+            1040,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "tp-rounds": {
+          "window": [
+            1100,
+            600
+          ],
+          "iframe": [
+            1040,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "course-s1": {
+          "window": [
+            1100,
+            600
+          ],
+          "iframe": [
+            1040,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "course-s2": {
+          "window": [
+            1100,
+            600
+          ],
+          "iframe": [
+            1040,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "course-s3": {
+          "window": [
+            1100,
+            600
+          ],
+          "iframe": [
+            1040,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "visible",
+      "name": "no page errors or console errors",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "tp_bag",
+          "tp_letters",
+          "tp_practice_shots",
+          "tp_est_d",
+          "tp_est_h",
+          "tp_est_w"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "tp_bag": "DPHCWV",
+        "tp_letters": "B,A,C",
+        "tp_practice_shots": "13",
+        "tp_est_d": "75",
+        "tp_est_h": "105",
+        "tp_est_w": "180",
+        "tp_practice_saved": "1",
+        "tp_practice_attempt": "2",
+        "tp_practice_failed": "0",
+        "tp_practice_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: status fields: saved 1, attempt 2 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "2",
+        "game": 2,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-hidden"
+        },
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-hidden"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: every record has the shared header (63 records: 2 segment, 33 shot, 18 estimate, 9 club_summary, 1 bag_choice)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: one load_id per page load (a1=i83491cp, a2=bopmsi85), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: segment record: status complete, feedback \"hidden\" = cond fb-hidden",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "hidden",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: reload ([object Object]): game attempt 2 (URL attempt 2); Qualtrics saved attempt 2; attempt 1 arrives as a \"reloaded\" segment record with load 1's load_id",
+      "status": "PASS",
+      "detail": {
+        "a1": {
+          "status": "reloaded",
+          "load_id": "i83491cp"
+        },
+        "a1files": [
+          "R_e2e_hid_chromium_tp-practice_a1_p20.json",
+          "R_e2e_hid_chromium_tp-practice_a1_reloaded.json"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: reload: attempt 1 and attempt 2 records never share an id or load_id",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "tp_bag": [
+          "DPHCWV",
+          "DPHCWV"
+        ],
+        "tp_letters": [
+          "B,A,C",
+          "B,A,C"
+        ],
+        "shots": [
+          "13",
+          13
+        ],
+        "est": [
+          "75,105,180",
+          "75,105,180"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space shoots)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "start": {
+          "aim": -0.038505193498769706,
+          "power": 100,
+          "club": 0,
+          "shots": 0,
+          "focus": true
+        },
+        "keys": [
+          "ArrowLeft→{\"aim\":-1.0385051934987697,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":-0.03850519349876968,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+          "ArrowUp→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+          "2→{\"aim\":0.9614948065012302,\"power\":95,\"club\":1}",
+          "1→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}"
+        ],
+        "shotTaken": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        },
+        "inRound": false
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice: at 1083×600 (iframe 1023×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "practice: intro",
+        "practice: shooting",
+        "practice: fewer-than-5 reminder",
+        "practice: estimate card (final)",
+        "practice: choose your clubs",
+        "practice: clubs chosen"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "tp_r1",
+          "tp_r2",
+          "tp_r3",
+          "tp_r4",
+          "tp_r5",
+          "tp_total",
+          "tp_best_aims"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "tp_r1": "24",
+        "tp_r2": "63",
+        "tp_r3": "44",
+        "tp_r4": "20",
+        "tp_r5": "77",
+        "tp_total": "228",
+        "tp_best_aims": "37",
+        "tp_rounds_saved": "1",
+        "tp_rounds_attempt": "1",
+        "tp_rounds_failed": "0",
+        "tp_rounds_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: status fields: saved 1, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-hidden"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: every record has the shared header (71 records: 1 segment, 5 prediction, 60 shot, 5 round)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: one load_id per page load (a1=b2te6aux), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: segment record: status complete, feedback \"hidden\" = cond fb-hidden",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "hidden",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "scores": [
+          "24,63,44,20,77",
+          "24,63,44,20,77"
+        ],
+        "total": [
+          "228",
+          228
+        ],
+        "best": [
+          "37",
+          37
+        ],
+        "segTotal": [
+          "228",
+          228
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space shoots)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "start": {
+          "aim": -0.038505193498769706,
+          "power": 100,
+          "club": 0,
+          "shots": 0,
+          "focus": true
+        },
+        "keys": [
+          "ArrowLeft→{\"aim\":-1.0385051934987697,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":-0.03850519349876968,\"power\":100,\"club\":0}",
+          "ArrowRight→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+          "ArrowUp→{\"aim\":0.9614948065012302,\"power\":100,\"club\":0}",
+          "ArrowDown→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}",
+          "2→{\"aim\":0.9614948065012302,\"power\":95,\"club\":1}",
+          "1→{\"aim\":0.9614948065012302,\"power\":95,\"club\":0}"
+        ],
+        "shotTaken": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        },
+        "inRound": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: at 1083×600 (iframe 1023×620) no screen scrolls inside the iframe; cards, buttons and controls in view (5 screens)",
+      "status": "PASS",
+      "detail": [
+        "rounds: intro",
+        "rounds: prediction card",
+        "rounds: shooting",
+        "rounds: round complete card",
+        "rounds: all rounds complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "crs_s1_h1",
+          "crs_s1_h2",
+          "crs_s1_h3",
+          "crs_s1_total",
+          "crs_s1_par",
+          "crs_s1_ob",
+          "crs_s1_pen",
+          "crs_s1_shortcut",
+          "crs_s1_pickups"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "crs_s1_h1": "4",
+        "crs_s1_h2": "5",
+        "crs_s1_h3": "4",
+        "crs_s1_total": "13",
+        "crs_s1_par": "12",
+        "crs_s1_ob": "0",
+        "crs_s1_pen": "0",
+        "crs_s1_shortcut": "0",
+        "crs_s1_pickups": "0",
+        "crs_s1_saved": "1",
+        "crs_s1_attempt": "1",
+        "crs_s1_failed": "0",
+        "crs_s1_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: status fields: saved 1, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-hidden"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: every record has the shared header (10 records: 1 segment, 3 hole, 6 shot)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: one load_id per page load (a1=nzen0h5w), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: segment record: status complete, feedback \"hidden\" = cond fb-hidden",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "hidden",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "holes": [
+          "4,5,4",
+          "4,5,4"
+        ],
+        "total": [
+          "13",
+          13
+        ],
+        "par": [
+          "12",
+          12
+        ],
+        "ob": [
+          "0",
+          0
+        ],
+        "pen": [
+          "0",
+          0
+        ],
+        "pickups": [
+          "0",
+          0
+        ],
+        "shortcut": [
+          "0",
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "keys": [
+          "ArrowLeft→{\"tx\":-42.47160697056733,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-39.267625231910955,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-36.05168219421491,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"driver-power\"}",
+          "ArrowUp→{\"tx\":-36.05168219421491,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"driver-power\"}",
+          "2→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"hybrid-control\"}",
+          "1→{\"tx\":-36.05168219421491,\"power\":95,\"club\":\"driver-power\"}"
+        ],
+        "swung": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s1: at 1083×600 (iframe 1023×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "course: how to play",
+        "course: section briefing",
+        "course: hole card with prediction",
+        "course: aiming",
+        "course: hole complete card",
+        "course: section complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "crs_s2_h4",
+          "crs_s2_h5",
+          "crs_s2_h6",
+          "crs_s2_total",
+          "crs_s2_par",
+          "crs_s2_ob",
+          "crs_s2_pen",
+          "crs_s2_shortcut",
+          "crs_s2_pickups"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "crs_s2_h4": "4",
+        "crs_s2_h5": "6",
+        "crs_s2_h6": "6",
+        "crs_s2_total": "16",
+        "crs_s2_par": "14",
+        "crs_s2_ob": "1",
+        "crs_s2_pen": "1",
+        "crs_s2_shortcut": "0",
+        "crs_s2_pickups": "0",
+        "crs_s2_saved": "1",
+        "crs_s2_attempt": "1",
+        "crs_s2_failed": "0",
+        "crs_s2_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: status fields: saved 1, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-hidden"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: every record has the shared header (13 records: 1 segment, 3 hole, 9 shot)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: one load_id per page load (a1=7btk0jhz), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: segment record: status complete, feedback \"hidden\" = cond fb-hidden",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "hidden",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "holes": [
+          "4,6,6",
+          "4,6,6"
+        ],
+        "total": [
+          "16",
+          16
+        ],
+        "par": [
+          "14",
+          14
+        ],
+        "ob": [
+          "1",
+          1
+        ],
+        "pen": [
+          "1",
+          1
+        ],
+        "pickups": [
+          "0",
+          0
+        ],
+        "shortcut": [
+          "0",
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "keys": [
+          "ArrowLeft→{\"tx\":-124.85614147779887,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-122.71298701298701,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":-120.53245298358362,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"driver-power\"}",
+          "ArrowUp→{\"tx\":-120.53245298358362,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"driver-power\"}",
+          "2→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"hybrid-control\"}",
+          "1→{\"tx\":-120.53245298358362,\"power\":95,\"club\":\"driver-power\"}"
+        ],
+        "swung": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s2: at 1083×600 (iframe 1023×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "course: same controls reminder",
+        "course: section briefing",
+        "course: hole card with prediction",
+        "course: aiming",
+        "course: hole complete card",
+        "course: section complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "crs_s3_h7",
+          "crs_s3_h8",
+          "crs_s3_h9",
+          "crs_s3_total",
+          "crs_s3_par",
+          "crs_s3_ob",
+          "crs_s3_pen",
+          "crs_s3_shortcut",
+          "crs_s3_pickups"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "crs_s3_h7": "6",
+        "crs_s3_h8": "8",
+        "crs_s3_h9": "12",
+        "crs_s3_total": "26",
+        "crs_s3_par": "15",
+        "crs_s3_ob": "7",
+        "crs_s3_pen": "7",
+        "crs_s3_shortcut": "0",
+        "crs_s3_pickups": "1",
+        "crs_s3_saved": "1",
+        "crs_s3_attempt": "2",
+        "crs_s3_failed": "0",
+        "crs_s3_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: status fields: saved 1, attempt 2 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "1",
+        "attempt": "2",
+        "game": 2,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-hidden"
+        },
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-hidden"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: every record has the shared header (26 records: 2 segment, 4 hole, 20 shot)",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: every record: right pid, segment, attempt, load_id of its page load, game + version, cond, rng, test false, bag_seed",
+      "status": "PASS",
+      "detail": {
+        "wrong": [],
+        "stray": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: one load_id per page load (a1=dvfchgha, a2=cw62ivcc), different on reload",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: segment record: status complete, feedback \"hidden\" = cond fb-hidden",
+      "status": "PASS",
+      "detail": {
+        "status": "complete",
+        "feedback": "hidden",
+        "has_feedback": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: segment record letters = tp_letters",
+      "status": "PASS",
+      "detail": "B,A,C"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: reload (hole 7 complete): game attempt 2 (URL attempt 2); Qualtrics saved attempt 2; attempt 1 arrives as a \"reloaded\" segment record with load 1's load_id",
+      "status": "PASS",
+      "detail": {
+        "a1": {
+          "status": "reloaded",
+          "load_id": "dvfchgha"
+        },
+        "a1files": [
+          "R_e2e_hid_chromium_course-s3_a1_h7.json",
+          "R_e2e_hid_chromium_course-s3_a1_reloaded.json"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: reload: attempt 1 and attempt 2 records never share an id or load_id",
+      "status": "PASS"
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: Qualtrics values = the data store's records (what the pilot export check compares)",
+      "status": "PASS",
+      "detail": {
+        "holes": [
+          "6,8,12",
+          "6,8,12"
+        ],
+        "total": [
+          "26",
+          26
+        ],
+        "par": [
+          "15",
+          15
+        ],
+        "ob": [
+          "7",
+          7
+        ],
+        "pen": [
+          "7",
+          7
+        ],
+        "pickups": [
+          "1",
+          1
+        ],
+        "shortcut": [
+          "0",
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: one click on the game gives it the keyboard (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "status": "PASS",
+      "detail": {
+        "focusBefore": false,
+        "focusAfterClick": true,
+        "keys": [
+          "ArrowLeft→{\"tx\":14.379084815391053,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":17.49581824389486,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowRight→{\"tx\":20.607222276675778,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"driver-power\"}",
+          "ArrowUp→{\"tx\":20.607222276675778,\"power\":100,\"club\":\"driver-power\"}",
+          "ArrowDown→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"driver-power\"}",
+          "2→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"hybrid-control\"}",
+          "1→{\"tx\":20.607222276675778,\"power\":95,\"club\":\"driver-power\"}"
+        ],
+        "swung": true,
+        "scroll": {
+          "y": 76,
+          "max": 1937,
+          "afterKeys": 76,
+          "afterShot": 76
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: Space and arrow keys never scroll the survey page",
+      "status": "PASS",
+      "detail": {
+        "y": 76,
+        "max": 1937,
+        "afterKeys": 76,
+        "afterShot": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course-s3: at 1083×600 (iframe 1023×620) no screen scrolls inside the iframe; cards, buttons and controls in view (6 screens)",
+      "status": "PASS",
+      "detail": [
+        "course: same controls reminder",
+        "course: section briefing",
+        "course: hole card with prediction",
+        "course: aiming",
+        "course: hole complete card",
+        "course: section complete"
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-practice chose Driver B, Hybrid A, Wedge C → tp_bag DPHCWV, tp_letters B,A,C",
+      "status": "PASS",
+      "detail": {
+        "tp_bag": "DPHCWV",
+        "tp_letters": "B,A,C",
+        "chosen": {
+          "seed": "DPHCWV",
+          "labels": [
+            "Driver B",
+            "Hybrid A",
+            "Wedge C"
+          ],
+          "varieties": [
+            "power",
+            "control",
+            "vertical"
+          ],
+          "list": "Driver B75 yd at 100% · 3 of 10 within 8 yd at 140 ydHybrid A105 yd at 100% · 9 of 10 within 5 yd at 116 ydWedge C180 yd at 100% · 2 of 10 within 2 yd at 60 yd",
+          "shots": 13,
+          "est": [
+            75,
+            105,
+            180
+          ]
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "tp-rounds: club buttons and intro card use the same labels as practice; same varieties; letters match the rng",
+      "status": "PASS",
+      "detail": [
+        {
+          "buttons": [
+            "Driver B",
+            "Hybrid A",
+            "Wedge C"
+          ],
+          "varieties": [
+            "power",
+            "control",
+            "vertical"
+          ],
+          "match": true
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course: the bag built from tp_bag is the same three clubs (type + variety) in every section; letters reach every page",
+      "status": "PASS",
+      "detail": {
+        "want": [
+          "driver-power",
+          "hybrid-control",
+          "wedge-vertical"
+        ],
+        "got": [
+          [
+            "driver-power",
+            "hybrid-control",
+            "wedge-vertical"
+          ],
+          [
+            "driver-power",
+            "hybrid-control",
+            "wedge-vertical"
+          ],
+          [
+            "driver-power",
+            "hybrid-control",
+            "wedge-vertical"
+          ]
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course: club labels the same in all three sections",
+      "status": "PASS",
+      "detail": [
+        [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ],
+        [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ],
+        [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ]
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "course: club buttons use the Target Practice labels (Driver B, Hybrid A, Wedge C)",
+      "status": "DECIDE",
+      "detail": {
+        "course": [
+          "1 Driver Power",
+          "2 Hybrid Control",
+          "3 Wedge Vertical"
+        ],
+        "howToPlay": "You play with the three clubs you chose in Target Practice: Driver (Power), Hybrid (Control) and Wedge (Vertical).",
+        "targetPractice": [
+          "Driver B",
+          "Hybrid A",
+          "Wedge C"
+        ],
+        "note": "The course names clubs by variety (\"Driver (Control)\") and does not use letters; Target Practice never shows varieties. Needs a decision (see report)."
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "whole path: embedded data holds exactly the 60 game fields of the guide (+ ResponseID, nf_url, rng_seed, cond, pos, screen_ok); none empty except …_error",
+      "status": "PASS",
+      "detail": {
+        "missing": [],
+        "extra": [],
+        "empty": [],
+        "other": [
+          "ResponseID",
+          "cond",
+          "rng_seed",
+          "pos",
+          "nf_url",
+          "screen_ok"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "fb-hidden: \"All rounds complete\" shows no round score; Section complete cards show no strokes or par",
+      "status": "PASS",
+      "detail": {
+        "tpEnd": "All 5 Rounds Complete\nROUND 1\nSunset Strip\n✓\nROUND 2\nPixel Pines\n✓\nROUND 3\nComet Ridge\n✓\nROUND 4\nLaser Lane\n✓\nROUND 5\nNova Summit\n✓\n\nThe survey will continue.\n\nContinue",
+        "crsEnd": [
+          "SECTION 1 OF 3 · HOLES 1–3\n\nSECTION COMPLETE\n\nThe survey will continue.\n\nCONTINUE",
+          "SECTION 2 OF 3 · HOLES 4–6\n\nSECTION COMPLETE\n\nThe survey will continue.\n\nCONTINUE",
+          "SECTION 3 OF 3 · HOLES 7–9\n\nSECTION COMPLETE\n\nThe survey will continue.\n\nCONTINUE"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "survey window 1083×600: right after each game loads, as much of it is in the window as fits (hidden: 20, 20, 20, 20, 20 px; best possible 20 px)",
+      "status": "PASS",
+      "detail": {
+        "tp-practice": {
+          "window": [
+            1083,
+            600
+          ],
+          "iframe": [
+            1023,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "tp-rounds": {
+          "window": [
+            1083,
+            600
+          ],
+          "iframe": [
+            1023,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "course-s1": {
+          "window": [
+            1083,
+            600
+          ],
+          "iframe": [
+            1023,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "course-s2": {
+          "window": [
+            1083,
+            600
+          ],
+          "iframe": [
+            1023,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        },
+        "course-s3": {
+          "window": [
+            1083,
+            600
+          ],
+          "iframe": [
+            1023,
+            620
+          ],
+          "scrollY": 80,
+          "top": 0,
+          "hiddenBelow": 20,
+          "hiddenAbove": 0,
+          "best": 20,
+          "ok": true
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "hidden",
+      "name": "no page errors or console errors",
+      "status": "PASS",
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "tp-practice: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "tp_bag",
+          "tp_letters",
+          "tp_practice_shots",
+          "tp_est_d",
+          "tp_est_h",
+          "tp_est_w"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "tp-practice: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "tp_bag": "DCHCWP",
+        "tp_letters": "B,A,C",
+        "tp_practice_shots": "13",
+        "tp_est_d": "75",
+        "tp_est_h": "105",
+        "tp_est_w": "180",
+        "tp_practice_saved": "0",
+        "tp_practice_attempt": "1",
+        "tp_practice_failed": "0",
+        "tp_practice_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "tp-practice: status fields: saved 0, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "0",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "tp-practice: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "tp-practice: endpoint unreachable → the page still moves on 2.2 s after CONTINUE, with tp_practice_saved = 0",
+      "status": "PASS",
+      "detail": {
+        "continueMs": 2170,
+        "saved": "0",
+        "queue": [
+          "R_e2e_down_chromium_tp-practice_a1_e1.json",
+          "R_e2e_down_chromium_tp-practice_a1_final.json"
+        ],
+        "finalRecords": 41,
+        "beacons": 3
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "tp-practice: the data stays queued — the bridge's backup keeps 2 unsent save(s), including the final save with 41 records + the segment record (status complete)",
+      "status": "PASS",
+      "detail": {
+        "queue": [
+          "R_e2e_down_chromium_tp-practice_a1_e1.json",
+          "R_e2e_down_chromium_tp-practice_a1_final.json"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "course-s1: nf-done summary = the field reference exactly",
+      "status": "PASS",
+      "detail": {
+        "keys": [
+          "crs_s1_h1",
+          "crs_s1_h2",
+          "crs_s1_h3",
+          "crs_s1_total",
+          "crs_s1_par",
+          "crs_s1_ob",
+          "crs_s1_pen",
+          "crs_s1_shortcut",
+          "crs_s1_pickups"
+        ],
+        "nfDone": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "course-s1: page saved the summary fields + saved/attempt/failed/error, nothing else; values unchanged",
+      "status": "PASS",
+      "detail": {
+        "crs_s1_h1": "6",
+        "crs_s1_h2": "4",
+        "crs_s1_h3": "4",
+        "crs_s1_total": "14",
+        "crs_s1_par": "12",
+        "crs_s1_ob": "0",
+        "crs_s1_pen": "0",
+        "crs_s1_shortcut": "0",
+        "crs_s1_pickups": "0",
+        "crs_s1_saved": "0",
+        "crs_s1_attempt": "1",
+        "crs_s1_failed": "0",
+        "crs_s1_error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "course-s1: status fields: saved 0, attempt 1 (= the game's), failed 0, error empty",
+      "status": "PASS",
+      "detail": {
+        "saved": "0",
+        "attempt": "1",
+        "game": 1,
+        "failed": "0",
+        "error": ""
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "course-s1: study mode in the game: debug off, test false, cond as given",
+      "status": "PASS",
+      "detail": [
+        {
+          "debug": false,
+          "test": false,
+          "cond": "fb-visible"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "course-s1: endpoint unreachable → the page still moves on 2.6 s after CONTINUE, with crs_s1_saved = 0",
+      "status": "PASS",
+      "detail": {
+        "continueMs": 2578,
+        "saved": "0",
+        "queue": [
+          "R_e2e_down_chromium_course-s1_a1_h1.json",
+          "R_e2e_down_chromium_course-s1_a1_final.json"
+        ],
+        "finalRecords": 11,
+        "beacons": 12
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "course-s1: the data stays queued — the bridge's backup keeps 2 unsent save(s), including the final save with 11 records + the segment record (status complete)",
+      "status": "PASS",
+      "detail": {
+        "queue": [
+          "R_e2e_down_chromium_course-s1_a1_h1.json",
+          "R_e2e_down_chromium_course-s1_a1_final.json"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "the bridge tried to send the queue again when the game page closed (sendBeacon / keepalive fetch, refused)",
+      "status": "PASS",
+      "detail": {
+        "failedSaveRequests": 12
+      }
+    },
+    {
+      "engine": "chromium",
+      "run": "down",
+      "name": "no page errors (connection-refused messages excluded)",
+      "status": "PASS",
+      "detail": []
+    }
+  ],
+  "findings": [],
+  "finished": "2026-11-20T21:51:32.090Z",
+  "failed": 0,
+  "decide": 2,
+  "notRun": [
+    "firefox",
+    "webkit"
+  ]
+}

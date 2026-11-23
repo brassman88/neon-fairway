@@ -1,0 +1,453 @@
+{
+  "started": "2026-11-20T15:50:13.514Z",
+  "engines": {
+    "chromium": {
+      "version": "153.0.8010.12",
+      "runs": {
+        "course-s1": {
+          "card": {
+            "vis": [
+              "howCard"
+            ],
+            "title": "HOW TO PLAY",
+            "list": [
+              "You play with the three clubs you chose in Target Practice: Driver (Control), Hybrid (Power) and Wedge (Vertical).",
+              "Pick a club and a power %, then click or drag on the course to aim.",
+              "The ball stops where it lands. No bounce, no roll.",
+              "Only the black fairway and the green are in play. Everything else is out of bounds (the bubbling purple ground).",
+              "The course has three sections of three holes. What happens when you land out of bounds changes in each section, and you get a short briefing before each one.",
+              "Balls that land on the green are putted for you."
+            ],
+            "listShown": true,
+            "keys": [
+              "choose a club",
+              "swing",
+              "power ±5% (Shift ±1%)",
+              "aim ±1° (Shift ¼°)"
+            ],
+            "buttons": [
+              "Driver (Control)",
+              "Hybrid (Power)",
+              "Wedge (Vertical)"
+            ],
+            "btnInView": true,
+            "hole": 1
+          },
+          "howMs": 2258,
+          "holes": [
+            {
+              "hole": 1,
+              "strokes": 4,
+              "swings": 2
+            },
+            {
+              "hole": 2,
+              "strokes": 6,
+              "swings": 4
+            },
+            {
+              "hole": 3,
+              "strokes": 4,
+              "swings": 2
+            }
+          ],
+          "keyLog": [
+            [
+              "ArrowLeft",
+              -42.48947654643823
+            ],
+            [
+              "ArrowRight",
+              -39.272965641953014
+            ],
+            [
+              "ArrowRight",
+              -36.04449181168749
+            ],
+            [
+              "ArrowDown",
+              95
+            ],
+            [
+              "ArrowUp",
+              100
+            ],
+            [
+              "ArrowDown",
+              95
+            ],
+            [
+              "2",
+              "hybrid-power"
+            ],
+            [
+              "1",
+              "driver-control"
+            ]
+          ]
+        },
+        "course-s2": {
+          "card": {
+            "vis": [
+              "howCard"
+            ],
+            "title": "SAME CONTROLS AS BEFORE",
+            "list": [],
+            "listShown": false,
+            "keys": [
+              "choose a club",
+              "swing",
+              "power ±5% (Shift ±1%)",
+              "aim ±1° (Shift ¼°)"
+            ],
+            "buttons": [
+              "Driver (Control)",
+              "Hybrid (Power)",
+              "Wedge (Vertical)"
+            ],
+            "btnInView": true,
+            "hole": 4
+          },
+          "howMs": 2337,
+          "holes": [
+            {
+              "hole": 4,
+              "strokes": 5,
+              "swings": 2
+            },
+            {
+              "hole": 5,
+              "strokes": 7,
+              "swings": 4
+            },
+            {
+              "hole": 6,
+              "strokes": 6,
+              "swings": 3
+            }
+          ],
+          "keyLog": [
+            [
+              "ArrowLeft",
+              -124.71316434092621
+            ],
+            [
+              "ArrowRight",
+              -122.56772151898736
+            ],
+            [
+              "ArrowRight",
+              -120.38494338173363
+            ],
+            [
+              "ArrowDown",
+              95
+            ],
+            [
+              "ArrowUp",
+              100
+            ],
+            [
+              "ArrowDown",
+              95
+            ],
+            [
+              "2",
+              "hybrid-power"
+            ],
+            [
+              "1",
+              "driver-control"
+            ]
+          ]
+        }
+      }
+    },
+    "firefox": {
+      "notRun": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/firefox-1543/firefox/firefox"
+    },
+    "webkit": {
+      "notRun": "browserType.launch: Executable doesn't exist at /opt/pw-browsers/webkit-2359/pw_run.sh"
+    }
+  },
+  "tests": [
+    {
+      "engine": "chromium",
+      "name": "course-s1: first card is the full How to play card (clubs as on the buttons, 6 points, keys)",
+      "ok": true,
+      "detail": {
+        "title": "HOW TO PLAY",
+        "clubs": [
+          "Driver (Control)",
+          "Hybrid (Power)",
+          "Wedge (Vertical)"
+        ],
+        "points": 6,
+        "keys": 4,
+        "hole": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s1: How to play → section briefing; time on the card kept",
+      "ok": true,
+      "detail": {
+        "next": [
+          "sectionCard"
+        ],
+        "briefing": "SECTION 1 OF 3",
+        "howCardMs": 2258
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s1: after one click on the map the keys work (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "ok": true,
+      "detail": {
+        "focusBeforeClick": false,
+        "focusAfterClick": true,
+        "keys": {
+          "0:ArrowLeft": -42.48947654643823,
+          "1:ArrowRight": -39.272965641953014,
+          "2:ArrowRight": -36.04449181168749,
+          "3:ArrowDown": 95,
+          "4:ArrowUp": 100,
+          "5:ArrowDown": 95,
+          "6:2": "hybrid-power",
+          "7:1": "driver-control"
+        },
+        "swung": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s1: Space and arrow keys never scroll the survey page",
+      "ok": true,
+      "detail": {
+        "scrollable": true,
+        "y0": 76,
+        "onCard": 76,
+        "aiming": 76,
+        "afterSwing": 76,
+        "cardStayed": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s1: Section complete card waits — no nf-done, no final save, no Next for 2.5 s (only the 3 per-hole saves)",
+      "ok": true,
+      "detail": {
+        "card": {
+          "vis": [
+            "sectionDone"
+          ],
+          "btn": "CONTINUE",
+          "disabled": false,
+          "meta": "14 STROKES · PAR 12"
+        },
+        "waited": {
+          "nextClicks": 0,
+          "nfDone": 0,
+          "posts": [
+            "R_eng_chromium_s1_course-s1_a1_h1.json",
+            "R_eng_chromium_s1_course-s1_a1_h2.json",
+            "R_eng_chromium_s1_course-s1_a1_h3.json"
+          ],
+          "sent": [
+            "nf-ready"
+          ]
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s1: CONTINUE reads \"Saving…\" and is disabled while saving; Qualtrics moves on only after the save",
+      "ok": true,
+      "detail": {
+        "atClick": {
+          "text": "Saving…",
+          "disabled": true
+        },
+        "after300ms": {
+          "text": "Saving…",
+          "disabled": true
+        },
+        "nextClicksWhileSaving": 0,
+        "posts": [
+          "R_eng_chromium_s1_course-s1_a1_h1.json",
+          "R_eng_chromium_s1_course-s1_a1_h2.json",
+          "R_eng_chromium_s1_course-s1_a1_h3.json",
+          "R_eng_chromium_s1_course-s1_a1_final.json"
+        ],
+        "msToNext": 2022,
+        "saved": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s1: holes 1,2,3 played; nf-done carries crs_s1_h1, crs_s1_h2, crs_s1_h3, crs_s1_total, crs_s1_par, crs_s1_ob, crs_s1_pen, crs_s1_shortcut, crs_s1_pickups; Qualtrics saved them (saved 1, attempt 1)",
+      "ok": true,
+      "detail": {
+        "summary": {
+          "crs_s1_h1": 4,
+          "crs_s1_h2": 6,
+          "crs_s1_h3": 4,
+          "crs_s1_total": 14,
+          "crs_s1_par": 12,
+          "crs_s1_ob": 0,
+          "crs_s1_pen": 0,
+          "crs_s1_shortcut": 0,
+          "crs_s1_pickups": 0
+        },
+        "saved": "1",
+        "attempt": "1"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s1: no page errors",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: first card is the short \"Same controls as before\" card with the keys",
+      "ok": true,
+      "detail": {
+        "title": "SAME CONTROLS AS BEFORE",
+        "clubs": [
+          "Driver (Control)",
+          "Hybrid (Power)",
+          "Wedge (Vertical)"
+        ],
+        "points": 0,
+        "keys": 4,
+        "hole": 4
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: How to play → section briefing; time on the card kept",
+      "ok": true,
+      "detail": {
+        "next": [
+          "sectionCard"
+        ],
+        "briefing": "SECTION 2 OF 3",
+        "howCardMs": 2337
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: after one click on the map the keys work (←/→ aim, ↓/↑ power, 1/2 club, Space swings)",
+      "ok": true,
+      "detail": {
+        "focusBeforeClick": false,
+        "focusAfterClick": true,
+        "keys": {
+          "0:ArrowLeft": -124.71316434092621,
+          "1:ArrowRight": -122.56772151898736,
+          "2:ArrowRight": -120.38494338173363,
+          "3:ArrowDown": 95,
+          "4:ArrowUp": 100,
+          "5:ArrowDown": 95,
+          "6:2": "hybrid-power",
+          "7:1": "driver-control"
+        },
+        "swung": 1
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: Space and arrow keys never scroll the survey page",
+      "ok": true,
+      "detail": {
+        "scrollable": true,
+        "y0": 76,
+        "onCard": 76,
+        "aiming": 76,
+        "afterSwing": 76,
+        "cardStayed": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: Section complete card waits — no nf-done, no final save, no Next for 2.5 s (only the 3 per-hole saves)",
+      "ok": true,
+      "detail": {
+        "card": {
+          "vis": [
+            "sectionDone"
+          ],
+          "btn": "CONTINUE",
+          "disabled": false,
+          "meta": "18 STROKES · PAR 14"
+        },
+        "waited": {
+          "nextClicks": 0,
+          "nfDone": 0,
+          "posts": [
+            "R_eng_chromium_s2_course-s2_a1_h4.json",
+            "R_eng_chromium_s2_course-s2_a1_h5.json",
+            "R_eng_chromium_s2_course-s2_a1_h6.json"
+          ],
+          "sent": [
+            "nf-ready"
+          ]
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: CONTINUE reads \"Saving…\" and is disabled while saving; Qualtrics moves on only after the save",
+      "ok": true,
+      "detail": {
+        "atClick": {
+          "text": "Saving…",
+          "disabled": true
+        },
+        "after300ms": {
+          "text": "Saving…",
+          "disabled": true
+        },
+        "nextClicksWhileSaving": 0,
+        "posts": [
+          "R_eng_chromium_s2_course-s2_a1_h4.json",
+          "R_eng_chromium_s2_course-s2_a1_h5.json",
+          "R_eng_chromium_s2_course-s2_a1_h6.json",
+          "R_eng_chromium_s2_course-s2_a1_final.json"
+        ],
+        "msToNext": 1946,
+        "saved": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: holes 4,5,6 played; nf-done carries crs_s2_h4, crs_s2_h5, crs_s2_h6, crs_s2_total, crs_s2_par, crs_s2_ob, crs_s2_pen, crs_s2_shortcut, crs_s2_pickups; Qualtrics saved them (saved 1, attempt 1)",
+      "ok": true,
+      "detail": {
+        "summary": {
+          "crs_s2_h4": 5,
+          "crs_s2_h5": 7,
+          "crs_s2_h6": 6,
+          "crs_s2_total": 18,
+          "crs_s2_par": 14,
+          "crs_s2_ob": 3,
+          "crs_s2_pen": 3,
+          "crs_s2_shortcut": 0,
+          "crs_s2_pickups": 0
+        },
+        "saved": "1",
+        "attempt": "1"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "course-s2: no page errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "finished": "2026-11-20T15:51:27.387Z",
+  "failed": 0
+}

@@ -1,0 +1,216 @@
+<!doctype html>
+<!--
+  stub.html · Neon Fairway stub game (testing only; participants never see it)
+  Stands in for target.html / course.html so the Qualtrics pages can be built and
+  tested before the games are changed. Loads the real js/nf-bridge.js, shows every
+  setting it received, sends nf-ready on load, and "Finish segment" sends nf-done
+  with made-up but realistic summary values (field names from the Qualtrics field
+  reference in claude/implementation-prompts.md).
+  Changelog
+  - stub 1 (2026-11-20, prompt 2): first version.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Neon Fairway · Stub game</title>
+<style>
+  :root{ color-scheme:dark; --bg:#07020f; --panel:#120828; --ink:#efe6ff; --muted:#a894cf; --line:#2f1d55; --cyan:#00f0ff; --pink:#ff2bd6; --gold:#ffd23f; --green:#39ff8c; --red:#ff5a6e; }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,'Segoe UI',sans-serif}
+  main{max-width:1100px;margin:0 auto;padding:16px}
+  h1{font-size:1.25rem;letter-spacing:2px;margin:0;color:var(--cyan)}
+  .sub{color:var(--muted);margin:4px 0 14px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:860px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .card h2{font-size:.75rem;letter-spacing:2px;color:var(--pink);margin:0 0 8px}
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  td{padding:4px 6px;border-bottom:1px solid var(--line);vertical-align:top;word-break:break-all}
+  td:first-child{color:var(--muted);white-space:nowrap;word-break:normal;width:1%}
+  code,pre{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem}
+  pre{margin:0;white-space:pre-wrap;word-break:break-all;max-height:260px;overflow:auto}
+  .empty{color:#6c5a92;font-style:italic}
+  .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 14px}
+  button{font:inherit;font-weight:700;letter-spacing:1px;border-radius:8px;padding:9px 16px;cursor:pointer;border:1px solid var(--cyan);background:#0b2a3a;color:var(--cyan)}
+  button.warn{border-color:var(--red);background:#3a0b18;color:var(--red);font-weight:600}
+  button:disabled{opacity:.45;cursor:default}
+  .status{font-weight:600}
+  .ok{color:var(--green)} .bad{color:var(--red)} .gold{color:var(--gold)}
+  .note{color:var(--muted);font-size:.85rem}
+  .seglinks a{color:var(--cyan);margin-right:10px}
+</style>
+</head>
+<body>
+<main>
+  <h1>NEON FAIRWAY · STUB GAME</h1>
+  <p class="sub">A stand-in for the real game, for testing the Qualtrics pages. Nothing here is a participant's data.</p>
+
+  <div class="bar">
+    <button type="button" id="finish">Finish segment</button>
+    <button type="button" id="err" class="warn">Send nf-error (test)</button>
+    <span id="status" class="status"></span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>SETTINGS THE BRIDGE READ</h2>
+      <table id="settings"></table>
+      <p class="note" id="local-note" hidden>Local testing (no pid). Pretend segment:
+        <span class="seglinks" id="seglinks"></span></p>
+    </div>
+    <div class="card">
+      <h2>RAW URL SETTINGS</h2>
+      <table id="raw"></table>
+      <h2 style="margin-top:14px">BAG AND CLUB LETTERS</h2>
+      <table id="bag"></table>
+    </div>
+    <div class="card">
+      <h2>SUMMARY "FINISH SEGMENT" WILL SEND</h2>
+      <table id="summary"></table>
+      <p class="note" id="summary-note"></p>
+    </div>
+    <div class="card">
+      <h2>SAMPLE RECORD HEADER</h2>
+      <pre id="header"></pre>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h2>MESSAGES SENT TO THE QUALTRICS PAGE</h2>
+    <pre id="sent"></pre>
+  </div>
+</main>
+
+<script src="js/nf-core.js"></script>
+<script src="js/nf-bridge.js"></script>
+<script>
+(function () {
+  'use strict';
+  var STUB_VERSION = 'stub 1';
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var show = function (v) { return v == null || v === '' ? '<span class="empty">(none)</span>' : esc(typeof v === 'object' ? JSON.stringify(v) : v); };
+  function rows(el, obj) {
+    el.innerHTML = Object.keys(obj).map(function (k) { return '<tr><td>' + esc(k) + '</td><td>' + show(obj[k]) + '</td></tr>'; }).join('') ||
+      '<tr><td colspan="2" class="empty">(none)</td></tr>';
+  }
+
+  // Pars from course.html CONFIG.holes (holes numbered across the course).
+  var COURSE_SECTIONS = { 'course-s1': { n: 1, holes: [1, 2, 3], par: [4, 4, 4] },
+                          'course-s2': { n: 2, holes: [4, 5, 6], par: [4, 5, 5] },
+                          'course-s3': { n: 3, holes: [7, 8, 9], par: [5, 5, 5] } };
+  var KNOWN = ['tp-practice', 'tp-rounds', 'course-s1', 'course-s2', 'course-s3'];
+  var LOCAL_ONLY = ['tp-all', 'course-all'];
+
+  var S = NFBridge.settings;
+  var bag = S.bag ? NF.parseSeed(S.bag) : null;
+  NFBridge.set({ bag_seed: bag && bag.ok ? bag.seed : (S.bag || null) });
+  NFBridge.init({
+    game: 'stub', gameVersion: STUB_VERSION, defaultSegment: 'tp-practice',
+    segmentRecord: function (status) {
+      return Object.assign(NFBridge.header('segment', 'segment'), { status: status || 'in_progress' }, NFBridge.segmentInfo());
+    }
+  });
+
+  // Made-up values: the same rng seed and segment always give the same numbers.
+  var rand = NF.rng(NF.subSeed(S.rng, 'stub', S.segment));
+  var int = function (lo, hi) { return lo + Math.floor(rand() * (hi - lo + 1)); };
+  var pick = function (arr) { return arr[Math.floor(rand() * arr.length)]; };
+
+  function makeSummary(seg) {
+    var out = {};
+    if (seg === 'tp-practice') {
+      // A random bag (one variety per club type), random letters, estimates near each chosen club's reach.
+      var chosen = NF.CLUB_TYPES.map(function (t) { return { type: t, variety: pick(NF.SPREAD_VARIETIES) }; });
+      out.tp_bag = NF.makeClubSeed(chosen.map(function (c) { return { typeKey: c.type.key, varietyKey: c.variety.key }; }));
+      out.tp_letters = chosen.map(function () { return pick(['A', 'B', 'C']); }).join(',');
+      out.tp_practice_shots = int(24, 90);
+      var est = chosen.map(function (c) {
+        var max = NF.buildClubStats(c.type, c.variety).maxDistance;
+        return Math.max(10, Math.round(max * (0.8 + rand() * 0.35)));
+      });
+      out.tp_est_d = est[0]; out.tp_est_h = est[1]; out.tp_est_w = est[2];
+    } else if (seg === 'tp-rounds') {
+      var total = 0;
+      for (var r = 1; r <= 5; r++) { var p = int(120, 520); out['tp_r' + r] = p; total += p; }
+      out.tp_total = total;
+      out.tp_best_aims = int(8, 45);           // of 60 balls
+    } else if (COURSE_SECTIONS[seg]) {
+      var c = COURSE_SECTIONS[seg], pre = 'crs_s' + c.n + '_', sum = 0, ob = 0, pickups = 0;
+      c.holes.forEach(function (h, i) {
+        var strokes = c.par[i] + pick([-1, 0, 0, 0, 1, 1, 1, 2, 2, 3]);
+        if (rand() < 0.08) { strokes = c.par[i] + 5; pickups++; }
+        out[pre + 'h' + h] = strokes; sum += strokes;
+        ob += pick([0, 0, 0, 0, 0, 1, 1, 2]);
+      });
+      out[pre + 'total'] = sum;
+      out[pre + 'par'] = c.par.reduce(function (a, b) { return a + b; }, 0);
+      out[pre + 'ob'] = ob;
+      out[pre + 'pen'] = c.n === 1 ? 0 : ob;   // section 1: no penalty; sections 2 and 3: +1 per OB
+      out[pre + 'shortcut'] = int(0, 2);
+      out[pre + 'pickups'] = pickups;
+    }
+    return out;
+  }
+  var SUMMARY = makeSummary(S.segment);
+
+  // ---- Show what came in -------------------------------------------------------
+  rows($('settings'), NFBridge.publicSettings());
+  var raw = {};
+  new URLSearchParams(location.search).forEach(function (v, k) { raw[k] = v; });
+  rows($('raw'), raw);
+  var letters = S.letters ? S.letters.split(',') : [];
+  var bagRows = {};
+  if (!S.bag) bagRows['bag'] = null;
+  else if (!bag.ok) bagRows['bag'] = 'invalid: ' + bag.error;
+  else bag.clubs.forEach(function (c, i) {
+    bagRows[c.name] = c.varietyName + ' (' + c.seed + ')' + (letters[i] ? ' · label "' + c.name + ' ' + letters[i] + '"' : '');
+  });
+  if (!S.letters) bagRows['letters'] = null;
+  rows($('bag'), bagRows);
+  rows($('summary'), SUMMARY);
+  $('summary-note').textContent = KNOWN.indexOf(S.segment) >= 0
+    ? 'Same rng + segment → same numbers. The Qualtrics page adds …_saved, …_attempt, …_failed and …_error.'
+    : LOCAL_ONLY.indexOf(S.segment) >= 0 ? 'Whole-game segment (local testing): there is no Qualtrics summary; Finish sends an empty one.'
+    : 'Unknown segment: the stub sent nf-error SEGMENT, as the games will.';
+  $('header').textContent = JSON.stringify(NFBridge.header('segment', 'segment'), null, 2);
+  if (S.localTest) {
+    $('local-note').hidden = false;
+    $('seglinks').innerHTML = KNOWN.map(function (s) {
+      return '<a href="?segment=' + s + '">' + s + '</a>';
+    }).join('');
+  }
+  function renderSent() {
+    var list = NFBridge.sent();
+    $('sent').textContent = list.length ? list.map(function (m) { return m.at.slice(11, 23) + '  → ' + m.to + '  ' + JSON.stringify(m.msg); }).join('\n')
+      : '(nothing yet)' + (window.parent === window ? '\nNot inside an iframe: messages are listed here but not posted.' : '');
+  }
+
+  // ---- Buttons -------------------------------------------------------------------
+  $('finish').onclick = function () {
+    $('finish').disabled = true;
+    $('status').textContent = 'Finishing…';
+    NFBridge.finish(function () { return SUMMARY; }).then(function (res) {
+      $('status').innerHTML = 'Sent nf-done · attempt ' + res.attempt + ' · saved ' +
+        (res.saved ? '<span class="ok">yes</span>' : '<span class="gold">no</span> (no DATA_ENDPOINT set)');
+      renderSent();
+    });
+  };
+  $('err').onclick = function () {
+    NFBridge.error('STUB_TEST', 'Test error sent from the stub page.');
+    $('status').innerHTML = '<span class="bad">Sent nf-error STUB_TEST</span>';
+    renderSent();
+  };
+
+  // ---- Start ------------------------------------------------------------------------
+  if (KNOWN.indexOf(S.segment) < 0 && LOCAL_ONLY.indexOf(S.segment) < 0) {
+    NFBridge.error('SEGMENT', 'Unknown segment "' + S.segment + '".');
+  }
+  NFBridge.ready();
+  renderSent();
+  window.NF_STUB = { summary: SUMMARY, version: STUB_VERSION };
+})();
+</script>
+</body>
+</html>

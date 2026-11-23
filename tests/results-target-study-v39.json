@@ -1,0 +1,1737 @@
+{
+  "started": "2026-11-20T11:48:35.817Z",
+  "version": "v39",
+  "engines": {
+    "chromium": {
+      "run": true,
+      "version": "157.0.8103.78"
+    }
+  },
+  "tests": [
+    {
+      "engine": "chromium",
+      "name": "t1 drawShot() = NF.rangeLateralDeg + NF.rangeDistance exactly (same stream), zLat/zDist within ±3",
+      "ok": true,
+      "detail": {
+        "n": 7560,
+        "bad": null,
+        "zMax": 3
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t1 same rng → same club letters on a fresh load; other rngs give other letter orders",
+      "ok": true,
+      "detail": {
+        "rng99": "Driver A=control Driver B=power Driver C=vertical Hybrid A=control Hybrid B=vertical Hybrid C=power Wedge A=control Wedge B=power Wedge C=vertical",
+        "differentFor": "4/4"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t2 same rng: identical club letters",
+      "ok": true,
+      "detail": "Driver A=control Driver B=vertical Driver C=power Hybrid A=vertical Hybrid B=power Hybrid C=control Wedge A=power Wedge B=control Wedge C=vertical"
+    },
+    {
+      "engine": "chromium",
+      "name": "t2 same rng + input: identical practice shots (20 single + 20 batch)",
+      "ok": true,
+      "detail": "40 shots"
+    },
+    {
+      "engine": "chromium",
+      "name": "t2 same rng + input: identical shots in all 5 rounds (60 balls)",
+      "ok": true,
+      "detail": "scores 46, 100, 30, 20, 39"
+    },
+    {
+      "engine": "chromium",
+      "name": "t2 same rng + input: identical summary",
+      "ok": true,
+      "detail": {
+        "tp_bag": "DVHVWV",
+        "tp_letters": "B,A,C",
+        "tp_practice_shots": 40,
+        "tp_est_d": 75,
+        "tp_est_h": 105,
+        "tp_est_w": 180,
+        "tp_r1": 46,
+        "tp_r2": 100,
+        "tp_r3": 30,
+        "tp_r4": 20,
+        "tp_r5": 39,
+        "tp_total": 235,
+        "tp_best_aims": 37
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t2 another rng: different letters or practice shots, and different round-1 shots",
+      "ok": true,
+      "detail": {
+        "rng4243": "Driver A=vertical Driver B=control Driver C=power Hybrid A=vertical Hybrid B=power Hybrid C=control Wedge A=control Wedge B=power Wedge C=vertical"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t2 every shot (practice, batch, round) carries zLat / zDist; no Math.random during play",
+      "ok": true,
+      "detail": {
+        "mathRandomCalls": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t2 local tp-all: round pick + reflection → Session Complete with bag reveal and Play Again; nf-done with all 13 fields; bag kept in localStorage as before",
+      "ok": true,
+      "detail": {
+        "after": [
+          "tp-finalOverlay"
+        ],
+        "summary": {
+          "tp_bag": "DVHVWV",
+          "tp_letters": "B,A,C",
+          "tp_practice_shots": 40,
+          "tp_est_d": 75,
+          "tp_est_h": 105,
+          "tp_est_w": 180,
+          "tp_r1": 46,
+          "tp_r2": 100,
+          "tp_r3": 30,
+          "tp_r4": 20,
+          "tp_r5": 39,
+          "tp_total": 235,
+          "tp_best_aims": 37
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t3 study tp-all (pid, 0 practice shots): ends on \"All rounds complete\" (no round pick); nothing sent until CONTINUE; then nf-done with both segments' 13 fields",
+      "ok": true,
+      "detail": {
+        "end": "All 5 Rounds Complete",
+        "overlays": [
+          "tp-endOverlay"
+        ],
+        "pick": false,
+        "cards": 5,
+        "sentBefore": [
+          "nf-ready"
+        ],
+        "button": {
+          "text": "Saving…",
+          "disabled": true
+        },
+        "summary": {
+          "tp_bag": "DVHVWV",
+          "tp_letters": "B,A,C",
+          "tp_practice_shots": 0,
+          "tp_est_d": 75,
+          "tp_est_h": 105,
+          "tp_est_w": 180,
+          "tp_r1": 28,
+          "tp_r2": 99,
+          "tp_r3": 18,
+          "tp_r4": 40,
+          "tp_r5": 138,
+          "tp_total": 323,
+          "tp_best_aims": 37
+        },
+        "localStorage": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t3 0 vs 40 practice shots (same rng, same bag, same scripted round): round 1 shots identical",
+      "ok": true,
+      "detail": {
+        "practiceShots": [
+          0,
+          40
+        ],
+        "bag": "DVHVWV",
+        "round1": "miss 0, miss 0, near:2 8, miss 0, miss 0, near:1 20, miss 0, miss 0, miss 0, miss 0, miss 0, miss 0"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t3 tp-rounds with that bag: same labels (\"Driver B\" …), letters match the rng, intro card lists them, round 1 identical to tp-all's",
+      "ok": true,
+      "detail": {
+        "buttons": [
+          "Driver B",
+          "Hybrid A",
+          "Wedge C"
+        ],
+        "lettersMatch": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t4 tp-practice: \"Clubs chosen\" lists the 3 clubs; Qualtrics doesn't move on before CONTINUE; then \"Saving…\" (disabled) until the save answers",
+      "ok": true,
+      "detail": {
+        "waitedMs": 2500,
+        "nextClicksBefore": 0,
+        "button": {
+          "text": "Saving…",
+          "disabled": true
+        },
+        "saves": 4
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t4 tp-practice: nf-done carries exactly tp_bag, tp_letters, tp_practice_shots, tp_est_d/h/w, and Qualtrics saved them (saved=1, attempt=1)",
+      "ok": true,
+      "detail": {
+        "summary": {
+          "tp_bag": "DVHVWC",
+          "tp_letters": "C,B,A",
+          "tp_practice_shots": 12,
+          "tp_est_d": 90,
+          "tp_est_h": 120,
+          "tp_est_w": 150
+        },
+        "saved": [
+          "1",
+          "1",
+          "0"
+        ],
+        "localStorage": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t4 tp-rounds: bag and letters arrive in the URL; club buttons and the intro card use the chosen labels; letters match; records carry bag_seed",
+      "ok": true,
+      "detail": {
+        "url": {
+          "bag": "DVHVWC",
+          "letters": "C,B,A"
+        },
+        "buttons": [
+          "Driver C",
+          "Hybrid B",
+          "Wedge A"
+        ],
+        "lettersMatch": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t4 tp-rounds: \"All rounds complete\" after round 5; Qualtrics moves on only after CONTINUE (\"Saving…\" meanwhile)",
+      "ok": true,
+      "detail": {
+        "button": {
+          "text": "Saving…",
+          "disabled": true
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t4 tp-rounds: nf-done carries exactly tp_r1..tp_r5, tp_total, tp_best_aims; total = sum; earlier tp_ fields kept",
+      "ok": true,
+      "detail": {
+        "scores": [
+          123,
+          46,
+          28,
+          40,
+          39
+        ],
+        "tp_total": "276",
+        "tp_best_aims": "38"
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t4 at 1100×620: no scrolling inside the game on any screen; cards, map and controls fully visible",
+      "ok": true,
+      "detail": "practice intro 1040×620 map 469×430 · practice 1040×620 map 467×428 · clubs chosen 1040×620 map 467×428 · rounds intro 1040×620 map 469×430 · round 1 1040×620 map 469×430 · after round 1 1040×620 map 469×430 · after round 2 1040×620 map 467×428 · after round 3 1040×620 map 469×430 · after round 4 1040×620 map 467×428 · all rounds complete 1040×620 map 469×430"
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?pid=R_l1&segment=tp-practice: tester switch hidden, researcher panel + openers + Download data gone, Play Again hidden",
+      "ok": true,
+      "detail": {
+        "tester": false,
+        "nav": false,
+        "download": false,
+        "panelInDom": false,
+        "timing": false,
+        "playAgain": false,
+        "altOpen": false,
+        "clickOpen": false
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?pid=R_l2&segment=tp-rounds&bag=DCHPWV&letters=A,B,C: tester switch hidden, researcher panel + openers + Download data gone, Play Again hidden",
+      "ok": true,
+      "detail": {
+        "tester": false,
+        "nav": false,
+        "download": false,
+        "panelInDom": false,
+        "timing": false,
+        "playAgain": false,
+        "altOpen": false,
+        "clickOpen": false
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?pid=R_l3&segment=tp-all: tester switch hidden, researcher panel + openers + Download data gone, Play Again hidden",
+      "ok": true,
+      "detail": {
+        "tester": false,
+        "nav": false,
+        "download": false,
+        "panelInDom": false,
+        "timing": false,
+        "playAgain": false,
+        "altOpen": false,
+        "clickOpen": false
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?pid=R_l4&segment=tp-all&debug=1: tester switch shown, researcher panel + openers + Download data available, Play Again hidden",
+      "ok": true,
+      "detail": {
+        "tester": true,
+        "nav": true,
+        "download": true,
+        "panelInDom": true,
+        "timing": true,
+        "playAgain": false,
+        "altOpen": true,
+        "clickOpen": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?pid=R_l5&segment=tp-practice&debug=1: tester switch hidden, researcher panel + openers + Download data available, Play Again hidden",
+      "ok": true,
+      "detail": {
+        "tester": false,
+        "nav": true,
+        "download": true,
+        "panelInDom": true,
+        "timing": true,
+        "playAgain": false,
+        "altOpen": true,
+        "clickOpen": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 (no pid): tester switch shown, researcher panel + openers + Download data available, Play Again kept",
+      "ok": true,
+      "detail": {
+        "tester": true,
+        "nav": true,
+        "download": true,
+        "panelInDom": true,
+        "timing": true,
+        "playAgain": true,
+        "altOpen": true,
+        "clickOpen": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?pid=R_ls&segment=tp-practice: localStorage has no neonFairway.* keys (NFBag, timing)",
+      "ok": true,
+      "detail": {
+        "keys": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?pid=R_ls2&segment=tp-all: localStorage has no neonFairway.* keys (NFBag, timing)",
+      "ok": true,
+      "detail": {
+        "keys": []
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t5 ?segment=tp-practice: localStorage still keeps the bag and timing (local testing)",
+      "ok": true,
+      "detail": {
+        "keys": [
+          "neonFairway.timing.v1",
+          "neonFairway.bag.v2"
+        ]
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t6 tp-rounds, missing bag: error card (BAG), nf-error BAG reaches the survey page, which offers a way on; no nf-ready",
+      "ok": true,
+      "detail": {
+        "overlays": [
+          "tp-errorOverlay"
+        ],
+        "code": "BAG",
+        "sent": [
+          "nf-error"
+        ],
+        "problem": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t6 tp-rounds, invalid bag: error card (BAG), nf-error BAG reaches the survey page, which offers a way on; no nf-ready",
+      "ok": true,
+      "detail": {
+        "overlays": [
+          "tp-errorOverlay"
+        ],
+        "code": "BAG",
+        "sent": [
+          "nf-error"
+        ],
+        "problem": true
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t6 pid without segment: error card + nf-error SEGMENT",
+      "ok": true,
+      "detail": {
+        "overlays": [
+          "tp-errorOverlay"
+        ],
+        "code": "SEGMENT",
+        "sent": [
+          "nf-error:SEGMENT"
+        ],
+        "help": "Please use the button on the survey page to continue with the survey."
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t6 unknown segment: error card + nf-error SEGMENT",
+      "ok": true,
+      "detail": {
+        "overlays": [
+          "tp-errorOverlay"
+        ],
+        "code": "SEGMENT",
+        "sent": [
+          "nf-error:SEGMENT"
+        ],
+        "help": "Please use the button on the survey page to continue with the survey."
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t6 local tp-rounds without bag: error card + nf-error BAG",
+      "ok": true,
+      "detail": {
+        "overlays": [
+          "tp-errorOverlay"
+        ],
+        "code": "BAG",
+        "sent": [
+          "nf-error:BAG"
+        ],
+        "help": "Local testing: fix the segment or bag in the link and reload (e.g. ?segment=tp-rounds&bag=DCHPWV&letters=B,A,C)."
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1100x620: Space / arrows / PageUp / PageDown / Home / End never scroll the survey page (card, aiming, shot, slider)",
+      "ok": true,
+      "detail": {
+        "pageScrollable": true,
+        "y0": 76,
+        "yCard": 76,
+        "yAim": 76,
+        "ySwing": 76,
+        "ySlider": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1100x620: after focus leaves the game, one click on the map gives it the keyboard (←← aim −2°, ↓ power −5, Space shoots)",
+      "ok": true,
+      "detail": {
+        "outFocus": false,
+        "a0": {
+          "aim": 5.233863001142288,
+          "power": 100,
+          "focus": true
+        },
+        "a1": {
+          "aim": 3.2338630011422884,
+          "power": 95
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1100x620: no scrolling inside the game on any screen (intro, 5 practice courses, estimates, nudge, bag chooser, clubs chosen, rounds intro, rounds, round complete); cards, map and controls fully visible",
+      "ok": true,
+      "detail": "iframe 1040×620 · map 469×430 · 18 screens"
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1280x720: Space / arrows / PageUp / PageDown / Home / End never scroll the survey page (card, aiming, shot, slider)",
+      "ok": true,
+      "detail": {
+        "pageScrollable": true,
+        "y0": 76,
+        "yCard": 76,
+        "yAim": 76,
+        "ySwing": 76,
+        "ySlider": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1280x720: after focus leaves the game, one click on the map gives it the keyboard (←← aim −2°, ↓ power −5, Space shoots)",
+      "ok": true,
+      "detail": {
+        "outFocus": false,
+        "a0": {
+          "aim": 5.233861647216432,
+          "power": 100,
+          "focus": true
+        },
+        "a1": {
+          "aim": 3.2338616472164317,
+          "power": 95
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1280x720: no scrolling inside the game on any screen (intro, 5 practice courses, estimates, nudge, bag chooser, clubs chosen, rounds intro, rounds, round complete); cards, map and controls fully visible",
+      "ok": true,
+      "detail": "iframe 1216×634 · map 485×444 · 18 screens"
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1440x800: Space / arrows / PageUp / PageDown / Home / End never scroll the survey page (card, aiming, shot, slider)",
+      "ok": true,
+      "detail": {
+        "pageScrollable": true,
+        "y0": 76,
+        "yCard": 76,
+        "yAim": 76,
+        "ySwing": 76,
+        "ySlider": 76
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1440x800: after focus leaves the game, one click on the map gives it the keyboard (←← aim −2°, ↓ power −5, Space shoots)",
+      "ok": true,
+      "detail": {
+        "outFocus": false,
+        "a0": {
+          "aim": 5.233862676176073,
+          "power": 100,
+          "focus": true
+        },
+        "a1": {
+          "aim": 3.233862676176073,
+          "power": 95
+        }
+      }
+    },
+    {
+      "engine": "chromium",
+      "name": "t7 1440x800: no scrolling inside the game on any screen (intro, 5 practice courses, estimates, nudge, bag chooser, clubs chosen, rounds intro, rounds, round complete); cards, map and controls fully visible",
+      "ok": true,
+      "detail": "iframe 1373×704 · map 561×514 · 18 screens"
+    }
+  ],
+  "runs": {
+    "t2": {
+      "A": {
+        "letters": [
+          "Driver A=control",
+          "Driver B=vertical",
+          "Driver C=power",
+          "Hybrid A=vertical",
+          "Hybrid B=power",
+          "Hybrid C=control",
+          "Wedge A=power",
+          "Wedge B=control",
+          "Wedge C=vertical"
+        ],
+        "practice": 40,
+        "rounds": [
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "summary": {
+          "tp_bag": "DVHVWV",
+          "tp_letters": "B,A,C",
+          "tp_practice_shots": 40,
+          "tp_est_d": 75,
+          "tp_est_h": 105,
+          "tp_est_w": 180,
+          "tp_r1": 46,
+          "tp_r2": 100,
+          "tp_r3": 30,
+          "tp_r4": 20,
+          "tp_r5": 39,
+          "tp_total": 235,
+          "tp_best_aims": 37
+        }
+      }
+    },
+    "t4": {
+      "layouts": [
+        {
+          "label": "practice intro",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "practice",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            467,
+            428
+          ]
+        },
+        {
+          "label": "clubs chosen",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-chosenOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            467,
+            428
+          ]
+        },
+        {
+          "label": "rounds intro",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "round 1",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "after round 1",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-roundOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "after round 2",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-roundOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            467,
+            428
+          ]
+        },
+        {
+          "label": "after round 3",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-roundOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "after round 4",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-roundOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            467,
+            428
+          ]
+        },
+        {
+          "label": "all rounds complete",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-endOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        }
+      ]
+    },
+    "t7-1100x620": {
+      "box": {
+        "x": 30,
+        "y": 80.390625,
+        "width": 1040,
+        "height": 620
+      },
+      "layouts": [
+        {
+          "label": "practice intro",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "practice sunset",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "practice pines",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            467,
+            428
+          ]
+        },
+        {
+          "label": "practice comet",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "practice laser",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            467,
+            428
+          ]
+        },
+        {
+          "label": "practice nova",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "estimate (auto)",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "estimate after batch",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "practice after batch",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "nudge",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-nudgeOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "estimate (final)",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "bag chooser",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-bagOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "bag chooser picked",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-bagOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "clubs chosen",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-chosenOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "rounds intro",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "round 1 (Sunset Strip)",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "round 1 complete",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-roundOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            469,
+            430
+          ]
+        },
+        {
+          "label": "round 2 (Pixel Pines)",
+          "frame": [
+            1040,
+            620
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            467,
+            428
+          ]
+        }
+      ]
+    },
+    "t7-1280x720": {
+      "box": {
+        "x": 31.796875,
+        "y": 80.390625,
+        "width": 1216.390625,
+        "height": 633.59375
+      },
+      "layouts": [
+        {
+          "label": "practice intro",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "practice sunset",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "practice pines",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            483,
+            442
+          ]
+        },
+        {
+          "label": "practice comet",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "practice laser",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            483,
+            442
+          ]
+        },
+        {
+          "label": "practice nova",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "estimate (auto)",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "estimate after batch",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "practice after batch",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "nudge",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-nudgeOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "estimate (final)",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "bag chooser",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-bagOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "bag chooser picked",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-bagOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "clubs chosen",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-chosenOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "rounds intro",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "round 1 (Sunset Strip)",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "round 1 complete",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-roundOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            485,
+            444
+          ]
+        },
+        {
+          "label": "round 2 (Pixel Pines)",
+          "frame": [
+            1216,
+            634
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            483,
+            442
+          ]
+        }
+      ]
+    },
+    "t7-1440x800": {
+      "box": {
+        "x": 33.40625,
+        "y": 80.390625,
+        "width": 1373.1875,
+        "height": 704
+      },
+      "layouts": [
+        {
+          "label": "practice intro",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "practice sunset",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "practice pines",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            559,
+            512
+          ]
+        },
+        {
+          "label": "practice comet",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "practice laser",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            559,
+            512
+          ]
+        },
+        {
+          "label": "practice nova",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "estimate (auto)",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "estimate after batch",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "practice after batch",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "nudge",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-nudgeOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "estimate (final)",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-estimateOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "bag chooser",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-bagOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "bag chooser picked",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-bagOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "clubs chosen",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-chosenOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "rounds intro",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-introOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "round 1 (Sunset Strip)",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "round 1 complete",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [
+            "tp-roundOverlay"
+          ],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            561,
+            514
+          ]
+        },
+        {
+          "label": "round 2 (Pixel Pines)",
+          "frame": [
+            1373,
+            704
+          ],
+          "docScrolls": false,
+          "overlays": [],
+          "cardsOk": true,
+          "offscreen": [],
+          "valuesClipped": false,
+          "map": [
+            559,
+            512
+          ]
+        }
+      ]
+    }
+  },
+  "finished": "2026-11-20T11:55:39.020Z",
+  "failed": 0,
+  "notRun": 0
+}
