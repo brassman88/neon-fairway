@@ -62,7 +62,7 @@
   // Origin of the Qualtrics page that embeds the game, e.g.
   // 'https://yourschool.qualtrics.com'. Used when the page doesn't pass a valid
   // `qorigin` in the URL. Empty (and no valid qorigin) = '*' with a console warning.
-  var QUALTRICS_ORIGIN = '';
+  var QUALTRICS_ORIGIN = 'https:ysupsychology.co1.qualtrics.com';
   // A `qorigin` URL setting is only trusted if it looks like this.
   var QORIGIN_RE = /^https:\/\/[a-z0-9.-]+\.qualtrics\.com$/;
 
